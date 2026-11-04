@@ -13,7 +13,7 @@
 <body>
     <header class="header">
         <div class ="logo">
-            <img src="/images/logo.png" alt="Logo" width="100" height="100">
+            <img src="/images/logo.png" alt="Logo">
         </div>
 
         <div class="actions">
