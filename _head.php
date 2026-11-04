@@ -11,4 +11,41 @@
 </head>
 
 <body>
-   
+    <header class="header">
+        <div class ="logo">
+            <img src="/images/logo.png" alt="Logo" width="100" height="100">
+        </div>
+
+        <div class="actions">
+            <a href="logout.php" class="header-btn">Logout</a>
+            <a href="settings.php" class="header-btn">Settings</a>
+        </div>
+
+    </header>
+
+    <aside class="sidebar-menu">
+        <nav class="sidebar">
+            <p class= "sidebar-title">Overview</p>
+            <a href="/student/dashboard.php" class="sidebar-link">Home</a>
+
+            <p class="sidebar-title">Books</p>
+            <a href="/student/book/browse.php" class="sidebar-link">Browse Books</a>
+
+            <p class="sidebar-title">My Activities</p>
+            <a href="/student/activities/borrowing.php" class="sidebar-link">My Borrowing</a>
+            <a href="/student/activities/reservation.php" class="sidebar-link">My Reservations</a>
+            <a href="/student/activities/overdue_books.php" class="sidebar-link">My Fines</a>
+            <a href="/student/activities/history.php" class="sidebar-link">My Borrowing History</a>
+
+            <p class="sidebar-title">Engagement</p>
+            <a href="/student/engagement/wishlist.php" class="sidebar-link">Wish List</a>
+
+            <p class="sidebar-title">Account</p>
+            <a href="/student/profile.php" class="sidebar-link">My Profile</a> 
+
+            <p class="sidebar-title">Support</p>
+            <a href="/student/support/feedback.php" class="sidebar-link">Feedback</a>
+        
+
+        </nav>
+    </aside>
