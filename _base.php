@@ -231,7 +231,7 @@ function auth(array$roles) {
         }
     }
     
-    redirect('/login.php');
+    redirect('/login/login.php');
 }
 
 // ============================================================================
