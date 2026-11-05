@@ -296,9 +296,7 @@ body {
     font-weight: 700;
 }
 
-/* =================================
-   BOOK GRID
-================================= */
+/* book grid*/
 
 .book-grid {
     display: grid;
@@ -306,9 +304,7 @@ body {
     gap: 28px;
 }
 
-/* =================================
-   BOOK CARD
-================================= */
+/* book card */
 
 .book-card {
     background: white;
@@ -324,9 +320,7 @@ body {
     box-shadow: 0 12px 30px rgba(31, 41, 80, 0.12);
 }
 
-/* =================================
-   BOOK COVER
-================================= */
+/*book cover*/
 
 .book-cover {
     width: 100%;

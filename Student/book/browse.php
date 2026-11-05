@@ -151,10 +151,10 @@ $categories = $stm->fetchAll();
                 <?php endforeach;?>
             <?php else:?>
                 <p class="no-books-message">
-                    Sorry. No books found.
+                    Sorry. We couldn't find any books matching your criteria.
                 </p>
             
             <?php endif;?>
         </div>
     </div>
-</main>
+</main> 
