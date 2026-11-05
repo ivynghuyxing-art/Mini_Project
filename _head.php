@@ -36,15 +36,13 @@
             <a href="/student/activities/reservation.php" class="sidebar-link">My Reservations</a>
             <a href="/student/activities/fines.php" class="sidebar-link">My Fines</a>
             <a href="/student/activities/history.php" class="sidebar-link">My Borrowing History</a>
+            <a href="/student/activities/rating.php" class="sidebar-link">My Ratings</a>
 
             <p class="sidebar-title">Engagement</p>
             <a href="/student/engagement/wishlist.php" class="sidebar-link">Wish List</a>
 
             <p class="sidebar-title">Account</p>
             <a href="/student/profile.php" class="sidebar-link">My Profile</a> 
-
-            <p class="sidebar-title">Support</p>
-            <a href="/student/support/feedback.php" class="sidebar-link">Feedback</a>
         
 
         </nav>
