@@ -117,7 +117,7 @@ if (is_post()) {
                 <li>Must contain at least one number</li>
                 <li>Must contain at least one special character</li>
             </lu>
-    c
+    
             <label for="confirm" class="sr-only">Confirm password</label>
             <?php html_password('confirm', 'class="pass-input" placeholder="Confirm password" maxlength="20"', $confirm) ?>
             <?php err('confirm') ?>
@@ -136,11 +136,12 @@ if (is_post()) {
             <button class="auth-btn-primary">Register</button>
 
             <p class="auth-footer-text">
-                Already have an account? <a href="login.php" class="auth-link">Login here</a>
+                Already have an account? 
+                <a href="login.php" class="auth-link">Login here</a>
             </p>
         </form>
     </div>
 
     <?php
-    include '../_foot.php';
+    include '../_footer.php';
     ?>
