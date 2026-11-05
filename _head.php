@@ -34,7 +34,7 @@
             <p class="sidebar-title">My Activities</p>
             <a href="/student/activities/borrowing.php" class="sidebar-link">My Borrowing</a>
             <a href="/student/activities/reservation.php" class="sidebar-link">My Reservations</a>
-            <a href="/student/activities/overdue_books.php" class="sidebar-link">My Fines</a>
+            <a href="/student/activities/fines.php" class="sidebar-link">My Fines</a>
             <a href="/student/activities/history.php" class="sidebar-link">My Borrowing History</a>
 
             <p class="sidebar-title">Engagement</p>
