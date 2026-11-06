@@ -52,6 +52,21 @@ if (is_post()) {
     else if ($confirm != $password) {
         $_err['confirm'] = 'Not matched';
     }
+     else if (strlen($confirm) < 8 || strlen($confirm) > 20) {
+        $_err['confirm'] = 'Between 8-20 characters';
+    }
+    else if (!preg_match('/[A-Z]/', $confirm)) {
+        $_err['confirm'] = 'Must contain at least one uppercase letter';
+    }
+    else if (!preg_match('/[a-z]/', $confirm)) {
+        $_err['confirm'] = 'Must contain at least one lowercase letter';
+    }
+    else if (!preg_match('/[0-9]/', $confirm)) {
+        $_err['confirm'] = 'Must contain at least one number';
+    }
+    else if (!preg_match('/[!@#$%^&*()_+]/', $confirm)) {
+        $_err['confirm'] = 'Must contain at least one special character';
+    }
 
     if (!$name) {
         $_err['username'] = 'Required';
@@ -60,7 +75,6 @@ if (is_post()) {
         $_err['username'] = 'Maximum 100 characters';
     }
 
-    
 
     if (!$_err) {
         $stm = $_db->prepare('
@@ -76,8 +90,15 @@ if (is_post()) {
 }
 
 ?>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/app.js"></script>
+</head>
+
+
 <div class="auth-card">
-        <h2 class="auth-card__title">Create an account</h2>
+    <h2 class="auth-card__title">Create an account</h2>
         <form method="post" class="auth-form">
             <label for="username" class="sr-only">Name</label>
             <?php html_text('username', 'placeholder="Full name..." maxlength="100"', $name) ?>
@@ -88,34 +109,33 @@ if (is_post()) {
             <?php err('email') ?>
 
             <label for="password" class="sr-only">Password</label>
-            <?php html_password('password','class="password_input" placeholder="Password" maxlength="20"', $password) ?>
+            <?php html_password('password','class="password_input" placeholder="Password" maxlength="20" oninput="evalPasswordStrength()"', $password) ?>
             <?php err('password') ?>
     
             <label for="confirm" class="sr-only">Confirm password</label>
-            <?php html_password('confirm', 'class="password_input" placeholder="Confirm password" maxlength="20"', $confirm) ?>
+            <?php html_password('confirm', 'class="password_input" placeholder="Confirm password" maxlength="20" oninput="evalPasswordStrength()"', $confirm) ?>
             <?php err('confirm') ?>
 
-             <div class="auth-form__row">
+            <div class="auth-form__row">
                 <a href="javascript:void(0)"
                 id="allToggleBtn"
                 onclick="toggleAllPassword()"
                 class="auth-link-muted">
                     Show All Password
                 </a>
-               
             </div>
 
-              <div class="password_progress">
-                <div id="percent_pass" style="width:0%" class="pass-percentage"></div>
-            </div>
-            <p>Password must contain:</p>
-            <ul>
-                <li>Must contain at least 8 or 20 characters</li>
-                <li>Must contain at least one uppercase letter</li>
-                <li>Must contain at least one lowercase letter</li>
-                <li>Must contain at least one number</li>
-                <li>Must contain at least one special character (!@#$%^&*()_+)</li>
-            </ul> 
+        <div class="password_progress">
+            <div id="percentage_password" class="pass-percentage"></div>
+        </div>
+        <p>Password must contain:</p>
+        <ul>
+            <li>Must contain at least 8 or 20 characters</li>
+            <li>Must contain at least one uppercase letter</li>
+            <li>Must contain at least one lowercase letter</li>
+            <li>Must contain at least one number</li>
+            <li>Must contain at least one special character (!@#$%^&*()_+)</li>
+        </ul> 
 
             <button class="auth-btn-primary">Register</button>
 
@@ -124,20 +144,7 @@ if (is_post()) {
                 <a href="login.php" class="auth-link">Login here</a>
             </p>
         </form>
-    </div>
-
-<script>
-    function toggleAllPassword() {
-    const $inputs = $('.password_input');
-    const $btns = $('#allToggleBtn');
-    const isHiddens = $inputs.prop('type') === 'password';
-
-    $inputs.prop('type', isHiddens ? 'text' : 'password');
-    $btns.text(isHiddens ? "Hide All Passwords" : "Show All Passwords");
-}
-
-</script>
-
+</div>
 
 <?php
 include '../_footer.php';

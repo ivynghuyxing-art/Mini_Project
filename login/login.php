@@ -68,7 +68,10 @@
         }
     }
 ?>
-
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/app.js"></script>
+</head>
 
 <div class="auth-card">
         <h2 class="auth-card__title">Welcome back</h2>
@@ -83,10 +86,7 @@
             <?php err('password') ?>
 
             <div class="auth-form__row">
-                <a href="javascript:void(0)"
-                id="toggleBtn"
-                onclick="toggleViews()"
-                class="auth-link-muted">
+                <a href="javascript:void(0)" id="toggleBtn" onclick="toggleViews()", class="auth-link-muted">
                     Show Password
                 </a>
                 <a href="reset.php" class="auth-link">Forgot password?</a>
@@ -103,17 +103,8 @@
         </form>
     </div>
 
-<script>
-        function toggleViews() {
-        const $input = $('#password');
-        const $btn = $('#toggleBtn');
-        const isHidden = $input.attr('type') === 'password';
 
-        $input.attr('type', isHidden ? 'text' : 'password');
-        $btn.text(isHidden ? "Hide Password" : "Show Password");
-    }
-</script>
 
-    <?php
-        include '../_footer.php';
-    ?>
+<?php
+    include '../_footer.php';
+?>
