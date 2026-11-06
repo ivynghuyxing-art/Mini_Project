@@ -25,7 +25,7 @@ function evalPasswordStrength() {
     if(strength.length >= 8 && strength.length <=20){
         percentage += 20;
     }
-    if (strength.match(/[!@#$%^&*(),.?":{}|<>]/)) {
+    if (strength.match(/[!@#$%^&*()-+]/)) {
         percentage += 20;
     }
     if (strength.match(/[A-Z]/)) {

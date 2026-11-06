@@ -39,7 +39,7 @@ if (is_post()) {
     else if (!preg_match('/[0-9]/', $password)) {
         $_err['password'] = 'Must contain at least one number';
     }
-    else if (!preg_match('/[\W_]/', $password)) {
+    else if (!preg_match('/[!@#$%^&*()_+]/', $password)) {
         $_err['password'] = 'Must contain at least one special character';
     }
 
@@ -64,8 +64,8 @@ if (is_post()) {
 
     if (!$_err) {
         $stm = $_db->prepare('
-            INSERT INTO user (name, email, password, gender)
-            VALUES (?, ?, SHA1(?), ?)
+            INSERT INTO user (name, email, password)
+            VALUES (?, ?, SHA1(?))
         ');
         $stm->execute([$name, $email, $password]);
 
@@ -115,7 +115,7 @@ if (is_post()) {
                 <li>Must contain at least one uppercase letter</li>
                 <li>Must contain at least one lowercase letter</li>
                 <li>Must contain at least one number</li>
-                <li>Must contain at least one special character</li>
+                <li>Must contain at least one special character (!@#$%^&*()_+)</li>
             </lu>
     
             <label for="confirm" class="sr-only">Confirm password</label>
