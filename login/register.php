@@ -76,23 +76,8 @@ if (is_post()) {
 }
 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $_title ?? 'Untitled' ?></title>
-    <link rel="shortcut icon" href="/images/favicon.png">
-    <link rel="stylesheet" href="/css/app.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="/js/app.js"></script>
-</head>
-
-    <div class="auth-card">
-        <p class="auth-card__eyebrow">Just a few details</p>
+<div class="auth-card">
         <h2 class="auth-card__title">Create an account</h2>
-
         <form method="post" class="auth-form">
             <label for="username" class="sr-only">Name</label>
             <?php html_text('username', 'placeholder="Full name..." maxlength="100"', $name) ?>
@@ -103,35 +88,34 @@ if (is_post()) {
             <?php err('email') ?>
 
             <label for="password" class="sr-only">Password</label>
-            <?php html_password('password', 'class="pass-input" placeholder="Password" maxlength="20"', $password) ?>
+            <?php html_password('password','class="password_input" placeholder="Password" maxlength="20"', $password) ?>
             <?php err('password') ?>
-
-            <div class="auth-form__row">
-                <div id="percent_pass" style="width:0%" class="pass-percentage"></div>
-            </div>
-            <p>Password must contain:</p>
-            <lu>
-                <li>Must contain at least 8 or 20 characters</li>
-                <li>Must contain at least one uppercase letter</li>
-                <li>Must contain at least one lowercase letter</li>
-                <li>Must contain at least one number</li>
-                <li>Must contain at least one special character (!@#$%^&*()_+)</li>
-            </lu>
     
             <label for="confirm" class="sr-only">Confirm password</label>
-            <?php html_password('confirm', 'class="pass-input" placeholder="Confirm password" maxlength="20"', $confirm) ?>
+            <?php html_password('confirm', 'class="password_input" placeholder="Confirm password" maxlength="20"', $confirm) ?>
             <?php err('confirm') ?>
 
-        
-
-            <div class="auth-form__row">
+             <div class="auth-form__row">
                 <a href="javascript:void(0)"
                 id="allToggleBtn"
-                onclick="toggleAllPasswords()"
+                onclick="toggleAllPassword()"
                 class="auth-link-muted">
-                    Show All Passwords
+                    Show All Password
                 </a>
+               
             </div>
+
+              <div class="password_progress">
+                <div id="percent_pass" style="width:0%" class="pass-percentage"></div>
+            </div>
+            <p>Password must contain:</p>
+            <ul>
+                <li>Must contain at least 8 or 20 characters</li>
+                <li>Must contain at least one uppercase letter</li>
+                <li>Must contain at least one lowercase letter</li>
+                <li>Must contain at least one number</li>
+                <li>Must contain at least one special character (!@#$%^&*()_+)</li>
+            </ul> 
 
             <button class="auth-btn-primary">Register</button>
 
@@ -142,6 +126,19 @@ if (is_post()) {
         </form>
     </div>
 
-    <?php
-    include '../_footer.php';
-    ?>
+<script>
+    function toggleAllPassword() {
+    const $inputs = $('.password_input');
+    const $btns = $('#allToggleBtn');
+    const isHiddens = $inputs.prop('type') === 'password';
+
+    $inputs.prop('type', isHiddens ? 'text' : 'password');
+    $btns.text(isHiddens ? "Hide All Passwords" : "Show All Passwords");
+}
+
+</script>
+
+
+<?php
+include '../_footer.php';
+?>

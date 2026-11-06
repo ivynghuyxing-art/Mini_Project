@@ -434,3 +434,16 @@ body {
     color: #8490a5;
     font-size: 16px;
 }
+
+/* progress bar */
+.password_progress{
+    width:100%;
+    background-color:gray;
+}
+
+#percent_pass{
+    width:0%;
+    height:10%;
+    
+}
+

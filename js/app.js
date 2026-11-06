@@ -1,21 +1,3 @@
-function toggleView() {
-    const $input = $('#password');
-    const $btn = $('#toggleBtn');
-    const isHidden = $input.attr('type') === 'password';
-
-    $input.attr('type', isHidden ? 'text' : 'password');
-    $btn.text(isHidden ? "Hide Password" : "Show Password");
-}
-
-function toggleAllPasswords() {
-    const $inputs = $('.pass-input');
-    const $btn = $('#allToggleBtn');
-    const isHidden = $inputs.attr('type') === 'password';
-
-    $inputs.attr('type', isHidden ? 'text' : 'password');
-    $btn.text(isHidden ? "Hide All Passwords" : "Show All Passwords");
-}
-
 function evalPasswordStrength() {
     const strength = document.getElementById('password').value;
     const percentage_password = document.getElementById('percent_pass');
