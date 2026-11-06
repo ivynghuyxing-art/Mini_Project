@@ -39,7 +39,7 @@
             <a href="/student/activities/rating.php" class="sidebar-link">My Ratings</a>
 
             <p class="sidebar-title">Engagement</p>
-            <a href="/student/engagement/wishlist.php" class="sidebar-link">Wish List</a>
+            <a href="/student/engagement/wishlist.php" class="sidebar-link">My WishList</a>
 
             <p class="sidebar-title">Account</p>
             <a href="/student/profile.php" class="sidebar-link">My Profile</a> 
