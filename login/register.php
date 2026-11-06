@@ -95,11 +95,11 @@ if (is_post()) {
 
         <form method="post" class="auth-form">
             <label for="username" class="sr-only">Name</label>
-            <?php html_text('username', 'placeholder="Full name" maxlength="100"', $name) ?>
+            <?php html_text('username', 'placeholder="Full name..." maxlength="100"', $name) ?>
             <?php err('username') ?>
 
             <label for="email" class="sr-only">Email</label>
-            <?php html_text('email', 'placeholder="Email address" maxlength="254"', $email) ?>
+            <?php html_text('email', 'placeholder="Email address..." maxlength="254"', $email) ?>
             <?php err('email') ?>
 
             <label for="password" class="sr-only">Password</label>

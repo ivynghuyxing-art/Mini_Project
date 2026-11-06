@@ -31,37 +31,35 @@
             $u = $stm->fetch();
 
             if ($u) {
-                $u->role = 'user'; 
+                $u->role = 'student'; 
             }
             else {
                 $stm = $_db->prepare('
-                    SELECT * FROM staff
+                    SELECT * FROM user
                     WHERE email = ? AND password = SHA1(?)
                 ');
                 $stm->execute([$email, $password]);
                 $u = $stm->fetch();
 
                 if ($u) {
-                    $u->role = 'staff';
+                    $u->role = 'admin';
                 }
                 else {
                     $stm = $_db->prepare('
-                        SELECT * FROM admin
+                        SELECT * FROM user
                         WHERE email = ? AND password = SHA1(?)
                     ');
                     $stm->execute([$email, $password]);
                     $u = $stm->fetch();
 
-                    if ($u) {
-                        $u->role = 'admin';
-                    }
+                    
                 }
             }
 
             if ($u) {
                 temp('info', 'Login successfully, Welcome ' . $u->name);
 
-                $url = in_array($u->role, ['admin', 'staff']) ? '/admin/home.php' : '/';
+                $url = in_array($u->role, ['admin']) ? '/admin/home.php' : '/';
                 login($u, $url);
                 exit();
             }
