@@ -437,16 +437,17 @@ body {
 
 /* progress bar */
 .password_progress{
-     background: #eee;
+    background: gray;
     height: 8px;
+    border: 1px solid black;
     border-radius: 4px;
     overflow: hidden;
 }
 
 .pass-percentage{
-   height: 100%;
-    width: 0;
-    transition: width .2s, background-color .2s;
+   height: 8px;
+   width: 0%;
+   transition: width .2s, background-color .2s;
     
 }
 

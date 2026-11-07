@@ -16,7 +16,7 @@ function toggleViews() {
 }
 
 function evalPasswordStrength() {
-    const strength = document.getElementById('password').value;
+    const strength = document.getElementById('strength_pass');
     const percentage_password = document.getElementById('percentage_password');
 
     let percentage = 0;

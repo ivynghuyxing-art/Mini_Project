@@ -109,11 +109,11 @@ if (is_post()) {
             <?php err('email') ?>
 
             <label for="password" class="sr-only">Password</label>
-            <?php html_password('password','class="password_input" placeholder="Password" maxlength="20" oninput="evalPasswordStrength()"', $password) ?>
+            <?php html_password('password','class="password_input" id="strength_pass" placeholder="Password"', $password) ?>
             <?php err('password') ?>
     
             <label for="confirm" class="sr-only">Confirm password</label>
-            <?php html_password('confirm', 'class="password_input" placeholder="Confirm password" maxlength="20" oninput="evalPasswordStrength()"', $confirm) ?>
+            <?php html_password('confirm', 'class="password_input" id="strength_pass" placeholder="Confirm password"', $confirm) ?>
             <?php err('confirm') ?>
 
             <div class="auth-form__row">
@@ -126,8 +126,9 @@ if (is_post()) {
             </div>
 
         <div class="password_progress">
-            <div id="percentage_password" class="pass-percentage"></div>
+            <div id="percentage_password" class="pass-percentage" style="width: 0%; height: 8px;"></div>
         </div>
+        
         <p class="pass_contain">Password must contain:</p>
         <ul>
             <li>Must contain at least 8 or 20 characters</li>
@@ -146,6 +147,50 @@ if (is_post()) {
         </form>
 </div>
 
+<script>
+function evalPasswordStrength() {
+    const strength = document.getElementById('strength_pass');
+    const percentage_password = document.getElementById('percentage_password');
+
+    let percentage = 0;
+
+    if(strength.length >= 8 && strength.length <=20){
+        percentage += 20;
+    }
+    if (strength.match(/[!@#$%^&*()_+]/)) {
+        percentage += 20;
+    }
+    if (strength.match(/[A-Z]/)) {
+        percentage += 20;
+    }
+    if (strength.match(/[a-z]/)) {
+        percentage += 20;
+    }
+    if (strength.match(/[0-9]/)) {
+        percentage += 20;
+    }else{
+        percentage = 0;
+    }
+
+    percentage_password.style.width = percentage + '%';
+
+    if(percentage === 100){
+        percentage_password.style.backgroundColor = 'green';
+    }
+    else if(percentage >=80){
+        percentage_password.style.backgroundColor = 'lightgreen';
+    }
+    else if(percentage >=60){
+        percentage_password.style.backgroundColor = 'orange';
+    }
+    else if(percentage >=20){
+        percentage_password.style.backgroundColor = 'red';
+    }else {
+        percentage_password.style.backgroundColor = 'gray';
+    }
+
+}
+</script>
 <?php
 include '../_footer.php';
 ?>
