@@ -78,7 +78,7 @@ if (is_post()) {
 
     if (!$_err) {
         $stm = $_db->prepare('
-            INSERT INTO user (name, email, password)
+            INSERT INTO user (username, email, password)
             VALUES (?, ?, SHA1(?))
         ');
         $stm->execute([$name, $email, $password]);
