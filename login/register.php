@@ -128,7 +128,7 @@ if (is_post()) {
         <div class="password_progress">
             <div id="percentage_password" class="pass-percentage"></div>
         </div>
-        <p>Password must contain:</p>
+        <p class="pass_contain">Password must contain:</p>
         <ul>
             <li>Must contain at least 8 or 20 characters</li>
             <li>Must contain at least one uppercase letter</li>
