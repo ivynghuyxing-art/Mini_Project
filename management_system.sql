@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- 主机： 127.0.0.1
--- 生成日期： 2026-11-05 05:09:15
--- 服务器版本： 10.4.32-MariaDB
--- PHP 版本： 8.2.12
+-- Host: 127.0.0.1
+-- Generation Time: Nov 08, 2026 at 08:22 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 数据库： `management_system`
+-- Database: `management_system`
 --
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `book`
+-- Table structure for table `book`
 --
 
 CREATE TABLE `book` (
@@ -41,7 +41,7 @@ CREATE TABLE `book` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `borrowing`
+-- Table structure for table `borrowing`
 --
 
 CREATE TABLE `borrowing` (
@@ -58,7 +58,7 @@ CREATE TABLE `borrowing` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `category`
+-- Table structure for table `category`
 --
 
 CREATE TABLE `category` (
@@ -69,7 +69,7 @@ CREATE TABLE `category` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `feedback`
+-- Table structure for table `feedback`
 --
 
 CREATE TABLE `feedback` (
@@ -84,7 +84,7 @@ CREATE TABLE `feedback` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `reservation`
+-- Table structure for table `reservation`
 --
 
 CREATE TABLE `reservation` (
@@ -99,7 +99,19 @@ CREATE TABLE `reservation` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `user`
+-- Table structure for table `token`
+--
+
+CREATE TABLE `token` (
+  `id` varchar(100) NOT NULL,
+  `expire` datetime NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -112,10 +124,17 @@ CREATE TABLE `user` (
   `verification_code` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `username`, `email`, `password`, `role`, `profile_photo`, `verification_code`) VALUES
+(1, 'Emily', 'emilychng8868@gmail.com', '53ac64aaf5c880b408d34450e1807a61a61fa243', '', '', '');
+
 -- --------------------------------------------------------
 
 --
--- 表的结构 `wishlist`
+-- Table structure for table `wishlist`
 --
 
 CREATE TABLE `wishlist` (
@@ -126,18 +145,18 @@ CREATE TABLE `wishlist` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- 转储表的索引
+-- Indexes for dumped tables
 --
 
 --
--- 表的索引 `book`
+-- Indexes for table `book`
 --
 ALTER TABLE `book`
   ADD PRIMARY KEY (`book_id`),
   ADD KEY `category_id` (`category_id`);
 
 --
--- 表的索引 `borrowing`
+-- Indexes for table `borrowing`
 --
 ALTER TABLE `borrowing`
   ADD PRIMARY KEY (`borrowing_id`),
@@ -145,13 +164,13 @@ ALTER TABLE `borrowing`
   ADD KEY `book_id` (`book_id`);
 
 --
--- 表的索引 `category`
+-- Indexes for table `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`category_id`);
 
 --
--- 表的索引 `feedback`
+-- Indexes for table `feedback`
 --
 ALTER TABLE `feedback`
   ADD PRIMARY KEY (`feedback_id`),
@@ -159,7 +178,7 @@ ALTER TABLE `feedback`
   ADD KEY `book_id` (`book_id`);
 
 --
--- 表的索引 `reservation`
+-- Indexes for table `reservation`
 --
 ALTER TABLE `reservation`
   ADD PRIMARY KEY (`reservation_id`),
@@ -167,13 +186,20 @@ ALTER TABLE `reservation`
   ADD KEY `book_id` (`book_id`);
 
 --
--- 表的索引 `user`
+-- Indexes for table `token`
+--
+ALTER TABLE `token`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- 表的索引 `wishlist`
+-- Indexes for table `wishlist`
 --
 ALTER TABLE `wishlist`
   ADD PRIMARY KEY (`wishlist_id`),
@@ -181,47 +207,47 @@ ALTER TABLE `wishlist`
   ADD KEY `book_id` (`book_id`);
 
 --
--- 在导出的表使用AUTO_INCREMENT
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- 使用表AUTO_INCREMENT `book`
+-- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
   MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- 使用表AUTO_INCREMENT `borrowing`
+-- AUTO_INCREMENT for table `borrowing`
 --
 ALTER TABLE `borrowing`
   MODIFY `borrowing_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- 使用表AUTO_INCREMENT `category`
+-- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
   MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- 使用表AUTO_INCREMENT `feedback`
+-- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
   MODIFY `feedback_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- 使用表AUTO_INCREMENT `reservation`
+-- AUTO_INCREMENT for table `reservation`
 --
 ALTER TABLE `reservation`
   MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- 使用表AUTO_INCREMENT `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- 使用表AUTO_INCREMENT `wishlist`
+-- AUTO_INCREMENT for table `wishlist`
 --
 ALTER TABLE `wishlist`
   MODIFY `wishlist_id` int(11) NOT NULL AUTO_INCREMENT;
