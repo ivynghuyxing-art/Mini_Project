@@ -29,7 +29,7 @@
             <a href="/student/dashboard.php" class="sidebar-link">Home</a>
 
             <p class="sidebar-title">Books</p>
-            <a href="/student/book/browse.php" class="sidebar-link">Browse Books</a>
+            <a href="/student/book/browse.php" class="sidebar-link ajax-link">Browse Books</a>
 
             <p class="sidebar-title">My Activities</p>
             <a href="/student/activities/borrowing.php" class="sidebar-link">My Borrowing</a>
@@ -39,7 +39,7 @@
             <a href="/student/activities/rating.php" class="sidebar-link">My Ratings</a>
 
             <p class="sidebar-title">Engagement</p>
-            <a href="/student/engagement/wishlist.php" class="sidebar-link">My WishList</a>
+            <a href="/student/engagement/wishlist.php" class="sidebar-link ajax-link">My WishList</a>
 
             <p class="sidebar-title">Account</p>
             <a href="/student/profile.php" class="sidebar-link">My Profile</a> 

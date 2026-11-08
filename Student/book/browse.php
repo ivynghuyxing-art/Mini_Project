@@ -84,7 +84,7 @@ $categories = $stm->fetchAll();
 
 ?>
 
-<main class = "main-content">
+<main class = "main-content" id="main-content">
     <div class="browse-banner">
         <div class="banner-text">
             <h1> Browse Books</h1>
