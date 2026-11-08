@@ -78,7 +78,7 @@ if (is_post()) {
 
     if (!$_err) {
         $stm = $_db->prepare('
-            INSERT INTO user (name, email, password)
+            INSERT INTO user (username, email, password)
             VALUES (?, ?, SHA1(?))
         ');
         $stm->execute([$name, $email, $password]);
@@ -90,10 +90,10 @@ if (is_post()) {
 }
 
 ?>
-
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/js/app.js"></script>
+    <link rel="stylesheet" href="/css/app.css">
 </head>
 
 
@@ -109,11 +109,11 @@ if (is_post()) {
             <?php err('email') ?>
 
             <label for="password" class="sr-only">Password</label>
-            <?php html_password('password','class="password_input" placeholder="Password" maxlength="20" oninput="evalPasswordStrength()"', $password) ?>
+            <?php html_password('password','class="password_input" id="password" placeholder="Password"', $password) ?>
             <?php err('password') ?>
     
             <label for="confirm" class="sr-only">Confirm password</label>
-            <?php html_password('confirm', 'class="password_input" placeholder="Confirm password" maxlength="20" oninput="evalPasswordStrength()"', $confirm) ?>
+            <?php html_password('confirm', 'class="password_input" id="confirm" placeholder="Confirm password"', $confirm) ?>
             <?php err('confirm') ?>
 
             <div class="auth-form__row">
@@ -128,6 +128,8 @@ if (is_post()) {
         <div class="password_progress">
             <div id="percentage_password" class="pass-percentage"></div>
         </div>
+        <p id="message_password"></p>
+        
         <p class="pass_contain">Password must contain:</p>
         <ul>
             <li>Must contain at least 8 or 20 characters</li>
