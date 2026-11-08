@@ -41,7 +41,7 @@
             $m->Subject = 'Reset Password';
             $m->Body = "
                 <p>Dear $u->name,
-                You are requesting a password reset for your account.< p>
+                You are requesting a password reset for your account.</p>
                 <h1 style='color: red'>Reset Password</h1>
                 <p>
                     Please click this url <a href='$url'>here</a>
@@ -59,6 +59,7 @@
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/js/app.js"></script>
+    <link rel="stylesheet" href="/css/app.css">
 </head>
 
 <div class="auth-card">
@@ -79,5 +80,5 @@
 </div>
 
 <?php
-    include '../_foot.php';
+    include '../_footer.php';
 ?>
