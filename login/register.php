@@ -91,11 +91,20 @@ if (is_post()) {
 
 ?>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= $_title ?? 'Library Hub' ?></title>
+    <link rel="shortcut icon" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/app.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/js/app.js"></script>
-    <link rel="stylesheet" href="/css/app.css">
 </head>
 
+<header class="header">
+        <div class ="logo">
+            <img src="/images/logo.png" alt="Logo">
+        </div>
+</header>
 
 <div class="auth-card">
     <h2 class="auth-card__title">Create an account</h2>
@@ -148,6 +157,59 @@ if (is_post()) {
         </form>
 </div>
 
+<script>
+    
+function evalPasswordStrength() {
+    const strength = document.getElementById('password').value;
+    const progress_bar = document.getElementById('percentage_password');
+    const message = document.getElementById('message_password');
+
+    let percentages = 0;
+
+    if(strength.length >= 8 && strength.length <= 20){
+        percentages += 20;  
+    }
+    if (/[!@#$%^&*()_+]/.test(strength)) {
+        percentages += 20;
+    }
+    if (/[A-Z]/.test(strength)) {
+        percentages += 20;
+    }
+    if (/[a-z]/.test(strength)) {
+        percentages += 20;
+    }
+    if (/[0-9]/.test(strength)) {
+        percentages += 20;
+    }
+        
+        progress_bar.style.width = percentages + '%';
+
+        if(percentages === 100){
+            progress_bar.style.background = 'green';
+            message.textContent = percentages +'%. The password is strong.';
+        }
+        else if(percentages >=80){
+            progress_bar.style.background = 'lightgreen';
+            message.textContent = percentages +'%. The password is moderate.';
+        }
+        else if(percentages >=60){
+            progress_bar.style.background = 'orange';
+            message.textContent = percentages +'%. The password is weak.';
+        }
+        else if(percentages >=20){
+            progress_bar.style.background = 'red';
+            message.textContent = percentages +'%. The password is very weak.';
+        }else {
+            progress_bar.style.background = 'gray';
+            message.textContent = percentages +'%.';
+            
+        }
+
+    }
+document.getElementById('password').addEventListener('input', evalPasswordStrength);
+evalPasswordStrength();
+    
+</script>
 <?php
 include '../_footer.php';
 ?>

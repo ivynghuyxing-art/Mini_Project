@@ -450,13 +450,57 @@ body {
    transition: width .2s, background-color .2s;
     
 }
-
-.auth-form{
-    margin-left: 20px;
-}
-
 .pass_contain{
     color:lightgray;
     font-size: 10px;
 }
+
+/* auth form login part*/
+.auth-form{
+    text-align: center;
+    margin: 130px auto 0;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    height: 300px;
+}
+
+.auth-form label{
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333333;
+}
+.auth-form input[type="text"],
+.auth-form input[type="password"]{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.auth-link-muted{
+    font-size:12px;
+    box-sizing: border-box;
+    text-decoration: none;
+    margin: left 10px;;
+}
+.auth-link{
+    font-size:12px;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.auth-btn-primary{
+    padding: 8px 16px;
+    height: 30px;
+    width: 80px;
+    text-align: center;
+}
+
 
