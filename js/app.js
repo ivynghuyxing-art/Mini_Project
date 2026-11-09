@@ -63,30 +63,10 @@ function evalPasswordStrength() {
         }
 
     }
-document.getElementById('password').addEventListener('input', evalPasswordStrength);
-evalPasswordStrength();
+const passwordInput = document.getElementById('password');
 
-document.addEventListener("click", function(e){
-    const link=e.target.closest(".ajax-link");
-    if(!link)
-        return;
-    e.preventDefault();
+if (passwordInput) {
+    passwordInput.addEventListener('input', evalPasswordStrength);
+    evalPasswordStrength();
+}
 
-    const url=link.href;
-    fetch(url)
-        .then(response => response.text())
-        .then(html => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            const newContent = doc.querySelector('#main-content');
-
-            if(!newContent){
-                console.error('No element with id "main-content" found in the fetched HTML.');
-                return;
-            }
-            document.querySelector('#main-content').innerHTML = newContent.innerHTML;
-            history.pushState({}, '', url);
-
-            document.title = doc.title;
-        });
-});
