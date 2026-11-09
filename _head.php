@@ -18,7 +18,7 @@
 
         <div class="actions">
             <?php if(isset($_SESSION['user'])): ?>
-                <a href="logout.php" class="header-btn">Logout</a>
+                <a href="/logout.php" class="header-btn">Logout</a>
                 <a href="settings.php" class="header-btn">Settings</a>
             <?php else: ?>
                 <a href="login/login.php" class="header-btn">Login</a>
