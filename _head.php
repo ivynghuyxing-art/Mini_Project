@@ -17,8 +17,14 @@
         </div>
 
         <div class="actions">
-            <a href="logout.php" class="header-btn">Logout</a>
-            <a href="settings.php" class="header-btn">Settings</a>
+            <?php if(isset($_SESSION['user'])): ?>
+                <a href="logout.php" class="header-btn">Logout</a>
+                <a href="settings.php" class="header-btn">Settings</a>
+            <?php else: ?>
+                <a href="login/login.php" class="header-btn">Login</a>
+               
+            <?php endif; ?>
+
         </div>
 
     </header>

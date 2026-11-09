@@ -450,273 +450,57 @@ body {
    transition: width .2s, background-color .2s;
     
 }
-
-.auth-form{
-    margin-left: 20px;
-}
-
 .pass_contain{
     color:lightgray;
     font-size: 10px;
 }
 
-
-/* =========================================
-   GENERAL PAGE
-========================================= */
-
-.main-content {
-    min-height: 100vh;
-    padding: 30px;
-    background-color: #f5f4fa;
-    color: #26324b;
-    font-family: Arial, sans-serif;
-    box-sizing: border-box;
-}
-
-.main-content * {
-    box-sizing: border-box;
-}
-
-
-/* =========================================
-   PAGE HEADER
-========================================= */
-
-.fine-header {
-    margin-bottom: 25px;
-}
-
-.fine-header h1 {
-    margin: 0 0 8px;
-    color: #26324b;
-    font-size: 36px;
-    font-weight: 700;
-}
-
-.fine-header p {
-    margin: 0;
-    color: #85899b;
-    font-size: 14px;
-}
-
-
-/* =========================================
-   TOTAL FINES SUMMARY
-========================================= */
-
-.fine-summary {
-    margin-bottom: 25px;
-}
-
-.fine-summary-card {
-    background-color: #ffffff;
-    border-radius: 14px;
-    padding: 25px 30px;
-    box-shadow: 0 3px 12px rgba(38, 50, 75, 0.05);
-    border: 1px solid #eeecf5;
-}
-
-.fine-summary-card h3 {
-    margin: 0 0 12px;
-    color: #777b90;
-    font-size: 15px;
-    font-weight: 500;
-}
-
-.fine-summary-card .amount {
-    margin: 0;
-    color: #7254bd;
-    font-size: 32px;
-    font-weight: 700;
-}
-
-
-/* =========================================
-   FINE RECORDS SECTION
-========================================= */
-
-.fine-records {
-    background-color: #ffffff;
-    padding: 25px;
-    border-radius: 14px;
-    box-shadow: 0 3px 12px rgba(38, 50, 75, 0.05);
-    border: 1px solid #eeecf5;
-}
-
-.fine-records h2 {
-    margin: 0 0 20px;
-    color: #26324b;
-    font-size: 25px;
-    font-weight: 700;
-}
-
-
-/* =========================================
-   TABLE CONTAINER
-========================================= */
-
-.fine-table-container {
-    width: 100%;
-    overflow-x: auto;
-    border-radius: 10px;
-}
-
-.fine-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 650px;
-}
-
-.fine-table thead {
-    background-color: #f3f0fb;
-}
-
-.fine-table th {
-    padding: 15px;
-    color: #514477;
-    font-size: 13px;
-    font-weight: 700;
-    text-align: left;
-    white-space: nowrap;
-}
-
-.fine-table td {
-    padding: 15px;
-    color: #555b6e;
-    font-size: 14px;
-    border-bottom: 1px solid #efedf4;
-}
-
-.fine-table tbody tr {
-    transition: background-color 0.2s ease;
-}
-
-.fine-table tbody tr:hover {
-    background-color: #faf9fd;
-}
-
-.fine-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-
-/* =========================================
-   PAYMENT STATUS
-========================================= */
-
-.status {
-    display: inline-block;
-    padding: 6px 13px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    white-space: nowrap;
-}
-
-.status-paid {
-    color: #218653;
-    background-color: #e5f6ed;
-}
-
-.status-unpaid {
-    color: #c47b20;
-    background-color: #fff3dc;
-}
-
-
-/* =========================================
-   PAGINATION
-========================================= */
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 25px;
-    padding-top: 20px;
-    border-top: 1px solid #efedf4;
-}
-
-.page-btn,
-.page-number {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 38px;
-    height: 38px;
-    padding: 0 12px;
-
-    background-color: #ffffff;
-    color: #7254bd;
-
-    border: 1px solid #ddd6f3;
-    border-radius: 8px;
-
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 600;
-
-    transition: all 0.2s ease;
-}
-
-.page-btn:hover,
-.page-number:hover {
-    background-color: #eee9ff;
-    border-color: #8b70d6;
-}
-
-.page-number.active {
-    background-color: #7254bd;
-    color: #ffffff;
-    border-color: #7254bd;
-}
-
-.page-btn.disabled {
-    color: #b8b3c5;
-    background-color: #f5f4f8;
-    border-color: #e7e4ed;
-    pointer-events: none;
-    cursor: not-allowed;
-}
-
-
-/* =========================================
-   EMPTY STATE
-========================================= */
-
-.empty-message {
-    padding: 35px 15px;
+/* auth form login part*/
+.auth-form{
     text-align: center;
-    color: #9295a5;
+    margin: 130px auto 0;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    height: 300px;
+}
+
+.auth-form label{
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
     font-size: 14px;
+    color: #333333;
 }
-/* Total Fines Card */
-.fine-summary-card {
-    background-color: #ffffff;
-    padding: 25px 30px;
-    margin-bottom: 25px;
-
-    border-radius: 16px;
-    border: 1px solid #eeecf5;
-
-    box-shadow: 0 3px 12px rgba(38, 50, 75, 0.05);
-}
-
-.fine-summary-card h2 {
-    margin: 0 0 8px;
-    color: #26324b;
-    font-size: 24px;
-    font-weight: 700;
+.auth-form input[type="text"],
+.auth-form input[type="password"]{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
-.fine-summary-card .amount {
-    margin: 0;
-    color: #7254bd;
-    font-size: 25px;
-    font-weight: 600;
+.auth-link-muted{
+    font-size:12px;
+    box-sizing: border-box;
+    text-decoration: none;
+    margin: left 10px;;
+}
+.auth-link{
+    font-size:12px;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.auth-btn-primary{
+    padding: 8px 16px;
+    height: 30px;
+    width: 80px;
+    text-align: center;
 }
 
 
