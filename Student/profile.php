@@ -4,7 +4,6 @@ include '../_base.php';
 
 $_title = 'My Profile';
 
-
 auth(['student']);
 
 if (is_get()) {
@@ -17,7 +16,7 @@ if (is_get()) {
     }
 
     extract((array)$u);
-    $_REQUEST['username'] = $u->name;
+    $_REQUEST['username'] = $u->username;
     $_REQUEST['email'] = $u->email;
     $_SESSION['profile_photo'] = $u->profile_photo;
     $photo = $u->profile_photo;
@@ -29,10 +28,8 @@ if (is_post()) {
     $email = req('email');
     $name  = req('username');
     $photo = $_SESSION['profile_photo'];
-    $f = get_file('profile_photo');
-    $password     = req('password');
-    $new_password = req('new_password');
-    $confirm      = req('confirm');
+    $f = get_file('photo');
+
 
     // Validate: email
     if ($email == '') {
@@ -70,41 +67,7 @@ if (is_post()) {
             $_err['profile_photo'] = 'Maximum 1MB';
         }
     }
-    
-    // Validate: password
-    if ($password != '') {
-        if (strlen($password) < 8 || strlen($password) > 20) {
-        $_err['password'] = 'Between 8-20 characters';
-    }else {
-        // check if new password same width
-        // current password
-        $stm = $_db->prepare('SELECT COUNT(*) FROM user WHERE password = SHA1(?) AND user_id = ?');
-        $stm->execute([$password,$_user->user_id]); //
-        
-        if ($stm->fetchColumn() == 0) {
-            $_err['password'] = 'Not matched';
-        }
-    }
-
-    // Validate: new_password
-    if ($new_password == '') {
-        $_err['new_password'] = 'Required';
-    }
-    else if (strlen($new_password) < 8 || strlen($new_password) > 20) {
-        $_err['new_password'] = 'Between 8-20 characters';
-    }
-
-    // Validate: confirm
-    if (!$confirm) {
-        $_err['confirm'] = 'Required';
-    }
-    else if (strlen($confirm) < 8 || strlen($confirm) > 20) {
-        $_err['confirm'] = 'Between 8-20 characters';
-    }
-    else if ($confirm != $new_password) {
-        $_err['confirm'] = 'Not matched';
-    }
-    }
+    var_dump($_err);
 
     // DB operation
     if (!$_err) {
@@ -116,21 +79,14 @@ if (is_post()) {
             $photo = save_photo($f, $_SERVER['DOCUMENT_ROOT'] .'/images/profile_pic');
         }
         
-        $stm = $_db->prepare('UPDATE user SET email = ?, username = ?, profile_picture = ? WHERE user_id = ?');
+        $stm = $_db->prepare('UPDATE user SET email = ?, username = ?, profile_photo = ? WHERE user_id = ?');
         $stm->execute([$email, $name, $photo, $_user->user_id]); 
 
-        // (3) Update global member object
+        // (3) Update global username object
         $_user->email = $email;
-        $_user->name = $name;  
-        $_user->profile_picture = $photo;
+        $_user->username = $name;  
+        $_user->profile_photo = $photo;
         $_SESSION['user'] = $_user;
-
-        // redirect();
-        // Update user (password)
-        if($password != ''){
-            $stm = $_db->prepare('UPDATE user SET password = SHA1(?) WHERE user_id =?');
-            $stm->execute([$new_password,$_user->user_id]);
-        }
 
         $stm = $_db->prepare('SELECT * FROM user WHERE user_id = ?');
         $stm->execute([$_user->user_id]);
@@ -138,48 +94,34 @@ if (is_post()) {
         $_SESSION['user'] = $updated;
 
         temp('info', 'Record updated');
-        redirect('/');
+        redirect('/Student/profile.php');
     }
+
 }
 
 // ----------------------------------------------------------------------------
 ?>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $_title ?? 'Library Hub' ?></title>
-    <link rel="shortcut icon" href="/images/favicon.png">
-    <link rel="stylesheet" href="/css/app.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="/js/app.js"></script>
-</head>
-
-<header class="header">
-        <div class ="logo">
-            <img src="/images/logo.png" alt="Logo">
-        </div>
-</header>
 
 
 <form method="post" class="form_m" enctype="multipart/form-data">
     <a href="/Student/dashboard.php"> <=== Back to Home page</a>
     <label for="photo">Photo</label>
     <label class="upload" tabindex="0">
-        <img src="/images/profile_pic/<?= $profile_photo ?: 'sample.jpe'?> alt="Profile photo>
-        <?php html_file('photo', 'image/*', 'hidden') ?>
+        <img src="/images/profile_pic/<?= $profile_photo ?: 'sample.jpe'?>" alt="Profile photo">
+        <?php html_file('profile_photo', 'image/*', 'hidden') ?>
     </label>
-    <?php err('photo') ?>
+    <?php err('profile_photo') ?>
 
-    <label for="name">Name</label>
-    <?php html_text('name', 'maxlength="100"') ?>
-    <?php err('name') ?>
+    <label for="username">Name</label>
+    <?php html_text('username', 'maxlength="100"') ?>
+    <?php err('username') ?>
 
     <label for="email">Email</label>
     <?php html_text('email', 'maxlength="100"') ?>
     <?php err('email') ?>
 
 
-    <p>Want to reset password? Here ➡️<a href="/user/password.php" id="reset" >Reset Password ? </a></p>
+    <p>Want to reset password? Here ➡️<a href="/Student/update_password.php" id="reset" >Reset Password ? </a></p>
 
     <section>
         <button>Done</button>
@@ -190,5 +132,4 @@ if (is_post()) {
 
 <?php
 include '../_footer.php';
-
 ?>

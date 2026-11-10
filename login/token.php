@@ -62,7 +62,7 @@
         if (!$_err) {
             $stm = $_db->prepare('
                 UPDATE user
-                SET password = ?
+                SET password = SHA(?)
                 WHERE user_id = (SELECT user_id FROM token WHERE id = ?)
             ');
             $stm->execute([$password, $id]);
