@@ -791,4 +791,26 @@ body {
     object-fit: cover;     
     display: block;
 }
+/*Token password*/
+.tokenForm{
+    text-align: center;
+    margin: 130px auto 0;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    height: 300px;
+}
 
+/*Update password*/
+.update_pass_form{
+    text-align: center;
+    margin: 130px auto 0;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    height: 300px;
+}
