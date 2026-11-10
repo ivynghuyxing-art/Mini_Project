@@ -218,7 +218,7 @@ function logout(string $url = '/') {
 }
 
 // Authorization
-function auth(array$roles) {
+function auth(array $roles) {
     global $_user;
     if ($_user) {
         if ($roles) {

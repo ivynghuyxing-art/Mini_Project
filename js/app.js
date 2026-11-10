@@ -15,7 +15,7 @@ function toggleViews() {
     $input.attr('type', isHidden ? 'text' : 'password');
     $btn.text(isHidden ? "Hide Password" : "Show Password");
 }
-   
+
 function evalPasswordStrength() {
     const strength = document.getElementById('password').value;
     const progress_bar = document.getElementById('percentage_password');
@@ -62,11 +62,6 @@ function evalPasswordStrength() {
             
         }
 
-    }
-const passwordInput = document.getElementById('password');
-
-if (passwordInput) {
-    passwordInput.addEventListener('input', evalPasswordStrength);
-    evalPasswordStrength();
 }
+
 
