@@ -78,10 +78,10 @@ if (is_post()) {
 
     if (!$_err) {
         $stm = $_db->prepare('
-            INSERT INTO user (username, email, password)
-            VALUES (?, ?, SHA1(?))
+            INSERT INTO user (username, email, password,role)
+            VALUES (?, ?, SHA1(?),?)
         ');
-        $stm->execute([$name, $email, $password]);
+        $stm->execute([$name, $email, $password,'student']);
 
         temp('info', 'Registered! Please login.');
         redirect('/login/login.php');

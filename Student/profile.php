@@ -63,10 +63,10 @@ if (is_post()) {
 
     // Validate: photo (file) --> optional
     if ($f) {
-        if (!str_starts_with($f['type'], 'image/')) {
+        if (!str_starts_with($f->type, 'image/')) {
             $_err['profile_photo'] = 'Must be image';
         }
-        else if ($f['size'] > 1 * 1024 * 1024) {
+        else if ($f->size > 1 * 1024 * 1024) {
             $_err['profile_photo'] = 'Maximum 1MB';
         }
     }
@@ -116,13 +116,13 @@ if (is_post()) {
             $photo = save_photo($f, $_SERVER['DOCUMENT_ROOT'] .'/images/profile_pic');
         }
         
-        $stm = $_db->prepare('UPDATE user SET email = ?, username = ?, profile_picture = ? WHERE user_id = ?');
+        $stm = $_db->prepare('UPDATE user SET email = ?, username = ?, profile_photo = ? WHERE user_id = ?');
         $stm->execute([$email, $name, $photo, $_user->user_id]); 
 
         // (3) Update global member object
         $_user->email = $email;
         $_user->name = $name;  
-        $_user->profile_picture = $photo;
+        $_user->profile_photo = $photo;
         $_SESSION['user'] = $_user;
 
         // redirect();
@@ -165,13 +165,13 @@ if (is_post()) {
     <a href="/Student/dashboard.php"> <=== Back to Home page</a>
     <label for="photo">Photo</label>
     <label class="upload" tabindex="0">
-        <img src="/images/profile_pic/<?= $profile_photo ?: 'sample.jpe'?> alt="Profile photo>
-        <?php html_file('photo', 'image/*', 'hidden') ?>
+        <img id="profilePreview" src="/images/profile_pic/<?= $photo ?? ''?>" alt="Profile photo">
+        <?php html_file('profile_photo', 'image/*', 'hidden') ?>
     </label>
-    <?php err('photo') ?>
+    <?php err('profile_photo') ?>
 
     <label for="name">Name</label>
-    <?php html_text('name', 'maxlength="100"') ?>
+    <?php html_text('username', 'maxlength="100"') ?>
     <?php err('name') ?>
 
     <label for="email">Email</label>
