@@ -108,7 +108,7 @@ if (is_post()) {
 
 <div class="auth-card">
     <h2 class="auth-card__title">Create an account</h2>
-        <form method="post" class="auth-form">
+        <form method="post" class="auth-form-register">
             <label for="username" class="sr-only">Name</label>
             <?php html_text('username', 'placeholder="Full name..." maxlength="100"', $name) ?>
             <?php err('username') ?>

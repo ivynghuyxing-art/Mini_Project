@@ -450,10 +450,13 @@ body {
    transition: width .2s, background-color .2s;
     
 }
+/*Password progress message */
 .pass_contain{
-    color:lightgray;
-    font-size: 10px;
+    color: #000000;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
 }
+
 
 /* auth form login part*/
 .auth-form{
@@ -483,7 +486,6 @@ body {
     border-radius: 4px;
     box-sizing: border-box;
 }
-
 .auth-link-muted{
     font-size:12px;
     box-sizing: border-box;
@@ -491,18 +493,62 @@ body {
     margin: left 10px;;
 }
 .auth-link{
-    font-size:12px;
+    font-size:15px;
     box-sizing: border-box;
     text-decoration: none;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .auth-btn-primary{
+    margin-top: 15px;
+    margin-bottom: 10px;
     padding: 8px 16px;
     height: 30px;
     width: 80px;
     text-align: center;
+    border-radius: 5px;
+    background-color: #ffffff;
+    cursor: pointer;
 }
-
+.auth-btn-primary:hover{
+    background-color: #320ab3;
+    color: #ffffff;
+    border-color: #532fb6;
+}
+.auth-footer-text{
+    font-family: 'Times New Roman', Times, serif;
+}
+/*Register*/
+.auth-form-register{
+    text-align: center;
+    margin: 100px auto 0;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    height: 560px;
+}
+.auth-form-register label{
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333333;
+}
+.auth-form-register input{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.auth-form-register li{
+    font-family: 'Times New Roman', Times, serif;
+    color: #000000;
+    font-size: 15px;
+}
 /* =========================================
    GENERAL PAGE
 ========================================= */
@@ -760,7 +806,7 @@ body {
     font-size: 25px;
     font-weight: 600;
 }
-
+/*Profile*/
 .form_m{
     text-align: center;
     margin: 130px auto 0;
@@ -768,16 +814,52 @@ body {
     border: 1px solid black;
     border-radius: 10px;
     padding: 20px;
-    width: 400px;
-    height: 300px;
+    width: 420px;
+    height: 450px;
 }
+.form_m label{
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333333;
+}
+.form_m input{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.form_m button{
+    margin: bottom 50px;
+    width: 150px;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 5px;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+.form_m button:hover{
+    background-color: #320ab3;
+    color: #ffffff;
+    border-color: #532fb6;
+}
+
+.form_m p {
+    font-family:'Times New Roman', Times, serif ;
+    margin-top: 10px;
+}
+
+/*Profile image*/
 .upload{
     position: relative;
     display: block;
     width: 140px;
     height: 140px;
     margin: 10px auto 20px;
-    border-radius: 50%;
+    border-radius: 20%;
     overflow: hidden;
     cursor: pointer;
     border: 3px solid #000000;
@@ -791,6 +873,8 @@ body {
     object-fit: cover;     
     display: block;
 }
+
+
 /*Token password*/
 .tokenForm{
     text-align: center;
@@ -812,5 +896,40 @@ body {
     border-radius: 10px;
     padding: 20px;
     width: 400px;
-    height: 300px;
+    height: 455px;
+}
+
+.update_pass_form label{
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333333;
+}
+.update_pass_form input{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.update_pass_form li{
+    font-family: 'Times New Roman', Times, serif;
+    color: #000000;
+    font-size: 15px;
+}
+.update_pass_form button{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 5px;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+.update_pass_form button:hover{
+   background-color: #320ab3;
+    color: #ffffff;
+    border-color: #532fb6;
 }
