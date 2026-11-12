@@ -1,0 +1,119 @@
+<?php
+
+include '../_base.php';
+
+$_title = ' Add new books';
+
+if(is_post()){
+    $_err=[];
+    $_title = req('title');
+    $_author = req('author');
+    $_descrip = req('description');
+    $_photo = $_SESSION['image'];
+    $f = get_file('image');
+    $_quantity = req('quantity');
+    $_categoryid = req('category_id');
+
+    if($_title == ''){
+        $err['title'] = 'Required';
+    }else if($_title >= 100){
+        $err['title'] = 'Not more then 100 character';
+    }
+
+    if($_author == ''){
+        $err['author'] = 'Required';
+    }else if($_author >= 30){
+        $err['author'] = 'No more then 30 character';
+    }
+
+    if($_descrip ==''){
+        $err['description'] = 'Required';
+    }else if($_descrip <= 100){
+        $err['description'] = 'Not more than 100 character';
+    }
+
+    if($_categoryid == ''){
+        $_err['category_id'] = 'Please choose a category';
+    }
+
+    if($_quantity == ''){
+        $_err['quantity'] = 'Required, enter numberic';
+    }else if($_quantity >= 0){
+        $err['quantity'] = 'Not less than 0';
+    }else if($_quantity <= 999){
+        $err['quantity'] = 'Not more than 999';
+    }
+
+    if ($f) {
+        if (!str_starts_with($f->type, 'image/')) {
+            $_err['image'] = 'Must be image';
+        }
+        else if ($f->size > 1 * 1024 * 1024) {
+            $_err['image'] = 'Maximum 1MB';
+        }
+    }
+
+    if(!$_err){
+        if($f){
+            $old = $_SERVER['DOCUMENT_ROOT'] . "/images/Book_pic/$_photo";
+            if(file_exists($old)){
+                unlink($old);
+            }
+            $photo = save_photo($f, $_SERVER['DOCUMENT_ROOT'] .'/images/Book_pic');
+        }
+
+        $stm = $_db->prepare('INSERT INTO book (title, author, description, category_id, quantity, image) VALUES 
+                                (?,?,?,?,?,?)');    
+
+        $stm->execute([$_title,$_author,$_descrip,$_categoryid,$_quantity,$_photo]);
+        redirect('/Book/read_book.php');
+    }
+}
+
+$categories = $_db->query('SELECT id, name FROM category')->fetchAll();
+?>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="add-book-card">
+        <label for="photo">Photo</label>
+        <label class="upload" tabindex="0">
+        <img id="profilePreview" src="/images/Book_pic/<?= $_photo ?? ''?>" alt="Book photo">
+        <?php html_file('profile_photo', 'image/*', 'hidden') ?>
+        </label>
+        <?php err('image') ?>
+
+        <label for="title">Title</label>
+        <?php html_text('title', 'maxlength="100"') ?>
+        <?php err('title') ?>
+
+        <label for="author">Author</label>
+        <?php html_text('author', 'maxlength="100"') ?>
+        <?php err('author') ?>
+
+        <label for="description">Description</label>
+        <?php html_text('description', 'maxlength="100"') ?>
+        <?php err('description') ?>
+
+        <label>Category</label>
+        <select name="categoryid">
+            <options value="">--Select Category</options>
+            <?php foreach($categories as $cat): ?>
+                <options value="<?= $cat->category_id ?>"><?= $cat->name ?></options>
+            <?php endforeach ?>
+        </select>
+
+        <label for="quantity">Quantity</label>
+        <?php html_text('quantity', 'maxlength="999"') ?>
+        <?php err('quantity') ?>
+
+         <section>
+        <button>Done</button>
+        <button type="reset">Reset</button>
+    </section>
+
+    </div>
+
+</form>
+
+<?php
+ include '../_footer.php';
