@@ -67,7 +67,7 @@ if (is_post()) {
             $_err['profile_photo'] = 'Maximum 1MB';
         }
     }
-    var_dump($_err);
+   
 
     // DB operation
     if (!$_err) {

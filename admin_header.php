@@ -29,7 +29,7 @@
             <a href="/student/dashboard.php" class="sidebar-link">Dashboard</a>
 
             <p class="sidebar-title">Books</p>
-            <a href="/student/book/browse.php" class="sidebar-link">Browse Books</a>
+            <a href="/Book/read_book.php" class="sidebar-link">Browse Books</a>
 
             <p class="sidebar-title">My Activities</p>
             <a href="/student/activities/borrowing.php" class="sidebar-link">My Borrowing</a>
