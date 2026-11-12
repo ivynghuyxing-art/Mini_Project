@@ -81,7 +81,7 @@ if (is_post()) {
             INSERT INTO user (username, email, password,role)
             VALUES (?, ?, SHA1(?),?)
         ');
-        $stm->execute([$name, $email, $password,'student']);
+        $stm->execute([$name, $email, $password,'member']);
 
         temp('info', 'Registered! Please login.');
         redirect('/login/login.php');
