@@ -26,16 +26,16 @@
     <aside class="sidebar-menu">
         <nav class="sidebar">
             <p class= "sidebar-title">Overview</p>
-            <a href="/student/dashboard.php" class="sidebar-link">Dashboard</a>
+            <a href="/admin/dashboard.php" class="sidebar-link">Dashboard</a>
 
             <p class="sidebar-title">Management</p>
             <a href="/Book/read_book.php" class="sidebar-link">Book Management</a>
-            <a href="/student/activities/borrowing.php" class="sidebar-link">Member Management</a>
-            <a href="/student/activities/reservation.php" class="sidebar-link">Borrowing Management</a>
-            <a href="/student/activities/fines.php" class="sidebar-link">Reservation Management</a>
-            <a href="/student/activities/history.php" class="sidebar-link">Fine Management</a>
+            <a href="/admin/member/member.php" class="sidebar-link">Member Management</a>
+            <a href="/admin/borrowing/borrowing.php" class="sidebar-link">Borrowing Management</a>
+            <a href="/admin/reservation/reservation.php" class="sidebar-link">Reservation Management</a>
+            <a href="/admin/fine/fine.php" class="sidebar-link">Fine Management</a>
 
-            
+
 
         </nav>
     </aside>

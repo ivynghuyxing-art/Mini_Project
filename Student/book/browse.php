@@ -3,7 +3,7 @@
 
 include '../../_base.php';
 
-auth(['student']);
+auth(['member']);
 
 $_title = 'Browse Books';
 include '../../_head.php';
