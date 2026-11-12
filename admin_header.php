@@ -28,22 +28,14 @@
             <p class= "sidebar-title">Overview</p>
             <a href="/student/dashboard.php" class="sidebar-link">Dashboard</a>
 
-            <p class="sidebar-title">Books</p>
-            <a href="/Book/read_book.php" class="sidebar-link">Browse Books</a>
+            <p class="sidebar-title">Management</p>
+            <a href="/Book/read_book.php" class="sidebar-link">Book Management</a>
+            <a href="/student/activities/borrowing.php" class="sidebar-link">Member Management</a>
+            <a href="/student/activities/reservation.php" class="sidebar-link">Borrowing Management</a>
+            <a href="/student/activities/fines.php" class="sidebar-link">Reservation Management</a>
+            <a href="/student/activities/history.php" class="sidebar-link">Fine Management</a>
 
-            <p class="sidebar-title">My Activities</p>
-            <a href="/student/activities/borrowing.php" class="sidebar-link">My Borrowing</a>
-            <a href="/student/activities/reservation.php" class="sidebar-link">My Reservations</a>
-            <a href="/student/activities/fines.php" class="sidebar-link">My Fines</a>
-            <a href="/student/activities/history.php" class="sidebar-link">My Borrowing History</a>
-            <a href="/student/activities/rating.php" class="sidebar-link">My Ratings</a>
-
-            <p class="sidebar-title">Engagement</p>
-            <a href="/student/engagement/wishlist.php" class="sidebar-link">My WishList</a>
-
-            <p class="sidebar-title">Account</p>
-            <a href="/student/profile.php" class="sidebar-link">My Profile</a> 
-        
+            
 
         </nav>
     </aside>
