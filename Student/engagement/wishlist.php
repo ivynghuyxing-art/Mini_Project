@@ -4,11 +4,6 @@ include '../../_base.php';
 
 $_title = 'My WishList';
 auth(['member']);
-<<<<<<< HEAD
-
-=======
-include '../../_head.php';
->>>>>>> cf5eaf95a85388d77b33b4090d73b7ccccc5f966
 
 $_title ="My WishList";
 
