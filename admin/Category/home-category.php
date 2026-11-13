@@ -11,38 +11,32 @@ $category = $stm->fetchAll();
 }
 
 $_title = ' Categories';
+include '../../admin_header.php';
 ?>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $_title ?? 'Library Hub Management' ?></title>
-    <link rel="shortcut icon" href="/images/favicon.png">
-    <link rel="stylesheet" href="/css/app.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="/js/app.js"></script>
-</head>
 
 <form method="post" enctype="multipart/form-data">
-    <a href="/admin/home.php">Back to home</a>
-    
-    <a href="/admin/Category/add-category.php">+Add new Category</a>
-    <div class="add-book-card">
+    <div class="home-cat-card">
+        <a href="/admin/Category/add-category.php">+Add new Category</a>
         <?php if($category):?>
             <table>
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
                 </tr>
-        
-                <tr>
-                    <?php foreach($category as $cat):?>
-                        <td><h3><?= encode($cat->category_id) ?></h3></td>
+
+                <?php foreach($category as $cat):?>
+                    <tr>
+                    
+                        <td><?= $cat->category_id?></td>
                         <td>
-                            <h3><?= encode($cat->name)?>  </h3>
+                            <h3><?= encode($cat->name)?></h3>
                         </td>
-                    <?php endforeach?>
-                
-                </tr>
+                        <td>
+                            <a href="cat-update.php?category_id=<?= $cat->category_id  ?>">Update</a>
+                            <a href="cat-delete.php?category_id=<?= $cat->category_id  ?>">Delete</a>
+                        </td> 
+                    </tr>
+                <?php endforeach?>
             </table>
             <?php else:?>
                 <p>No category added</p>

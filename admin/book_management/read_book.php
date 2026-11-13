@@ -4,7 +4,7 @@ include '../../_base.php';
 
 $search_term = get('search');
 $category_id = get('category_id');
-
+$_id = req('book_id');
 $all_book = [];
 
 if ($search_term && $category_id) {
@@ -60,7 +60,9 @@ if ($search_term && $category_id) {
 
     // Display all books
     $stm = $_db->prepare("
-        SELECT book.*,category.name
+        SELECT book.*,category.name,(SELECT COUNT(*) 
+        FROM borrowing 
+        WHERE borrowing.book_id = book.book_id AND borrowing.return_date IS NULL) AS borrowed
         FROM book
         JOIN category ON book.category_id = category.category_id
     ");
@@ -76,17 +78,11 @@ SELECT * FROM category
 $stm->execute();
 $categories = $stm->fetchAll();
 
+
+
 $_title = 'Book ';
+include '../../admin_header.php';
 ?>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $_title ?? 'Library Hub Management' ?></title>
-    <link rel="shortcut icon" href="/images/favicon.png">
-    <link rel="stylesheet" href="/css/app.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="/js/app.js"></script>
-</head>
 
 <form method="get" action="read_book.php">
     <a href="/admin/home.php">Back to home</a>
@@ -134,7 +130,10 @@ $_title = 'Book ';
                             </h3>
                             <p>Author: <?= encode($book->author) ?></p>
                             <span class="category-tag">
-                                <?= encode($book->name) ?>
+                               Genre: <?= encode($book->name) ?>
+                            </span> 
+                            <span class="category-tag">
+                              Available Book  <?= $book->quantity - $book->borrowed ?> / <?= encode($book->quantity) ?>
                             </span>
 
                             <section>

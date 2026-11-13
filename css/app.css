@@ -1252,3 +1252,103 @@ body {
     margin-top:7px;
 }
 
+/*=========================
+       Delete category    
+===========================*/
+.cat-delete-card{
+    text-align: center;
+    margin: 130px auto 0;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    height: 200px;
+    
+}
+
+.cat-delete-card p {
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333333;
+}
+.cat-delete-card button{
+    margin-top: 50px;
+    color: #000000; 
+    width: 30%;
+    height: 40%;
+}
+
+.cat-delete-card button:hover{
+    background:#3730A3;
+    color: #ffffff;
+    transform:translateY(-2px);
+}
+/*=========================
+       Home category    
+===========================*/
+.home-cat-card{
+    text-align: center;
+    margin: 130px auto 0;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    height: 300px;
+}
+
+/*=========================
+       Update category    
+===========================*/
+
+.cat-update-card{
+    text-align: center;
+    margin: 130px auto 0;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    height: 300px;
+}
+
+/*======================
+    Book Management     
+========================*/
+.search-section{
+    background: white;
+    padding: 22px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(31, 41, 80, 0.05);
+    margin-top: 70px;
+    margin-left: 250px;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.search-input {
+    flex: 2;
+    width: 50%;
+    min-width: 0;
+    height: 48px;
+    padding: 0 18px;
+    border: 1px solid #e2e6f0;
+    border-radius: 10px;
+    background: #fafbff;
+    font-size: 14px;
+    color: #334155;
+    outline: none;
+    transition: 0.3s;
+}
+
+.search-input:focus {
+    border-color: #6366f1;
+    background: white;
+}

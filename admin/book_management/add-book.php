@@ -9,26 +9,26 @@ if(is_post()){
     $_title = req('title');
     $_author = req('author');
     $_descrip = req('description');
-    $_photo = $_SESSION['image'] ??  '';
+    $_photo = $_SESSION['image'];
     $f = get_file('image');
     $_quantity = req('quantity');
     $_categoryid = req('category_id');
 
     if($_title == ''){
         $_err['title'] = 'Required';
-    }else if($_title >= 100){
+    }else if(strlen($_title) > 100){
         $_err['title'] = 'Not more then 100 character';
     }
 
     if($_author == ''){
         $_err['author'] = 'Required';
-    }else if($_author >= 30){
+    }else if(strlen($_author) > 30){
         $_err['author'] = 'No more then 30 character';
     }
 
     if($_descrip ==''){
         $_err['description'] = 'Required';
-    }else if($_descrip <= 100){
+    }else if(strlen($_descrip) > 100){
         $_err['description'] = 'Not more than 100 character';
     }
 
@@ -38,9 +38,9 @@ if(is_post()){
 
     if($_quantity == ''){
         $_err['quantity'] = 'Required, enter numberic';
-    }else if($_quantity >= 0){
+    }else if(is_numeric($_quantity) < 0){
         $_err['quantity'] = 'Not less than 0';
-    }else if($_quantity <= 999){
+    }else if(is_numeric($_quantity) > 999){
         $_err['quantity'] = 'Not more than 999';
     }
 
@@ -53,20 +53,21 @@ if(is_post()){
         }
     }
 
+
     if(!$_err){
         if($f){
             $old = $_SERVER['DOCUMENT_ROOT'] . "/images/Book_pic/$_photo";
             if(file_exists($old)){
                 unlink($old);
             }
-            $photo = save_photo($f, $_SERVER['DOCUMENT_ROOT'] .'/images/Book_pic');
+            $_photo = save_photo($f, $_SERVER['DOCUMENT_ROOT'] .'/images/Book_pic');
         }
 
         $stm = $_db->prepare('INSERT INTO book (title, author, description, category_id, quantity, image) VALUES 
                                 (?,?,?,?,?,?)');    
 
         $stm->execute([$_title,$_author,$_descrip,$_categoryid,$_quantity,$_photo]);
-        redirect('/Book/read_book.php');
+        redirect('/admin/book_management/read_book.php');
     }
 }
 
@@ -90,7 +91,7 @@ $_title = 'Add book';
         <label for="photo">Photo</label>
         <label class="upload" tabindex="0">
         <img id="profilePreview" src="/images/Book_pic/<?= $_photo ?? ''?>" alt="Book photo">
-        <?php html_file('profile_photo', 'image/*', 'hidden') ?>
+        <?php html_file('image', 'image/*', 'hidden') ?>
         </label>
         <?php err('image') ?>
 
@@ -107,10 +108,10 @@ $_title = 'Add book';
         <?php err('description') ?>
 
         <label>Category</label>
-        <select name="categoryid">
-            <options value="">--Select Category</options>
+        <select name="category_id">
+            <option value="">--Select Category</option>
             <?php foreach($categories as $cat): ?>
-                <options value="<?= $cat->category_id ?>"><?= $cat->name ?></options>
+                <option value="<?= $cat->category_id ?>"><?= $cat->name ?></option>
             <?php endforeach ?>
         </select>
 

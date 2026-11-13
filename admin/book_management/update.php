@@ -13,7 +13,17 @@ if(is_get()){
         redirect('/');
     }
 
+    
+
     extract((array)$books);
+    $_REQUEST['title'] = $books->title;
+    $_REQUEST['author'] = $books->author;
+    $_REQUEST['description'] = $books->description;
+    $_REQUEST['quantity'] = $books->quantity;
+    $_REQUEST['available_quantity'] = $books->available_quantity;
+    $_REQUEST['category_id'] = $books->category_id;
+    $_SESSION['image'] = $books->image;
+    $photo = $books->image;
 }
 
 if(is_post()){
@@ -23,25 +33,26 @@ if(is_post()){
     $_descrip = req('description');
     $_photo = $_SESSION['image'];
     $f = get_file('image');
+    $available_quantity = req('available_quantity');
     $_quantity = req('quantity');
     $category_id = req('category_id');
 
 
     if($_title == ''){
         $_err['title'] = 'Required';
-    }else if($_title >= 100){
+    }else if(strlen($_title) > 100){
         $_err['title'] = 'Not more then 100 character';
     }
 
     if($_author == ''){
         $_err['author'] = 'Required';
-    }else if($_author >= 30){
+    }else if(strlen($_author) > 30){
         $_err['author'] = 'No more then 30 character';
     }
 
     if($_descrip ==''){
         $_err['description'] = 'Required';
-    }else if(strlen($_descrip >= 100)){
+    }else if(strlen($_descrip) > 100){
         $_err['description'] = 'Not more than 100 character';
     }
 
@@ -49,13 +60,14 @@ if(is_post()){
         $_err['category_id'] = 'Please choose a category';
     }
 
-    if($_quantity == ''){
+    if($_quantity == '' ){
         $_err['quantity'] = 'Required, enter numberic';
-    }else if(is_numeric($_quantity < 0)){
+    }else if(is_numeric($_quantity) < 0){
         $_err['quantity'] = 'Not less than 0';
-    }else if(is_numeric($_quantity > 999)){
+    }else if(is_numeric($_quantity) > 999){
         $_err['quantity'] = 'Not more than 999';
     }
+    
 
     if ($f) {
         if (!str_starts_with($f->type, 'image/')) {
@@ -66,7 +78,7 @@ if(is_post()){
         }
     }
 
-    if(!$_err){
+    if(!$_err){ 
         if($f){
             $old = $_SERVER['DOCUMENT_ROOT'] . "/images/Book_pic/$_photo";
             if(file_exists($old)){
@@ -75,13 +87,15 @@ if(is_post()){
             $photo = save_photo($f, $_SERVER['DOCUMENT_ROOT'] .'/images/Book_pic');
         }
 
-        $stm = $_db->prepare('UPDATE book SET title=?, author=?,description=?,category_id=?quantity=?,image=? 
+        $stm = $_db->prepare('UPDATE book SET title=?, author=?, 
+        description=?, category_id=?, quantity=?, image=?
         WHERE book_id =?');
-        $stm->execute([$_title,$_author,$_descrip,$category_id,$_quantity,$_photo]);
-        redirect('');
+        $stm->execute([$_title, $_author, $_descrip, $category_id, $_quantity, $_photo, $_id]);
+
+        temp('info', 'Record updated');
+        redirect('/admin/book_management/read_book.php');
     }
    
-
 }
 
 $categories = $_db->query('SELECT category_id, name FROM category')->fetchAll();
@@ -120,7 +134,7 @@ $_title = 'Update book detail';
         <?php err('description') ?>
 
         <label>Category</label>
-        <select name="categoryid">
+        <select name="category_id">
             <option value="">--Select Category</option>
             <?php foreach($categories as $cat): ?>
                 <option value="<?= $cat->category_id ?>"><?= $cat->name ?></option>
@@ -131,7 +145,7 @@ $_title = 'Update book detail';
         <?php html_text('quantity', 'maxlength="999"') ?>
         <?php err('quantity') ?>
 
-         <section>
+        <section>
         <button>Done</button>
         <button type="reset">Reset</button>
     </section>
