@@ -1,8 +1,20 @@
 <?php
+include '../../_base.php';
 
-include '../_base.php';
+$_id = req('book_id');
 
-$_title = ' Add new books';
+
+if(is_get()){
+    $stm= $_db->prepare('SELECT * FROM book WHERE book_id=?');
+    $stm->execute([$_id]);
+    $books = $stm->fetch();
+
+    if(!$books){
+        redirect('/');
+    }
+
+    extract((array)$books);
+}
 
 if(is_post()){
     $_err=[];
@@ -12,36 +24,37 @@ if(is_post()){
     $_photo = $_SESSION['image'];
     $f = get_file('image');
     $_quantity = req('quantity');
-    $_categoryid = req('category_id');
+    $category_id = req('category_id');
+
 
     if($_title == ''){
-        $err['title'] = 'Required';
+        $_err['title'] = 'Required';
     }else if($_title >= 100){
-        $err['title'] = 'Not more then 100 character';
+        $_err['title'] = 'Not more then 100 character';
     }
 
     if($_author == ''){
-        $err['author'] = 'Required';
+        $_err['author'] = 'Required';
     }else if($_author >= 30){
-        $err['author'] = 'No more then 30 character';
+        $_err['author'] = 'No more then 30 character';
     }
 
     if($_descrip ==''){
-        $err['description'] = 'Required';
-    }else if($_descrip <= 100){
-        $err['description'] = 'Not more than 100 character';
+        $_err['description'] = 'Required';
+    }else if(strlen($_descrip >= 100)){
+        $_err['description'] = 'Not more than 100 character';
     }
 
-    if($_categoryid == ''){
+    if($category_id == ''){
         $_err['category_id'] = 'Please choose a category';
     }
 
     if($_quantity == ''){
         $_err['quantity'] = 'Required, enter numberic';
-    }else if($_quantity >= 0){
-        $err['quantity'] = 'Not less than 0';
-    }else if($_quantity <= 999){
-        $err['quantity'] = 'Not more than 999';
+    }else if(is_numeric($_quantity < 0)){
+        $_err['quantity'] = 'Not less than 0';
+    }else if(is_numeric($_quantity > 999)){
+        $_err['quantity'] = 'Not more than 999';
     }
 
     if ($f) {
@@ -62,23 +75,35 @@ if(is_post()){
             $photo = save_photo($f, $_SERVER['DOCUMENT_ROOT'] .'/images/Book_pic');
         }
 
-        $stm = $_db->prepare('INSERT INTO book (title, author, description, category_id, quantity, image) VALUES 
-                                (?,?,?,?,?,?)');    
-
-        $stm->execute([$_title,$_author,$_descrip,$_categoryid,$_quantity,$_photo]);
-        redirect('/Book/read_book.php');
+        $stm = $_db->prepare('UPDATE book SET title=?, author=?,description=?,category_id=?quantity=?,image=? 
+        WHERE book_id =?');
+        $stm->execute([$_title,$_author,$_descrip,$category_id,$_quantity,$_photo]);
+        redirect('');
     }
+   
+
 }
 
-$categories = $_db->query('SELECT id, name FROM category')->fetchAll();
+$categories = $_db->query('SELECT category_id, name FROM category')->fetchAll();
+
+$_title = 'Update book detail';
 ?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= $_title ?? 'Library Hub Management' ?></title>
+    <link rel="shortcut icon" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/app.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/app.js"></script>
+</head>
 
 <form method="post" enctype="multipart/form-data">
     <div class="add-book-card">
         <label for="photo">Photo</label>
         <label class="upload" tabindex="0">
         <img id="profilePreview" src="/images/Book_pic/<?= $_photo ?? ''?>" alt="Book photo">
-        <?php html_file('profile_photo', 'image/*', 'hidden') ?>
+        <?php html_file('image', 'image/*', 'hidden') ?>
         </label>
         <?php err('image') ?>
 
@@ -96,9 +121,9 @@ $categories = $_db->query('SELECT id, name FROM category')->fetchAll();
 
         <label>Category</label>
         <select name="categoryid">
-            <options value="">--Select Category</options>
+            <option value="">--Select Category</option>
             <?php foreach($categories as $cat): ?>
-                <options value="<?= $cat->category_id ?>"><?= $cat->name ?></options>
+                <option value="<?= $cat->category_id ?>"><?= $cat->name ?></option>
             <?php endforeach ?>
         </select>
 
@@ -116,4 +141,6 @@ $categories = $_db->query('SELECT id, name FROM category')->fetchAll();
 </form>
 
 <?php
- include '../_footer.php';
+include '../../_footer.php';
+
+?>

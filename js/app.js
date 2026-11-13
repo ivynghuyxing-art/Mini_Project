@@ -130,3 +130,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 });
+
+// ========================================
+// 5. Delete confirm 
+// ========================================
+
+$('[data-confirm]').on('click', e =>{
+    const text = e.target.dataset.confirm || 'Are you sure?';
+    if(!confirm(text)){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+    }
+
+});

@@ -3,7 +3,7 @@
 include '../../_base.php';
 
 $_title = 'My WishList';
-auth(['student']);
+auth(['member']);
 include '../../_head.php';
 
 $_title ="My WishList";
