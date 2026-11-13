@@ -8,6 +8,7 @@ auth(['member']);
 $_title = 'Browse Books';
 include '../../_head.php';
 
+$message = temp('message');
 $search_term = get('search');
 $category_id = get('category_id');
 
@@ -114,6 +115,11 @@ $categories = $stm->fetchAll();
         <div class="book-count">
             Showing <strong><?= count($books) ?></strong> 
         </div>
+        <?php if($message): ?>
+            <p class="success-message">
+                <?= encode($message) ?>
+            </p>
+        <?php endif; ?>
 
         <div class="book-grid">
             <?php if($books):?>
@@ -140,14 +146,22 @@ $categories = $stm->fetchAll();
                             </span>
 
                             <?php if ($book->available_quantity > 0):?>
-                                <p class="availability available">
+                                <p class="available-status">
                                     Available
                                 </p>
+                                <a href="/student/activities/borrowing.php?id=<?=  $book->book_id ?>" class="borrowing-btn">Borrow</a>
+
                             <?php else:?>
-                                <p class="availability unavailable">
+                                <p class="unavailable-status">
                                     Unavailable
                                 </p>
+                                <a href="/student/activities/reservation.php?id=<?= $book->book_id ?>" class="reservation-btn"> Reservation</a>
                             <?php endif;?>
+
+                            <form method="post" action="/student/engagement/wishlist.php">
+                                <input type="hidden" name="add_id" value="<?= $book->book_id ?>">
+                                <button type="submit" class="wishlist-btn">♡ Add to Wishlist</button>
+                            </form>
                         </div>
                             
                     </div>

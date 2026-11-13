@@ -387,29 +387,6 @@ body {
     margin-bottom: 15px;
 }
 
-/* availability status */
-
-.availability {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px !important;
-    font-weight: 600;
-    margin: 0 !important;
-}
-
-.available {
-    color: #16a34a !important;
-}
-
-.available::before {
-    content: "";
-    width: 7px;
-    height: 7px;
-    background: #22c55e;
-    border-radius: 50%;
-}
-
 .unavailable {
     color: #dc2626 !important;
 }
@@ -933,3 +910,345 @@ body {
     color: #ffffff;
     border-color: #532fb6;
 }
+
+/* =================================
+   Wishlist Main Content
+================================= */
+
+.main-content {
+    flex:1;
+    width: auto;
+    min-width: 0;
+    max-width: 100%;
+    min-height:70vh;
+    padding: 35px 30px;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+
+/* =================================
+   Wishlist Header
+================================= */
+
+.wishlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.wishlist-header h1 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #26374a;
+    margin: 0 0 10px;
+}
+
+.wishlist-header p {
+    font-size: 16px;
+    color: #777;
+    margin: 0;
+}
+
+.wishlist-count {
+    background: #e9ecf8;
+    color: #4654a3;
+    padding: 11px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+
+/* =================================
+   Empty Wishlist
+================================= */
+
+.empty-wishlist {
+    width: 100%;
+    max-width:100%;
+    min-height: 420px;
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 50px 20px;
+    box-sizing: border-box;
+}
+
+.empty-icon {
+    font-size: 65px;
+    color: #aaa;
+    margin-bottom: 20px;
+}
+
+.empty-wishlist h2 {
+    font-size: 26px;
+    color: #333;
+    margin: 0 0 12px;
+}
+
+.empty-wishlist p {
+    font-size: 16px;
+    color: #777;
+    margin: 0 0 30px;
+    line-height: 1.6;
+}
+
+
+/* Browse Books Button */
+
+.browse-btn {
+    display: inline-block;
+    background: #34495e;
+    color: white;
+
+    text-decoration: none;
+    padding: 13px 30px;
+
+    border-radius: 7px;
+    font-size: 16px;
+    font-weight: 500;
+
+    transition: background 0.3s ease;
+}
+
+.browse-btn:hover {
+    background: #22313f;
+}
+
+
+/* =================================
+   Wishlist Grid
+================================= */
+
+.wishlist-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+    width: 100%;
+}
+
+
+/* =================================
+   Wishlist Card
+================================= */
+
+.wishlist-card {
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    overflow: hidden;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+
+    transition: transform 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+.wishlist-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+
+/* =================================
+   Book Image
+================================= */
+
+.book-image {
+    width: 100%;
+    height: 250px;
+
+    background: #f5f5f5;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.book-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.no-image {
+    color: #999;
+    font-size: 14px;
+}
+
+
+/* =================================
+   Book Information
+================================= */
+
+.book-info {
+    padding: 20px;
+}
+
+.book-info h3 {
+    font-size: 19px;
+    font-weight: 600;
+    color: #26374a;
+    margin: 0 0 15px;
+}
+
+.book-info p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    margin: 8px 0;
+}
+
+
+/* =================================
+   Remove Button
+================================= */
+
+.remove-btn {
+    width: 100%;
+    padding: 11px;
+
+    margin-top: 15px;
+
+    border: none;
+    border-radius: 6px;
+
+    background: #dc3545;
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.remove-btn:hover {
+    background: #b02a37;
+}
+.available-status{
+    color:#15803d;
+    font-weight:600;
+}
+.available-status::before{
+    content:"";
+    display:inline-block;
+    width:8px;
+    height:8px;
+    background:#16a34a;
+    border-radius:50%;
+    margin-right:8px;
+}
+
+.unavailable-status{
+    background:#fee2e2;
+    color:#dc2626;
+    padding:5px 12px;
+    border-radius:20px;
+    font-size:13px;
+}
+
+.success-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+
+    background: #0D9488;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+    font-size: 15px;
+    font-weight: 500;
+
+    animation: slideMessage 3.5s ease forwards;
+}
+
+@keyframes slideMessage {
+    0% {
+        transform: translate(-50%, -150%);
+        opacity: 0;
+    }
+
+    15% {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+
+    85% {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -150%);
+        opacity: 0;
+    }
+}
+.borrowing-btn{
+    display:inline-block;
+    background:linear-gradient(135deg,#6366F1,#4F46E5);
+    color:white;
+    padding:10px 22px;
+    border-radius:8px;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    text-align:center;
+    width:100%;
+}
+
+.borrowing-btn:hover{
+    background:#3730A3;
+    transform:translateY(-2px);
+}
+
+.wishlist-btn{
+    display:inline-block;
+    background: #E84375;
+    color:white;
+    padding:10px 18px;
+    border:none;
+    border-radius :8px;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    width:100%;
+}
+
+.wishlist-btn:hover{
+    background:#BE2859;
+    transform:translateY(-2px);
+}
+
+.book-info form{
+    margin-top:12px;
+}
+.wishlist-card .borrowing-btn,
+.wishlist-card .reservation-btn{
+    display:block;
+    margin-top: 15px;
+}
+.wishlist-card .book-info form{
+    margin-top:5px;
+}
+
+.wishlist-card .remove-btn{
+    margin-top:7px;
+}
+
