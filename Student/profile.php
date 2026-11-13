@@ -4,7 +4,7 @@ include '../_base.php';
 
 $_title = 'My Profile';
 
-auth(['student']);
+auth(['member']);
 
 if (is_get()) {
     $stm = $_db->prepare('SELECT * FROM user WHERE user_id = ?');

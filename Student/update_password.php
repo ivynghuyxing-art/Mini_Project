@@ -3,7 +3,7 @@ include '../_base.php';
 $_user = $_SESSION['user'] ?? null;
 
 $_err =[];
-auth(['student']);
+auth(['member']);
 
 if (is_post()) {
         $current = req('current');

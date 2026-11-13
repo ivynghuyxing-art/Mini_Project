@@ -1,7 +1,6 @@
 <?php 
-include '../_base.php';
+include '../../_base.php';
 
-auth(['admin']);
 
 $search_term = get('search');
 $category_id = get('category_id');
@@ -76,9 +75,21 @@ SELECT * FROM category
 
 $stm->execute();
 $categories = $stm->fetchAll();
+
+$_title = 'Book ';
 ?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= $_title ?? 'Library Hub Management' ?></title>
+    <link rel="shortcut icon" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/app.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/app.js"></script>
+</head>
 
 <form method="get" action="read_book.php">
+    <a href="/admin/home.php">Back to home</a>
     <div class="search-section">
         <input type="text" name="search" value="<?= encode($search_term ?? '') ?>" placeholder="Search by title, author, or genre" class="search-input">
 
@@ -127,8 +138,8 @@ $categories = $stm->fetchAll();
                             </span>
 
                             <section>
-                                <a href="update.php?book_id=?">Update</a>
-                                <a href="delete.php?book_id=?">Delete</a>
+                                <a href="update.php?book_id=<?= $book->book_id ?>">>Update</a>
+                                <a href="delete.php?book_id=<?= $book->book_id ?>">Delete</a>
                             </section>
                         </div>
                             
@@ -141,4 +152,5 @@ $categories = $stm->fetchAll();
 
 
 <?php
- include '../_footer.php';
+ include '../../_footer.php';
+?>

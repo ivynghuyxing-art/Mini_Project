@@ -29,7 +29,8 @@
             <a href="/admin/dashboard.php" class="sidebar-link">Dashboard</a>
 
             <p class="sidebar-title">Management</p>
-            <a href="/Book/read_book.php" class="sidebar-link">Book Management</a>
+            <a href="/admin/book_management/read_book.php" class="sidebar-link">Book Management</a>
+            <a href="/admin/Category/home-category.php" class="sidebar-link">Category Management</a>
             <a href="/admin/member/member.php" class="sidebar-link">Member Management</a>
             <a href="/admin/borrowing/borrowing.php" class="sidebar-link">Borrowing Management</a>
             <a href="/admin/reservation/reservation.php" class="sidebar-link">Reservation Management</a>
