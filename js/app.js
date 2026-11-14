@@ -144,13 +144,3 @@ $('[data-confirm]').on('click', e =>{
 
 });
 
-// ========================================
-// 6. Count character 
-// ========================================
-
-const message = document.getElementById('description');
-const count = document.getElementById('count');
-
-message.addEventListener('input', () =>{
-    count.textContent= message.value.length;
-});
