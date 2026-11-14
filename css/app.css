@@ -1316,5 +1316,55 @@ body {
 }
 
 /*======================
-    Book Management     
+    Borrow Management     
 ========================*/
+.borrow-card{
+    text-align: center;
+    margin: 130px auto 0;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    height: 300px;
+}
+/*======================
+    Member Management     
+========================*/
+.member-card{
+    text-align: center;
+    margin: 130px auto 0;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    width: 600px;
+    height: 400px;
+}
+.member-card table{
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) ;
+}
+.member-card td{
+    border-bottom: 1px solid #eee;
+    background: transparent;
+    padding: 10px 12px;
+    vertical-align: middle ;
+   
+}
+.member-card tr:last-child td{
+   border-bottom: none;
+    
+}
+.profile_picture {
+    border-radius: 5px;
+    border: #000000 solid 2px;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    
+}
