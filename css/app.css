@@ -1318,37 +1318,3 @@ body {
 /*======================
     Book Management     
 ========================*/
-.search-section{
-    background: white;
-    padding: 22px;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(31, 41, 80, 0.05);
-    margin-top: 70px;
-    margin-left: 250px;
-}
-
-.search-form {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.search-input {
-    flex: 2;
-    width: 50%;
-    min-width: 0;
-    height: 48px;
-    padding: 0 18px;
-    border: 1px solid #e2e6f0;
-    border-radius: 10px;
-    background: #fafbff;
-    font-size: 14px;
-    color: #334155;
-    outline: none;
-    transition: 0.3s;
-}
-
-.search-input:focus {
-    border-color: #6366f1;
-    background: white;
-}

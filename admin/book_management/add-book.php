@@ -104,7 +104,8 @@ $_title = 'Add book';
         <?php err('author') ?>
 
         <label for="description">Description</label>
-        <?php html_text('description', 'maxlength="100"') ?>
+        <?php html_textarea('description', ' id="desciption" "maxlength="100"') ?>
+        <p>Character: <span id="count">0</span>/999</p>
         <?php err('description') ?>
 
         <label>Category</label>

@@ -15,9 +15,9 @@
         <div class ="logo">
             <img src="/images/logo.png" alt="Logo">
         </div>
-
+        
         <div class="actions">
-            <a href="logout.php" class="header-btn">Logout</a>
+            <a href="/logout.php" class="header-btn">Logout</a>
             <a href="settings.php" class="header-btn">Settings</a>
         </div>
 

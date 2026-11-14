@@ -179,6 +179,10 @@ function table_headers(array $fields, string $sort, string $dir, string $href = 
     }
 }
 
+function html_textarea(string $key, string $attr = '') {
+    $value = encode($GLOBALS[$key] ?? '');
+    echo "<textarea id='$key' name='$key'$attr>$value</textarea>";
+}
 // ============================================================================
 // Error Handlings
 // ============================================================================
