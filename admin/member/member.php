@@ -20,7 +20,7 @@ include '../../admin_header.php';
                         <th>Email</th>
                         
                     </tr>
-               <?php foreach( $u as $member): ?>
+               <?php foreach($u as $member): ?>
                     <tr>
                         <td>
                           <?php if($member->profile_photo): ?>

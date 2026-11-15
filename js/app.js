@@ -131,6 +131,43 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const photo_Input = document.querySelector(
+        'input[name="image"]'
+    );
+
+    const profilePreview = document.getElementById('profile_Preview');
+
+    if (photo_Input && profilePreview) {
+
+        photo_Input.addEventListener('change', function () {
+
+            const file = this.files[0];
+
+            if (file) {
+
+                // Check whether the selected file is an image
+                if (!file.type.startsWith('image/')) {
+                    alert('Please select an image file.');
+                    this.value = '';
+                    return;
+                }
+
+                // Preview the selected image immediately
+                const imageURL = URL.createObjectURL(file);
+
+                profilePreview.src = imageURL;
+            }
+
+        });
+
+    }
+
+});
+
 // ========================================
 // 5. Delete confirm 
 // ========================================

@@ -9,9 +9,10 @@ if(is_post()){
     $_title = req('title');
     $_author = req('author');
     $_descrip = req('description');
-    $_photo = $_SESSION['image'];
+    $_photo = $_SESSION['image'] ?? '';
     $f = get_file('image');
     $_quantity = req('quantity');
+    $availble_quantity = req('availble_quantity');
     $_categoryid = req('category_id');
 
     if($_title == ''){
@@ -28,7 +29,7 @@ if(is_post()){
 
     if($_descrip ==''){
         $_err['description'] = 'Required';
-    }else if(strlen($_descrip) > 100){
+    }else if(strlen($_descrip) > 999){
         $_err['description'] = 'Not more than 100 character';
     }
 
@@ -53,8 +54,12 @@ if(is_post()){
         }
     }
 
+    
+
 
     if(!$_err){
+        $_quantity = (int)$_quantity;
+        $availble_quantity = $_quantity;
         if($f){
             $old = $_SERVER['DOCUMENT_ROOT'] . "/images/Book_pic/$_photo";
             if(file_exists($old)){
@@ -63,10 +68,10 @@ if(is_post()){
             $_photo = save_photo($f, $_SERVER['DOCUMENT_ROOT'] .'/images/Book_pic');
         }
 
-        $stm = $_db->prepare('INSERT INTO book (title, author, description, category_id, quantity, image) VALUES 
-                                (?,?,?,?,?,?)');    
+        $stm = $_db->prepare('INSERT INTO book (title, author, description, category_id, quantity, availble_quantity, image) VALUES 
+                                (?,?,?,?,?,?,?)');    
 
-        $stm->execute([$_title,$_author,$_descrip,$_categoryid,$_quantity,$_photo]);
+        $stm->execute([$_title,$_author,$_descrip,$_categoryid,$_quantity,$availble_quantity,$_photo]);
         redirect('/admin/book_management/read_book.php');
     }
 }
@@ -88,9 +93,9 @@ $_title = 'Add book';
 <form method="post" enctype="multipart/form-data">
     <a href="/admin/home.php">Back to home</a>
     <div class="add-book-card">
-        <label for="photo">Photo</label>
+        <label for="image">Photo</label>
         <label class="upload" tabindex="0">
-        <img id="profilePreview" src="/images/Book_pic/<?= $_photo ?? ''?>" alt="Book photo">
+        <img id="profile_Preview" src="/images/Book_pic/<?= $_photo ?? ''?>" alt="Book photo">
         <?php html_file('image', 'image/*', 'hidden') ?>
         </label>
         <?php err('image') ?>
@@ -120,7 +125,10 @@ $_title = 'Add book';
         <?php html_text('quantity', 'maxlength="999"') ?>
         <?php err('quantity') ?>
 
-         <section>
+        <label for="availble_quantity">Quantity</label>
+        <input type="text" id="availble_quantity" value="<?= (int)($_quantity ?? 0) ?>" disabled>
+
+        <section>
         <button>Done</button>
         <button type="reset">Reset</button>
     </section>
@@ -128,7 +136,16 @@ $_title = 'Add book';
     </div>
 
 </form>
+<script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+        const quantity = document.querySelector('input[name="quantity"]');
+        const availble = document.getElementById('availble_quantity');
 
+        if(quantity && availble){
+            quantity.addEventListener('input', ()=> availble.value = quantity.value);
+        }
+    });
+</script>
 
 <?php
  include '../../_footer.php';
