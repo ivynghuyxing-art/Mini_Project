@@ -56,7 +56,7 @@ $id = $stm->fetchColumn();
             Description: <?= encode($book->description) ?> <br>
             Category: <?= encode($book->category_id)?> <br>
             Quantity: <?= $book->quantity ?> <br>
-            Available: <?= $book->quantity - $borrow_book ?>
+            Available: <?= $book->available_quantity ?>
 
         <section>
             <a href="/admin/book_management/read_book.php">Cancel</a>
