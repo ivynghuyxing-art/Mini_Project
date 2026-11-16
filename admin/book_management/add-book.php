@@ -59,7 +59,7 @@ if(is_post()){
 
     if(!$_err){
         $_quantity = (int)$_quantity;
-        $availble_quantity = $_quantity;
+        $available_quantity = $_quantity;
         if($f){
             $old = $_SERVER['DOCUMENT_ROOT'] . "/images/Book_pic/$_photo";
             if(file_exists($old)){
