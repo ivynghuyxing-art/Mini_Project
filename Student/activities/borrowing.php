@@ -54,7 +54,7 @@ if(is_post()){
         $stm = $_db->prepare('INSERT INTO borrowing (user_id, borrow_date, return_date, book_id
         , due_date, status) VALUES (?, ?, ?, ?, ?, ?)');
 
-        $stm->execute([$_user,$_current, $_return_date, $_id,$_due_date, 'borrow']);
+        $stm->execute([$_user,$_current, $_return_date, $_id,$_due_date, 'pending']);
         temp('info', 'Borrow successful !');
     }
     }catch(ErrorException $e){
