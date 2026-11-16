@@ -146,7 +146,7 @@ include '../../admin_header.php'
                                Genre: <?= encode($book->name) ?>
                             </span> 
                             <span class="category-tag">
-                              Available Book  <?= $book->quantity?> / <?= encode($book->quantity) ?>
+                              Available Book  <?= $book->available_quantity?> / <?= encode($book->quantity) ?>
                             </span>
 
                             <section>
