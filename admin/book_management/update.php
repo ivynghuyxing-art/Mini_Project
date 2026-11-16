@@ -52,7 +52,7 @@ if(is_post()){
 
     if($_descrip ==''){
         $_err['description'] = 'Required';
-    }else if(strlen($_descrip) > 100){
+    }else if(strlen($_descrip) > 999){
         $_err['description'] = 'Not more than 100 character';
     }
 
@@ -88,9 +88,9 @@ if(is_post()){
         }
 
         $stm = $_db->prepare('UPDATE book SET title=?, author=?, 
-        description=?, category_id=?, quantity=?, image=?
+        description=?, category_id=?, quantity=?, available_quantity=?, image=?
         WHERE book_id =?');
-        $stm->execute([$_title, $_author, $_descrip, $category_id, $_quantity, $_photo, $_id]);
+        $stm->execute([$_title, $_author, $_descrip, $category_id, $_quantity,$available_quantity, $_photo, $_id]);
 
         temp('info', 'Record updated');
         redirect('/admin/book_management/read_book.php');
@@ -113,10 +113,11 @@ $_title = 'Update book detail';
 </head>
 
 <form method="post" enctype="multipart/form-data">
+    <a href="/admin/book_management/read_book.php">Back to home</a>
     <div class="add-book-card">
-        <label for="photo">Photo</label>
+        <label for="image">Photo</label>
         <label class="upload" tabindex="0">
-        <img id="profilePreview" src="/images/Book_pic/<?= $_photo ?? ''?>" alt="Book photo">
+        <img id="profile_Preview" src="/images/Book_pic/<?= $_photo ?? ''?>" alt="<?= $_title ?>">
         <?php html_file('image', 'image/*', 'hidden') ?>
         </label>
         <?php err('image') ?>
@@ -130,7 +131,7 @@ $_title = 'Update book detail';
         <?php err('author') ?>
 
         <label for="description">Description</label>
-        <?php html_text('description', 'maxlength="100"') ?>
+        <?php html_textarea('description', 'maxlength="999", rows="5"') ?>
         <?php err('description') ?>
 
         <label>Category</label>
@@ -145,6 +146,9 @@ $_title = 'Update book detail';
         <?php html_text('quantity', 'maxlength="999"') ?>
         <?php err('quantity') ?>
 
+        <label for="available_quantity">Quantity</label>
+        <input type="text" id="available_quantity" value="<?= (int)($_quantity ?? 0) ?>" disabled>
+
         <section>
         <button>Done</button>
         <button type="reset">Reset</button>
@@ -153,7 +157,16 @@ $_title = 'Update book detail';
     </div>
 
 </form>
+<script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+        const quantity = document.querySelector('input[name="quantity"]');
+        const availble = document.getElementById('available_quantity');
 
+        if(quantity && availble){
+            quantity.addEventListener('input', ()=> availble.value = quantity.value);
+        }
+    });
+</script>
 <?php
 include '../../_footer.php';
 

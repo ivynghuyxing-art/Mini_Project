@@ -15,8 +15,6 @@ if(is_post()){
     }
 
     if(!$_err){
-        
-
         $stm = $_db->prepare('INSERT INTO category (name) VALUES (?)');    
 
         $stm->execute([$_name]);

@@ -41,13 +41,16 @@ if(is_post()){
    
 }
 
-
+$stm = $_db->prepare('SELECT COUNT(*) FROM book WHERE book_id <=?');
+$stm->execute([$book_id]);
+$id = $stm->fetchColumn();
 
 ?>
 <form method="post" >
     <div class="delete-card">
         <label>Delete</label>
          <p>
+            ID:<?= encode($id)?> <br>
             Title:<?= encode($book->title)?> <br>
             Author<?= encode($book->author)?> <br>
             Description: <?= encode($book->description) ?> <br>

@@ -60,9 +60,7 @@ if ($search_term && $category_id) {
 
     // Display all books
     $stm = $_db->prepare("
-        SELECT book.*,category.name,(SELECT COUNT(*) 
-        FROM borrowing 
-        WHERE borrowing.book_id = book.book_id AND borrowing.return_date IS NULL) AS borrowed
+        SELECT book.*,category.name
         FROM book
         JOIN category ON book.category_id = category.category_id
     ");
@@ -96,7 +94,7 @@ include '../../admin_header.php'
 
 <main class="admin-book-content">
 <form method="get" action="read_book.php">
-    <a href="/admin/home.php">Back to home</a>
+    
     <div class="search-section">
         <input type="text" name="search" value="<?= encode($search_term ?? '') ?>" placeholder="Search by title, author, or genre" class="search-input">
 
@@ -124,7 +122,8 @@ include '../../admin_header.php'
         <a href="add-book.php">+ Add new book</a>
     
    <div class="book-grid">
-                <?php foreach ($all_book as $book):?>
+            <?php if($all_book):?>
+                <?php foreach ($all_book as $b =>$book):?>
                     <div class="book-card">
                         <div class="book-cover">
                             <?php if (!empty($book->image)):?>
@@ -136,6 +135,9 @@ include '../../admin_header.php'
                             <?php endif;?>
                         </div>
                         <div class="book-info">
+                            <span class="category-tag">
+                                ID: <?= encode($b + 1)?>
+                            </span>
                             <h3>
                                 <?= encode($book->title) ?>
                             </h3>
@@ -144,7 +146,7 @@ include '../../admin_header.php'
                                Genre: <?= encode($book->name) ?>
                             </span> 
                             <span class="category-tag">
-                              Available Book  <?= $book->quantity - $book->borrowed ?> / <?= encode($book->quantity) ?>
+                              Available Book  <?= $book->quantity?> / <?= encode($book->quantity) ?>
                             </span>
 
                             <section>
@@ -155,6 +157,11 @@ include '../../admin_header.php'
                             
                     </div>
                 <?php endforeach;?>
+            <?php  else:?>
+                <div>
+                    No book has found in record 
+                </div>
+            <?php  endif?>
         </div>
     </div>
 

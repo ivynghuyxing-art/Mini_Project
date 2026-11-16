@@ -18,6 +18,9 @@ if(is_post()){
     $stm->execute([$_cat_id]);
 }
 
+$stm = $_db->prepare('SELECT COUNT(*) FROM category WHERE category_id <=?');
+$stm->execute([$_cat_id]);
+$id = $stm->fetchColumn();
 
 $_title = ' Delete Category';
 include '../../admin_header.php';
@@ -26,7 +29,7 @@ include '../../admin_header.php';
 <form method="post" enctype="multipart/form-data">
     <div class="cat-delete-card">
         <p>
-            ID: <?= $cat->category_id?>
+            ID: <?= $id?>
             Name: <?= encode($cat->name) ?><br>
 
             Are you sure deleting this category? 

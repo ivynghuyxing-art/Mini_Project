@@ -12,7 +12,7 @@ if(is_post()){
     $_photo = $_SESSION['image'] ?? '';
     $f = get_file('image');
     $_quantity = req('quantity');
-    $availble_quantity = req('availble_quantity');
+    $available_quantity = req('available_quantity');
     $_categoryid = req('category_id');
 
     if($_title == ''){
@@ -68,10 +68,10 @@ if(is_post()){
             $_photo = save_photo($f, $_SERVER['DOCUMENT_ROOT'] .'/images/Book_pic');
         }
 
-        $stm = $_db->prepare('INSERT INTO book (title, author, description, category_id, quantity, availble_quantity, image) VALUES 
+        $stm = $_db->prepare('INSERT INTO book (title, author, description, category_id, quantity, available_quantity, image) VALUES 
                                 (?,?,?,?,?,?,?)');    
 
-        $stm->execute([$_title,$_author,$_descrip,$_categoryid,$_quantity,$availble_quantity,$_photo]);
+        $stm->execute([$_title,$_author,$_descrip,$_categoryid,$_quantity,$available_quantity,$_photo]);
         redirect('/admin/book_management/read_book.php');
     }
 }
@@ -92,7 +92,7 @@ $_title = 'Add book';
 </head>
 
 <form method="post" enctype="multipart/form-data">
-    <a href="/admin/home.php">Back to home</a>
+    <a href="/admin/book_managemant/read_book.php">Back to home</a>
     <div class="add-book-card">
         <label for="image">Photo</label>
         <label class="upload" tabindex="0">
@@ -111,7 +111,6 @@ $_title = 'Add book';
 
         <label for="description">Description</label>
         <?php html_textarea('description', ' "maxlength="999" rows="5" ') ?>
-        <p>Character: <span id="count">0</span>/999</p>
         <?php err('description') ?>
 
         <label>Category</label>
@@ -126,8 +125,8 @@ $_title = 'Add book';
         <?php html_text('quantity', 'maxlength="999"') ?>
         <?php err('quantity') ?>
 
-        <label for="availble_quantity">Quantity</label>
-        <input type="text" id="availble_quantity" value="<?= (int)($_quantity ?? 0) ?>" disabled>
+        <label for="available_quantity">Quantity</label>
+        <input type="text" id="available_quantity" value="<?= (int)($_quantity ?? 0) ?>" disabled>
 
         <section>
         <button>Done</button>
@@ -140,7 +139,7 @@ $_title = 'Add book';
 <script>
     document.addEventListener('DOMContentLoaded', ()=>{
         const quantity = document.querySelector('input[name="quantity"]');
-        const availble = document.getElementById('availble_quantity');
+        const availble = document.getElementById('available_quantity');
 
         if(quantity && availble){
             quantity.addEventListener('input', ()=> availble.value = quantity.value);

@@ -2,13 +2,12 @@
 
 include '../../_base.php';
 
-if(is_get()){
 
 $stm = $_db->prepare('SELECT * FROM category');
 $stm->execute();
 $category = $stm->fetchAll();
     
-}
+
 
 $_title = ' Categories';
 include '../../admin_header.php';
@@ -24,10 +23,10 @@ include '../../admin_header.php';
                     <th>Name</th>
                 </tr>
 
-                <?php foreach($category as $cat):?>
+                <?php foreach($category as $c =>$cat):?>
                     <tr>
                     
-                        <td><?= $cat->category_id?></td>
+                        <td><?= $c + 1?></td>
                         <td>
                             <h3><?= encode($cat->name)?></h3>
                         </td>
