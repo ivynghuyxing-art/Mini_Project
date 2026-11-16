@@ -83,7 +83,7 @@ if(is_post()){
 
             <labal>Return date</labal>
             <input type="date" name="return_date" min="<?= date('d-m-Y'), strtotime('+1 weeks')?> max=<?= $max_days ?>">
-            <?php $_err['return_date'] ?? '' ?>
+            <?= $_err['return_date'] ?? '' ?>
 
             <labal>Due date</labal>
             <input type="date" name="due_date" value="<?= $_due_date ?>" readonly >
