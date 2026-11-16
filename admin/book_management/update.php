@@ -33,9 +33,12 @@ if(is_post()){
     $_descrip = req('description');
     $_photo = $_SESSION['image'];
     $f = get_file('image');
-    $available_quantity = req('available_quantity');
-    $_quantity = req('quantity');
+    $new_available_quantity = req('available_quantity');
+    $_newquantity = req('quantity');
     $category_id = req('category_id');
+
+    $_dif = $_newquantity - $books->quantity;
+    $_new_available = $books->available_quantity + $_dif;
 
 
     if($_title == ''){
@@ -60,12 +63,15 @@ if(is_post()){
         $_err['category_id'] = 'Please choose a category';
     }
 
-    if($_quantity == '' ){
+    if($_newquantity == '' ){
         $_err['quantity'] = 'Required, enter numberic';
-    }else if(is_numeric($_quantity) < 0){
+    }else if(is_numeric($_newquantity) < 0){
         $_err['quantity'] = 'Not less than 0';
-    }else if(is_numeric($_quantity) > 999){
+    }else if(is_numeric($_newquantity) > 999){
         $_err['quantity'] = 'Not more than 999';
+    }
+    if($_new_available < 0){
+        $_err['available_quantity'] ='Quantity cannot be 0';
     }
     
 
@@ -90,7 +96,7 @@ if(is_post()){
         $stm = $_db->prepare('UPDATE book SET title=?, author=?, 
         description=?, category_id=?, quantity=?, available_quantity=?, image=?
         WHERE book_id =?');
-        $stm->execute([$_title, $_author, $_descrip, $category_id, $_quantity,$available_quantity, $_photo, $_id]);
+        $stm->execute([$_title, $_author, $_descrip, $category_id, $_dif, $new_available, $_photo, $_id]);
 
         temp('info', 'Record updated');
         redirect('/admin/book_management/read_book.php');
@@ -146,7 +152,7 @@ $_title = 'Update book detail';
         <?php html_text('quantity', 'maxlength="999"') ?>
         <?php err('quantity') ?>
 
-        <label for="available_quantity">Quantity</label>
+        <label for="available_quantity">Available Quantity</label>
         <input type="text" id="available_quantity" value="<?= (int)($_quantity ?? 0) ?>" disabled>
 
         <section>
