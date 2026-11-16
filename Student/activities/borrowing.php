@@ -19,7 +19,7 @@ $stm->execute([$_id]);
 $_b = $stm->fetch();
 
 if(!$_b){
-    redirect('/Student/book/browser.php');
+    redirect('/student/activities/borrowing.php');
 }
 
 $_user = $_user->user_id;

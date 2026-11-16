@@ -106,7 +106,7 @@ include '../../_head.php';
                         <?php if($book->available_quantity>0):?>
                             <a href="/student/activities/borrowing.php?id=<?= $book->book_id ?>" class="borrowing-btn"> Borrow </a>
                         <?php else: ?>
-                            <a href ="/student/activities/reservation.php?id=<?= $book->book_id ?>" class="reservation-btn"> Reservation </a>
+                            <a href ="/studen/activities/reservation.php?id=<?= $book->book_id ?>" class="reservation-btn"> Reservation </a>
                         <?php endif; ?>
 
                         <form method="post">
