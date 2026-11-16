@@ -82,6 +82,7 @@ $categories = $stm->fetchAll();
 
 $_title = 'Book ';
 
+include '../../admin_header.php'
 ?>
 <head>
     <meta charset="UTF-8">
@@ -93,6 +94,7 @@ $_title = 'Book ';
     <script src="/js/app.js"></script>
 </head>
 
+<main class="admin-book-content">
 <form method="get" action="read_book.php">
     <a href="/admin/home.php">Back to home</a>
     <div class="search-section">
@@ -157,7 +159,7 @@ $_title = 'Book ';
     </div>
 
 </form>
-
+</main>
 
 <?php
  include '../../_footer.php';

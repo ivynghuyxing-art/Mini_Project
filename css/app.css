@@ -1368,3 +1368,372 @@ body {
     object-fit: cover;
     
 }
+
+/* =========================================
+   ADMIN BOOK MANAGEMENT
+========================================= */
+
+.admin-book-content {
+    display: block;
+    width: auto;
+    max-width: none;
+    min-width: 0;
+
+    margin: 45px 35px 0 250px;
+    padding: 25px 30px 40px;
+
+    min-height: calc(100vh - 130px);
+
+    box-sizing: border-box;
+    background: #f5f5fb;
+
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+}
+
+
+/* =========================================
+   SEARCH FORM
+========================================= */
+
+.admin-book-content > form {
+    width: 100%;
+    margin: 0 0 20px;
+}
+
+.admin-book-content .search-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+.search-input {
+    flex: 1;
+    min-width: 0;
+    height: 44px;
+
+    padding: 0 15px;
+
+    border: 1px solid #ddd;
+    border-radius: 7px;
+
+    background: #fff;
+    font-size: 14px;
+
+    outline: none;
+    box-sizing: border-box;
+}
+
+.search-input:focus {
+    border-color: #5366d8;
+    box-shadow: 0 0 0 3px rgba(83, 102, 216, 0.1);
+}
+
+.category-select {
+    width: 190px;
+    height: 44px;
+
+    padding: 0 12px;
+
+    border: 1px solid #ddd;
+    border-radius: 7px;
+
+    background: #fff;
+    font-size: 14px;
+
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.search-button {
+    height: 44px;
+    padding: 0 23px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #4659b5;
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-button:hover {
+    background: #344596;
+}
+
+
+/* =========================================
+   BACK TO HOME
+========================================= */
+
+.admin-book-content > form > a {
+    display: inline-block;
+    margin-bottom: 15px;
+
+    color: #4659b5;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.admin-book-content > form > a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   BOOK COUNT
+========================================= */
+
+.book-count {
+    display: inline-block;
+
+    margin: 5px 0 20px;
+
+    color: #666;
+    font-size: 14px;
+}
+
+.book-count strong {
+    color: #4659b5;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   ADD NEW BOOK
+========================================= */
+
+.admin-book-content > a {
+    display: inline-block;
+    float: right;
+
+    margin: 0 0 20px;
+    padding: 10px 18px;
+
+    background: #4659b5;
+    color: #fff;
+
+    border-radius: 7px;
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.admin-book-content > a:hover {
+    background: #344596;
+}
+
+
+/* =========================================
+   BOOK GRID
+========================================= */
+
+.book-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 20px;
+
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    clear: both;
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   BOOK CARD
+========================================= */
+
+.book-card {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    max-width: 300px;
+    min-width: 0;
+
+    justify-self: center;
+
+    background: #fff;
+
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+    transition: transform 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.1);
+}
+
+
+/* =========================================
+   BOOK COVER
+========================================= */
+
+.book-cover {
+    width: 100%;
+    height: 155px;
+
+    background: #f0f1f7;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.book-cover img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.no-cover {
+    color: #999;
+    font-size: 13px;
+}
+
+
+/* =========================================
+   BOOK INFORMATION
+========================================= */
+
+.book-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    padding: 13px;
+}
+
+.book-info h3 {
+    font-size: 15px;
+    font-weight: 600;
+
+    color: #26374a;
+
+    margin: 0 0 8px;
+    line-height: 1.4;
+
+    overflow-wrap: anywhere;
+}
+
+.book-info p {
+    font-size: 13px;
+    color: #666;
+
+    margin: 0 0 8px;
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   CATEGORY AND QUANTITY
+========================================= */
+
+.category-tag {
+    display: inline-block;
+
+    width: fit-content;
+    max-width: 100%;
+
+    margin: 3px 0;
+    padding: 5px 8px;
+
+    border-radius: 5px;
+
+    background: #eef0fc;
+    color: #4659a5;
+
+    font-size: 12px;
+    line-height: 1.4;
+
+    overflow-wrap: anywhere;
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   UPDATE AND DELETE BUTTONS
+========================================= */
+
+.book-info section {
+    display: flex;
+    gap: 8px;
+
+    margin-top: auto;
+    padding-top: 13px;
+}
+
+.book-info section a {
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 9px 6px;
+
+    border-radius: 5px;
+
+    text-decoration: none;
+    text-align: center;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+
+/* Update */
+
+.book-info section a:first-child {
+    background: #4659b5;
+    color: #fff;
+}
+
+.book-info section a:first-child:hover {
+    background: #344596;
+}
+
+
+/* Delete */
+
+.book-info section a:last-child {
+    background: #dc3545;
+    color: #fff;
+}
+
+.book-info section a:last-child:hover {
+    background: #b02a37;
+}

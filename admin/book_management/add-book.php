@@ -79,6 +79,7 @@ if(is_post()){
 $categories = $_db->query('SELECT category_id, name FROM category')->fetchAll();
 
 $_title = 'Add book';
+
 ?>
 <head>
     <meta charset="UTF-8">
