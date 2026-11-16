@@ -18,6 +18,7 @@ if(is_post()){
         $stm = $_db->prepare('INSERT INTO category (name) VALUES (?)');    
 
         $stm->execute([$_name]);
+        temp('info','Category added successfully!');
         redirect('/admin/Category/home-category.php');
     }
 }

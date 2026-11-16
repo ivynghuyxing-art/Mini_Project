@@ -11,10 +11,16 @@ $category = $stm->fetchAll();
 
 $_title = ' Categories';
 include '../../admin_header.php';
+$message = temp('info');
 ?>
 
 <form method="post" enctype="multipart/form-data">
     <div class="home-cat-card">
+        <?php if($message):?>
+            <div class="success-message">
+                <?= encode($message) ?>
+            </div>
+        <?php endif;?>
         <a href="/admin/Category/add-category.php">+Add new Category</a>
         <?php if($category):?>
             <table>

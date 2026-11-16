@@ -16,6 +16,9 @@ if(!$cat){
 if(is_post()){
     $stm = $_db->prepare('DELETE FROM category WHERE category_id=?');
     $stm->execute([$_cat_id]);
+
+    temp('info','Category deleted successfully!');
+    redirect('/admin/Category/home-category.php');
 }
 
 $stm = $_db->prepare('SELECT COUNT(*) FROM category WHERE category_id <=?');
