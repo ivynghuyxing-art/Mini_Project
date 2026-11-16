@@ -19,13 +19,13 @@ $stm->execute([$_id]);
 $_b = $stm->fetch();
 
 if(!$_b){
-    redirect('/student/activities/borrowing.php');
+    redirect('/student/book/browse.php');
 }
 
 $_user = $_user->user_id;
-$_due_date = date('d-m-Y', strtotime('+8 days'));
-$_current = date('d-m-Y');
-$max_days = date('d-m-Y', strtotime('+5 weeks'));
+$_due_date = date('Y-m-d', strtotime('+8 days'));
+$_current = date('Y-m-d');
+$max_days = date('Y-m-d', strtotime('+5 weeks'));
 
 if(is_post()){
 
@@ -52,7 +52,7 @@ if(is_post()){
         }
         if(!$_err){
         $stm = $_db->prepare('INSERT INTO borrowing (user_id, borrow_date, return_date, book_id
-        , due_date, status) VALUES (?, ?, ?, ?, ?, ?');
+        , due_date, status) VALUES (?, ?, ?, ?, ?, ?)');
 
         $stm->execute([$_user,$_current, $_return_date, $_id,$_due_date, 'borrow']);
         temp('info', 'Borrow successful !');
@@ -67,16 +67,14 @@ if(is_post()){
 
 <form method="post" enctype="multipart/form-data">
     <div class="borrow-card">
-    <?php foreach($_b as $books):?>
         <label>Book details</label>
-        <img src="/images/Book_pic/<?=$books->image ?>" alt="<?php $books->title ?>">
+        <img src="/images/Book_pic/<?=$_b->image ?>" alt="<?php $_b->title ?>">
         <p>
-            Title: <?php encode($books->title)?> <br>
-            Author: <?php encode($books->author)?> <br>
-            Descirption: <?php encode($books->description)?> <br>
-            Categories: <?php encode($books->category_name)?>
+            Title: <?= encode($_b->title) ?> <br>
+            Author: <?= encode($_b->author)?> <br>
+            Descirption: <?= encode($_b->description)?> <br>
+            Categories: <?= encode($_b->category_name)?>
         </p>
-    <?php endforeach?>
 
         <div class="Date-card">
             <labal>Borrow date</labal>
@@ -85,7 +83,7 @@ if(is_post()){
 
             <labal>Return date</labal>
             <input type="date" name="return_date" min="<?= date('d-m-Y'), strtotime('+1 weeks')?> max=<?= $max_days ?>">
-            <?php $_err['return_date']?>
+            <?php $_err['return_date'] ?? '' ?>
 
             <labal>Due date</labal>
             <input type="date" name="due_date" value="<?= $_due_date ?>" readonly >
