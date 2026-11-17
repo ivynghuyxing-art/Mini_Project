@@ -127,7 +127,7 @@ include '../../admin_header.php'
                     <div class="book-card">
                         <div class="book-cover">
                             <?php if (!empty($book->image)):?>
-                                <img src ="/images/Book_pic/<?= encode($book->image) ?>" alt="<?= encode($book->title) ?>">
+                                <img src ="../../images/Book_pic/<?= encode($book->image) ?>" alt="<?= encode($book->title) ?>">
                             <?php else:?>
                                 <div class="no-cover"> 
                                     No cover

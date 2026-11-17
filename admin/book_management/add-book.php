@@ -37,12 +37,18 @@ if(is_post()){
         $_err['category_id'] = 'Please choose a category';
     }
 
-    if($_quantity == ''){
+    if($_quantity == '' || !is_numeric($_quantity)){
         $_err['quantity'] = 'Required, enter numberic';
-    }else if(is_numeric($_quantity) < 0){
-        $_err['quantity'] = 'Not less than 0';
-    }else if(is_numeric($_quantity) > 999){
+    }else if($_quantity > 999){
         $_err['quantity'] = 'Not more than 999';
+    }
+
+    if($available_quantity == '' || !is_numeric($available_quantity)){
+        $_err['available_quantity'] = 'Required, enter numberic';
+    }else if ($available_quantity > 999){
+        $_err['available_quantity'] ='Value cannot more than 999';
+    }else if ($available_quantity > $_quantity){
+        $_err['available_quantity'] = 'Available quantity must be same';
     }
 
     if ($f) {
@@ -58,13 +64,7 @@ if(is_post()){
 
 
     if(!$_err){
-        $_quantity = (int)$_quantity;
-        $available_quantity = $_quantity;
         if($f){
-            $old = $_SERVER['DOCUMENT_ROOT'] . "/images/Book_pic/$_photo";
-            if(file_exists($old)){
-                unlink($old);
-            }
             $_photo = save_photo($f, $_SERVER['DOCUMENT_ROOT'] .'/images/Book_pic');
         }
 
@@ -92,11 +92,11 @@ $_title = 'Add book';
 </head>
 
 <form method="post" enctype="multipart/form-data">
-    <a href="/admin/book_managemant/read_book.php">Back to home</a>
+    <a href="/admin/book_management/read_book.php">Back to home</a>
     <div class="add-book-card">
         <label for="image">Photo</label>
         <label class="upload" tabindex="0">
-        <img id="profile_Preview" src="/images/Book_pic/<?= $_photo ?? ''?>" alt="Book photo">
+        <img id="profile_Preview" src="../../images/Book_pic/<?= $_photo ?>" alt="Book photo">
         <?php html_file('image', 'image/*', 'hidden') ?>
         </label>
         <?php err('image') ?>
@@ -125,8 +125,9 @@ $_title = 'Add book';
         <?php html_text('quantity', 'maxlength="999"') ?>
         <?php err('quantity') ?>
 
-        <label for="available_quantity">Quantity</label>
-        <input type="text" id="available_quantity" value="<?= (int)($_quantity ?? 0) ?>" disabled>
+        <label for="available_quantity">Available Quantity</label>
+        <?php html_text('available_quantity', 'maxlength="999"') ?>
+        <?php err('available_quantity') ?>
 
         <section>
         <button>Done</button>
