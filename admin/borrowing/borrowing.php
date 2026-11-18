@@ -2,18 +2,20 @@
 include '../../_base.php'; 
 
 $_title = 'Borrow Book';
+
+
+$stm= $_db->prepare('SELECT * FROM borrowing');
+$stm->execute();
+$borrows = $stm->fetchAll();
+
+
 include '../../admin_header.php';
-
-    $stm= $_db->prepare('SELECT * FROM borrowing');
-    $stm->execute();
-    $borrows = $stm->fetchAll();
-
 ?>
 
 <form>
     <div class="borrow-card">
         <?php if($borrows):?>
-            <?php foreach( $borrows as $row): ?>
+            <?php foreach($borrows as $row): ?>
                 <table class="borrow-t">
                     <tr>
                         <th>User ID</th>
@@ -23,6 +25,7 @@ include '../../admin_header.php';
                         <th>Due Date</th>
                         <th>Status</th>
                         <th>Fine Payment</th>
+                        <th>Action</th>
                     </tr>
 
                     <tr>
@@ -31,8 +34,14 @@ include '../../admin_header.php';
                         <td><?= encode($row->borrow_date) ?></td>
                         <td><?= encode($row->return_date) ?></td>
                         <td><?= encode($row->due_date) ?></td>
-                        <td class="<?= $row->status === 'borrow' ? 'style= color:gray; ' : 'style=color:green;' ?>>"><?= encode($row->status)?></td>
+                        <td class="<?= $row->status === 'borrow' ? 'style= color:red; ' : 'style=color:green;' ?>>"><?= encode($row->status)?></td>
                         <td><?= encode($row->fine_amount) ?></td>
+                        <td>
+                            <a href="/admin/borrowing/update.php?borrowing_id=<?= $row->borrowing_id ?>">Update</a>
+                        </td>
+                        <td>
+                            <a href="/admin/borrowing/delete.php?borrowing_id=<?= $row->borrowing_id ?>">Cancel</a>
+                        </td>
                     </tr>
                 </table>
             <?php endforeach ?>

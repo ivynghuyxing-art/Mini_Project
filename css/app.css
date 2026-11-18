@@ -1178,14 +1178,78 @@ body {
     Borrow Management     
 ========================*/
 .borrow-card{
-    text-align: center;
-    margin: 130px auto 0;
     box-sizing: border-box;
     border: 1px solid black;
     border-radius: 10px;
     padding: 20px;
-    width: 400px;
-    height: 300px;
+    width: 100%;
+    max-width: 800px;     
+    margin-left:300px;
+    margin-top:100px ;
+}
+.borrow-card .books {
+    display: contents;
+    gap: 20px;
+    align-items: flex-start;
+}
+.borrow-card label{
+    display: block;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+.borrow-card img {
+    border:2px solid #000000;
+    border-radius: 4px;
+    object-fit: cover;
+    margin-right:50% ;
+}
+.borrow-card .book_detail{
+   flex:1;
+   box-sizing: border-box;
+   border: 2px solid #000000;
+   border-radius: 6px;
+   padding: 12px;
+   margin-bottom: 10px;
+   text-align: left;
+}
+.borrow-card .book-detail p {
+    margin-bottom: 6px;
+    display: flex;
+}
+
+.Date-card label{
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333333;
+}
+.Date-card input[type="date"]{
+    width: 25%;
+    height: 30%;
+    border-radius: 4px;
+    display: block;
+    margin-bottom: 20px;
+}
+.Date-card button{
+    width: 20%;
+    height: 30px;
+    border-radius: 4px;
+    margin-top: 10px;
+    cursor: pointer;
+    
+}
+.Date-card a{
+    color: #000000;
+}
+.Date-card a:hover{
+    color:#ffffff;
+}
+.Date-card button:hover{
+    color:#ffffff;
+    background-color: #283c91;
+    border-color: #320ab3;
+
 }
 /*======================
     Member Management     
@@ -1579,7 +1643,38 @@ body {
 .book-info section a:last-child:hover {
     background: #b02a37;
 }
+/*=====================================
+            Borrow update           
+=======================================*/
+.card-borrow-management{
+    border: 2px solid #000000;
+    border-radius: 5px;
+    margin: 130px auto 0;
+    box-sizing: border-box;
+    padding: 20px;
+    width: 420px;
+    height: 420px;
+    
+}
 
+.card-borrow-management label{
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: 15px;
+    color: #333333;
+}
+.card-borrow-management h3{
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.card-borrow-management input{
+    width: 50%;
+    height: 8%;
+    border: 2px solid #000;
+    border-radius: 4px;
+}
 /* =========================================
    Fine page header
 ========================================= */
@@ -1702,5 +1797,4 @@ body {
 .clear-search:hover {
     color: #333;
 }
-
 
