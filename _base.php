@@ -291,3 +291,5 @@ function get_mail() {
 
     return $m;
 }
+// Current Page
+$current_page = basename($_SERVER['PHP_SELF']);

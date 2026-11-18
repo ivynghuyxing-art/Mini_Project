@@ -9,8 +9,8 @@ $_title = 'Browse Books';
 include '../../_head.php';
 
 $message = temp('message');
-$search_term = get('search');
-$category_id = get('category_id');
+$search_term = post('search');
+$category_id = post('category_id');
 
 $books = [];
 
@@ -93,12 +93,33 @@ $categories = $stm->fetchAll();
         </div>
 
         <div class="search-section">
-            <form action="browse.php" method="get" class="search-form">
-                <input type="text" name="search" value="<?= encode($search_term ?? '') ?>" placeholder="Search by title, author, or genre" class="search-input">
-                
+            <form action="browse.php" method="post" class="search-form">
+
+                <div class="search-input-wrapper">
+                    <input
+                        type="text"
+                        id="searchInput"
+                        name="search"
+                        value="<?= encode($search_term ?? '') ?>"
+                        placeholder="Search by title, author, or genre"
+                        class="search-input"
+                    >
+
+                    <button
+                        type="button"
+                        id="clearSearch"
+                        class="clear-search"
+                        onclick="clearSearchInput()"
+                        aria-label="Clear search"
+                    >
+                        x
+                    </button>
+                </div>
+
                 <select name="category_id" class="category-select">
-                    <option value=""> All Categories</option>
-                    <?php foreach ($categories as $category):?>
+                    <option value="">All Categories</option>
+
+                    <?php foreach ($categories as $category): ?>
                         <option
                             value="<?= $category->category_id ?>"
                             <?= $category_id == $category->category_id ? 'selected' : '' ?>
@@ -107,7 +128,9 @@ $categories = $stm->fetchAll();
                         </option>
                     <?php endforeach; ?>
                 </select>
+
                 <button type="submit" class="search-button">Search</button>
+
             </form>
 
         </div>

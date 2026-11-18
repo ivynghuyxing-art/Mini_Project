@@ -5,8 +5,12 @@ include '../../_base.php';
 $_title = 'My Borrowing';
 auth(['member']);
 
+<<<<<<< HEAD
+$book_id =req('book_id');
+=======
 $_id =req('book_id');
 $_user = req('user_id');
+>>>>>>> 4e9e27f751dbe582259d598dae103089952cf73c
 $_err =[];
 
 $_user = $_SESSION['user']->user_id;
@@ -16,14 +20,13 @@ $stm = $_db->prepare('SELECT bk.title, bk.image, bk.author, bk.category_id, bk.d
                         FROM book bk 
                         JOIN category c ON bk.category_id = c.category_id
                         WHERE bk.book_id =?');
-$stm->execute([$_id]);
+$stm->execute([$book_id]);
 $_b = $stm->fetch();
 
 
 if(!$_b){
-   redirect('/student/book/browse.php');
+    redirect('/student/activities/my_borrowing.php');
 }
-
 
 $_return_date = date('Y-m-d', strtotime('+8 days'));
 $_current = date('Y-m-d');
@@ -48,7 +51,11 @@ if(is_post()){
         
             $stm = $_db->prepare('UPDATE book SET available_quantity = available_quantity - 1 
                             WHERE book_id =? AND available_quantity > 0');
+<<<<<<< HEAD
+        $stm->execute([$book_id]);
+=======
             $stm->execute([$_id]);
+>>>>>>> 4e9e27f751dbe582259d598dae103089952cf73c
 
             if($stm->rowCount() === 0){
                 throw new ErrorException("Sorry, the book out of stock");
@@ -62,6 +69,18 @@ if(is_post()){
         }catch(ErrorException $e){
          echo $e->getMessage();
         }
+<<<<<<< HEAD
+        if(!$_err){
+        $stm = $_db->prepare('INSERT INTO borrowing (user_id, borrow_date, return_date, book_id
+        , due_date, status) VALUES (?, ?, ?, ?, ?, ?)');
+
+        $stm->execute([$_user,$_current, $_return_date, $book_id,$_due_date, 'pending']);
+        temp('info', 'Borrow successful !');
+    }
+    }catch(ErrorException $e){
+        echo $e->getMessage();
+=======
+>>>>>>> 4e9e27f751dbe582259d598dae103089952cf73c
     }
     
 }
