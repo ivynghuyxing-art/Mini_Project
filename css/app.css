@@ -1798,3 +1798,24 @@ body {
     color: #333;
 }
 
+/* Show All Books Button */
+
+.show-all-section {
+    display: flex;
+    justify-content: flex-start;
+    margin: 15px 0;
+}
+
+.show-all-btn {
+    color: #345b8c;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: 0.3s;
+    font-size:15px;
+}
+
+.show-all-btn:hover {
+    color:#24446d;
+    cursor:pointer;
+}

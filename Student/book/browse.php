@@ -75,10 +75,9 @@ if ($search_term && $category_id) {
     $stm->execute();
     $books = $stm->fetchAll();
 }
+$books = array_slice($books, 0, 10);
 
-$stm = $_db->prepare("
-SELECT * FROM category
-");
+$stm = $_db->prepare(" SELECT * FROM category ");
 
 $stm->execute();
 $categories = $stm->fetchAll();
@@ -134,10 +133,17 @@ $categories = $stm->fetchAll();
             </form>
 
         </div>
-
+        
         <div class="book-count">
             Showing <strong><?= count($books) ?></strong> 
         </div>
+
+        <div class="show-all-section" style="justify-content: flex-end;">
+            <a href="all_book.php" class="show-all-btn">
+                Show All Books →
+            </a>
+        </div>
+
         <?php if($message): ?>
             <p class="success-message">
                 <?= encode($message) ?>
