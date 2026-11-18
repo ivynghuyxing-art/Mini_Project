@@ -37,7 +37,7 @@
                 // Redirect based on user role
                 $url = ($u->role == 'admin')
                     ? '/admin/home.php'
-                    : '/';
+                    : '/student/dashboard.php';
 
                 login($u, $url);
             }

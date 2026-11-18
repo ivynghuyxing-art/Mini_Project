@@ -180,4 +180,32 @@ $('[data-confirm]').on('click', e =>{
     }
 
 });
+// ========================================
+// 6. Clear Search Input
+// ========================================
 
+document.addEventListener('DOMContentLoaded', function () {
+
+    const searchInput = document.getElementById('searchInput');
+    const clearButton = document.getElementById('clearSearch');
+
+    if (searchInput && clearButton) {
+
+        function updateClearButton() {
+            clearButton.style.display = searchInput.value.length > 0
+                ? 'block'
+                : 'none';
+        }
+
+        clearButton.addEventListener('click', function () {
+            searchInput.value = '';
+            updateClearButton();
+            searchInput.focus();
+        });
+
+        searchInput.addEventListener('input', updateClearButton);
+
+        updateClearButton();
+    }
+
+});

@@ -13,14 +13,15 @@ $user_id = $_user->user_id;
 // Only calculate fines when the book has been returned late
 
 $stm = $_db->prepare("
-    SELECT borrowing_id,
+    SELECT borrowing_id,user_id,
            DATEDIFF(return_date, due_date) AS overdue_days
     FROM borrowing
-    WHERE return_date IS NOT NULL
+    WHERE user_id=?
+    AND return_date IS NOT NULL
     AND DATEDIFF(return_date, due_date) >= 2
 ");
 
-$stm->execute();
+$stm->execute([$user_id]);
 $borrowings = $stm->fetchAll();
 
 foreach ($borrowings as $borrowing) {
@@ -57,12 +58,13 @@ foreach ($borrowings as $borrowing) {
         // Insert new fine record
         $stm = $_db->prepare("
             INSERT INTO fine
-            (borrowing_id, amount, reason, payment_status)
-            VALUES (?, ?, ?, ?)
+            (borrowing_id, user_id, amount, reason, payment_status)
+            VALUES (?, ?, ?, ?, ?)
         ");
 
         $stm->execute([
             $borrowing->borrowing_id,
+            $borrowing->user_id,
             $amount,
             $reason,
             'Unpaid'
@@ -170,75 +172,77 @@ include '../../_head.php';
 
         <?php else: ?>
 
-            <table>
+            <div class = "fine-table-container">
+                <table class="fine-table">
 
-                <thead>
-                    <tr>
-                        <th>Num</th>
-                        <th>Book Title</th>
-                        <th>Due Date</th>
-                        <th>Return Date</th>
-                        <th>Amount</th>
-                        <th>Reason</th>
-                        <th>Payment Status</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    <?php foreach ($fines as $index => $fine): ?>
-
+                    <thead>
                         <tr>
-
-                            <td>
-                                <?= $offset + $index + 1; ?>
-                            </td>
-
-                            <td>
-                                <?= encode($fine->title); ?>
-                            </td>
-
-                            <td>
-                                <?= encode($fine->due_date); ?>
-                            </td>
-
-                            <td>
-                                <?= encode($fine->return_date); ?>
-                            </td>
-
-                            <td>
-                                RM <?= number_format($fine->amount, 2); ?>
-                            </td>
-
-                            <td>
-                                <?= encode($fine->reason); ?>
-                            </td>
-
-                            <td>
-
-                                <?php if ($fine->payment_status == 'Paid'): ?>
-
-                                    <span class="status status_paid">
-                                        Paid
-                                    </span>
-
-                                <?php else: ?>
-
-                                    <span class="status status-unpaid">
-                                        Unpaid
-                                    </span>
-
-                                <?php endif; ?>
-
-                            </td>
-
+                            <th>Num</th>
+                            <th>Book Title</th>
+                            <th>Due Date</th>
+                            <th>Return Date</th>
+                            <th>Amount</th>
+                            <th>Reason</th>
+                            <th>Payment Status</th>
                         </tr>
+                    </thead>
 
-                    <?php endforeach; ?>
+                    <tbody>
 
-                </tbody>
+                        <?php foreach ($fines as $index => $fine): ?>
 
-            </table>
+                            <tr>
+
+                                <td>
+                                    <?= $offset + $index + 1; ?>
+                                </td>
+
+                                <td>
+                                    <?= encode($fine->title); ?>
+                                </td>
+
+                                <td>
+                                    <?= encode($fine->due_date); ?>
+                                </td>
+
+                                <td>
+                                    <?= encode($fine->return_date); ?>
+                                </td>
+
+                                <td>
+                                    RM <?= number_format($fine->amount, 2); ?>
+                                </td>
+
+                                <td>
+                                    <?= encode($fine->reason); ?>
+                                </td>
+
+                                <td>
+
+                                    <?php if ($fine->payment_status == 'Paid'): ?>
+
+                                        <span class="status status-paid">
+                                            Paid
+                                        </span>
+
+                                    <?php else: ?>
+
+                                        <span class="status status-unpaid">
+                                            Unpaid
+                                        </span>
+
+                                    <?php endif; ?>
+
+                                </td>
+
+                            </tr>
+
+                        <?php endforeach; ?>
+
+                    </tbody>
+
+                </table>
+            </div>
 
             <!-- Pagination -->
 
