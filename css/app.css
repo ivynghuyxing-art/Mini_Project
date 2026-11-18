@@ -1251,6 +1251,23 @@ body {
     border-color: #320ab3;
 
 }
+
+/*============================
+        borrow history 
+==============================*/
+
+.status-pending{
+    color:orange;
+}
+.status-approval{
+    color:green;
+}
+.status-reject{
+    color:red;
+}
+.status-return{
+    color:gray;
+}
 /*======================
     Member Management     
 ========================*/

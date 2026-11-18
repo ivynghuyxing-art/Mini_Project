@@ -3,7 +3,7 @@
 include '../../_base.php';
 
 $category_id = req('category_id');
-
+auth(['admin']);
 if(is_get()){
     $stm = $_db->prepare('SELECT * FROM category WHERE category_id=?');
     $stm->execute([$category_id]);

@@ -2,7 +2,7 @@
 
 include '../../_base.php';
 
-
+auth(['admin']);
 $stm = $_db->prepare('SELECT * FROM category');
 $stm->execute();
 $category = $stm->fetchAll();

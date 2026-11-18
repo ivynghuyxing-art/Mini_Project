@@ -3,6 +3,7 @@
 include '../../_base.php';
 
 $_title = ' Add new books';
+auth(['admin']);
 
 if(is_post()){
     $_err=[];

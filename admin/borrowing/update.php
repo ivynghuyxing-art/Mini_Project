@@ -4,24 +4,76 @@ include '../../_base.php';
 $_id = req('borrowing_id');
 
 $_err=[];
-
-$stm= $_db->prepare('SELECT * FROM borrowing WHERE borrowing_id=?');
+auth(['admin']);
+$stm= $_db->prepare('SELECT bor.*, 
+                    bk.available_quantity, bk.book_id
+                    FROM borrowing bor 
+                    JOIN book bk ON bk.book_id = bor.book_id
+                    WHERE borrowing_id=?');
 $stm->execute([$_id]);
 $borrows = $stm->fetch();
 
+if(!$borrows){
+    temp('info', 'Borrow record not founded');
+    redirect('/admin/borrowing/borrowing.php');
+}
+
+const Fine_Of_Day = 2.50;
+$_status = $borrows->status;
+$_due_date = $borrows->due_date;
+$_return_date = date('Y-m-d');
+$_return_td = strtotime($_return_date);
+$_fine_amount = $borrows->fine_amount;
+
+
+$_oldstatus = strtoupper(trim($borrows->status));
+$_array = ['APPROVAL','RETURN','PENDING','REJECT'];
+
 if(is_post()){
-    $_status = req('status');
+    $_status =strtoupper(trim(req('status')));
 
     if($_status== ''){
         $_err['status'] = 'Required';
-    }else if(strlen($_status) > 20){
-        $_err['status'] = 'Cannot more then 20 character';
+    }else if (strlen($_status) > 10){
+        $_err['status'] = 'No more then 10 character';
+    }else if(!in_array($_status, $_array) ){
+        $_err['status'] = 'Must be PENDING,APPROVAL,RETURN OR REJECT only';
     }
 
-    if(!$_err){
-        $stm = $_db->prepare('UPDATE borrowing SET status WHERE borrowing_id=?');
-        $stm->execute([$_status,$_id]);
 
+    if(!$_err){
+        if($_status == 'APPROVAL'){
+            $stm = $_db->prepare('UPDATE borrowing SET status=? WHERE borrowing_id=?');
+            $stm->execute([$_status,$_id]);
+        }
+        else if ($_status == 'REJECT'){
+            $stm = $_db->prepare('UPDATE book SET available_quantity 
+                                  = available_quantity + 1 WHERE book_id=? ');
+            $stm->execute([$borrows->book_id,]);
+
+            $stm = $_db->prepare('UPDATE borrowing SET status=? WHERE borrowing_id=?');
+            $stm->execute([$_status,$_id]);
+
+        }
+        else if($_status == 'RETURN' && $_oldstatus == 'APPROVAL'){
+
+            if($_return_td > $_due_date){
+                $day_late = floor(($_return_td / $_due_date)/ 86400 );
+                $_fine_amount = $day_late * Fine_Of_Day;
+            }
+
+            $stm = $_db->prepare('UPDATE book SET available_quantity 
+                                = available_quantity + 1 WHERE book_id = ?');
+
+            $stm->execute([$borrows->book_id]);
+
+            $stm = $_db->prepare('UPDATE borrowing
+                            SET status = ?, return_date = ?, fine_amount = ?
+                            WHERE borrowing_id = ?');
+            $stm->execute([$_status, $_return_date, $_fine_amount, $_id]);
+
+        }
+        
         temp('info', 'Update record successfull');
         redirect('/admin/borrowing/borrowing.php');
     }
@@ -32,13 +84,11 @@ $_title = 'Update borrow detail';
 include '../../admin_header.php';
 ?>
 
-<form method="post" enctype="multipart/form-data">
-
-    <a href="/admin/borrowing/borrowing.php"><==Borrow page</a>
+<form method="post">
     <label>Borrow details</label>
 
     <div class="card-borrow-management">
-    <a href="/admin/borrowing/borrowing.php"><== Back to borrow page</a>
+      <a href="/admin/borrowing/borrowing.php"><--- Borrow page </a>
 
         <label>User Id </label>
         <h3>
@@ -53,18 +103,14 @@ include '../../admin_header.php';
         <h3>
             <?= encode($borrows->borrow_date) ?>
         </h3>
-        <label>Return date</label>
-        <h3>
-            <?= encode($borrows->return_date) ?>
-        </h3>
 
         <label>Due date</label>
         <h3>
             <?= encode($borrows->due_date) ?>
         </h3>
         <label>Status</label>
-        <?php html_text('status','maxlenght=20')?>
-        <?php err('stauts')?>
+        <?php html_text('status', 'maxlength=10') ?>
+        <?php err('status')?>
 
         <label>Fine amount</label>
         <h3>

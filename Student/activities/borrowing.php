@@ -25,7 +25,7 @@ if (!$_b) {
     redirect('/student/activities/my_borrowing.php');
 }
 
-$_due_date = date('Y-m-d', strtotime('+8 days'));
+$_return_date = date('Y-m-d', strtotime('+8 days'));
 $_current = date('Y-m-d');
 $max_days = date('Y-m-d', strtotime('+2 weeks'));
 
@@ -98,8 +98,10 @@ include '../../_head.php';
             <?php err('return_date') ?>
 
             <label>Due date</label>
-            <input type="date" name="due_date" value="<?= $_due_date ?>" readonly>
+            <?php html_date('due_date',"min='" . date('Y-m-d', strtotime('+1 day')) . "' max='$max_days'")?>
+            <?php err('due_date') ?>
 
+        
             <span class="Warning-overdue">
                 <p>
                     If member did not return in time before the due time <?= encode($_due_date) ?>.

@@ -7,6 +7,8 @@ $category_id = get('category_id');
 $_id = req('book_id');
 $all_book = [];
 
+auth(['admin']);
+
 if ($search_term && $category_id) {
 
     // Search by title, author and category

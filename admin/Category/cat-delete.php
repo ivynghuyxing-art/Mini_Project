@@ -2,7 +2,7 @@
 include '../../_base.php';
 
 $_cat_id = req('category_id');
-
+auth(['admin']);
 $stm = $_db->prepare('SELECT * FROM category WHERE category_id=?');
 $stm->execute([$_cat_id]);
 $cat = $stm->fetch();

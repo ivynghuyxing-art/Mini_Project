@@ -2,7 +2,7 @@
 include '../../_base.php';
 
 $_id = req('book_id');
-
+auth(['admin']);
 
 $stm= $_db->prepare('SELECT * FROM book WHERE book_id=?');
 $stm->execute([$_id]);
@@ -14,7 +14,7 @@ $categories = $stm->fetch();
 
 $stm= $_db->prepare('SELECT COUNT(*) FROM borrowing WHERE book_id=?');
 $stm->execute([$_id]);
-$borrowes = $stm->fetch();
+$borrowes = $stm->fetchColumn();
 if(!$books){
     redirect('/');
 }
@@ -45,7 +45,7 @@ if(is_post()){
     $_title = req('title');
     $_author = req('author');
     $_descrip = req('description');
-    $_photo = $_SESSION['image'];
+    $_photo = $_SESSION['image'] ?? null;
     $f = get_file('image');
     $available_quantity = req('available_quantity');
     $quantity = (int)req('quantity');
@@ -166,8 +166,8 @@ $_title = 'Update book detail';
             <option value="">--Select Category</option>
             <?php foreach($categories as $cat): ?>
                 <option value="<?= $cat->category_id ?>"
-                    <?= (req('category_id') == $cat->category_id) ? 'selected' : '' ?>>
-                    <?= $cat->name ?>
+                    <?= ( ($category_id ?? '') == $cat->category_id) ? 'selected' : '' ?>>
+                    <?= encode($cat->name) ?>
                 </option>
             <?php endforeach ?>
         </select>

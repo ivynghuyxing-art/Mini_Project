@@ -3,6 +3,7 @@
 include '../../_base.php';
 
 $book_id = req('book_id');
+auth(['admin']);
 
 $stm = $_db->prepare('SELECT * FROM book WHERE book_id = ?');
 $stm->execute([$book_id]);

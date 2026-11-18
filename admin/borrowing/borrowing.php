@@ -8,7 +8,7 @@ $stm= $_db->prepare('SELECT * FROM borrowing');
 $stm->execute();
 $borrows = $stm->fetchAll();
 
-
+auth(['admin']);
 include '../../admin_header.php';
 ?>
 
@@ -21,7 +21,6 @@ include '../../admin_header.php';
                         <th>User ID</th>
                         <th>Book ID</th>
                         <th>Borrow Date</th>
-                        <th>Return Date</th>
                         <th>Due Date</th>
                         <th>Status</th>
                         <th>Fine Payment</th>
@@ -32,16 +31,13 @@ include '../../admin_header.php';
                         <td><?= encode($row->user_id) ?></td>
                         <td><?= encode($row->book_id) ?></td>
                         <td><?= encode($row->borrow_date) ?></td>
-                        <td><?= encode($row->return_date) ?></td>
                         <td><?= encode($row->due_date) ?></td>
-                        <td class="<?= $row->status === 'borrow' ? 'style= color:red; ' : 'style=color:green;' ?>>"><?= encode($row->status)?></td>
+                        <td class="<?= $row->status === 'borrow' ? 'style=color:red; ' : 'style=color:green;' ?>"><?= encode($row->status)?></td>
                         <td><?= encode($row->fine_amount) ?></td>
                         <td>
                             <a href="/admin/borrowing/update.php?borrowing_id=<?= $row->borrowing_id ?>">Update</a>
                         </td>
-                        <td>
-                            <a href="/admin/borrowing/delete.php?borrowing_id=<?= $row->borrowing_id ?>">Cancel</a>
-                        </td>
+
                     </tr>
                 </table>
             <?php endforeach ?>
