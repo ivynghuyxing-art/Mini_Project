@@ -6,9 +6,15 @@ include '../../_base.php';
 $_title = 'My Borrowing';
 auth(['member']);
 
+<<<<<<< HEAD
 $book_id = (int)req('book_id');
 
 $_err = [];
+=======
+$_id =req('book_id');
+$_user = req('user_id');
+$_err =[];
+>>>>>>> acb92c9648e67f257ea474fa72e9f59ce14d157b
 
 $_user = $_SESSION['user']->user_id;
 
@@ -29,6 +35,7 @@ $_return_date = date('Y-m-d', strtotime('+8 days'));
 $_current = date('Y-m-d');
 $max_days = date('Y-m-d', strtotime('+2 weeks'));
 
+<<<<<<< HEAD
 if (is_post()) {
     $_return_date = req('return_date');
 
@@ -40,6 +47,20 @@ if (is_post()) {
     }
     else if ($_return_date > $max_days) {
         $_err['return_date'] = 'Return date cannot more then 2 weeks ';
+=======
+if(is_post()){
+    $_due_date = req('due_date');
+
+
+    if($_due_date == ''){
+        $_err['due_date'] = 'Required, please fill in due date ';
+    }
+    else if($_due_date == $_current){
+        $_err['due_date'] = 'Invalid, return cannot be same as borrow date';
+    }
+    else if ($_due_date > $max_days){
+        $_err['due_date'] = 'Return date cannot more then 2 weeks ';
+>>>>>>> acb92c9648e67f257ea474fa72e9f59ce14d157b
     }
 
     if (!$_err) {
@@ -47,12 +68,17 @@ if (is_post()) {
 
             $stm = $_db->prepare('UPDATE book SET available_quantity = available_quantity - 1 
                             WHERE book_id =? AND available_quantity > 0');
+<<<<<<< HEAD
+=======
+            $stm->execute([$_id]);
+>>>>>>> acb92c9648e67f257ea474fa72e9f59ce14d157b
 
             $stm->execute([$book_id]);
 
             if ($stm->rowCount() === 0) {
                 throw new ErrorException("Sorry, the book out of stock");
             }
+<<<<<<< HEAD
 
             $stm = $_db->prepare('INSERT INTO borrowing (user_id, borrow_date, return_date, book_id
             , due_date, status) VALUES (?, ?, ?, ?, ?, ?)');
@@ -65,6 +91,19 @@ if (is_post()) {
             echo $e->getMessage();
         }
     }
+=======
+            $stm = $_db->prepare('INSERT INTO borrowing (user_id, borrow_date, book_id
+            , due_date, status) VALUES (?, ?, ?, ?, ?)');
+
+            $stm->execute([$_user,$_current, $_id, $_due_date, 'pending']);
+            temp('info', 'Borrow successful, now waiting for approval from admin!');
+        
+        }catch(ErrorException $e){
+         echo $e->getMessage();
+        }
+    }
+    
+>>>>>>> acb92c9648e67f257ea474fa72e9f59ce14d157b
 }
 
 include '../../_head.php';
@@ -93,10 +132,13 @@ include '../../_head.php';
             <label>Borrow date</label>
             <input type="date" name="borrow_date" value="<?= $_current ?>" readonly>
 
+<<<<<<< HEAD
             <label>Return date</label>
             <?php html_date('return_date', "min='" . date('Y-m-d', strtotime('+1 day')) . "' max='$max_days'") ?>
             <?php err('return_date') ?>
 
+=======
+>>>>>>> acb92c9648e67f257ea474fa72e9f59ce14d157b
             <label>Due date</label>
             <?php html_date('due_date',"min='" . date('Y-m-d', strtotime('+1 day')) . "' max='$max_days'")?>
             <?php err('due_date') ?>
@@ -104,8 +146,13 @@ include '../../_head.php';
         
             <span class="Warning-overdue">
                 <p>
+<<<<<<< HEAD
                     If member did not return in time before the due time <?= encode($_due_date) ?>.
                     The libraries have the rule to charge the member.
+=======
+                    If member did not return in time before the due time <?= encode($_return_date) ?>. 
+                    The libraries have the rule to change the member. 
+>>>>>>> acb92c9648e67f257ea474fa72e9f59ce14d157b
 
                     <br>
 
