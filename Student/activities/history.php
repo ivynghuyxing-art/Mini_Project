@@ -3,7 +3,7 @@ include '../../_base.php';
 
 
 $_title = 'History Borrow Book';
-
+auth(['member']);
 $_user = $_SESSION['user'] ?? '';
 
 $stm= $_db->prepare('SELECT bor.*, bk.title, bk.author
