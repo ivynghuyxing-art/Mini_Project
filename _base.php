@@ -183,6 +183,11 @@ function html_textarea(string $key, string $attr = '') {
     $value = encode($GLOBALS[$key] ?? '');
     echo "<textarea id='$key' name='$key'$attr>$value</textarea>";
 }
+
+function html_date(string $key, string $attr = ''){
+    $value = encode($GLOBALS[$key] ?? '');
+    echo "<input type='date' id='$key' name='$key' value='$value' $attr>";
+}
 // ============================================================================
 // Error Handlings
 // ============================================================================
