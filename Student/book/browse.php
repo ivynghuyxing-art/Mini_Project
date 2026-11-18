@@ -149,13 +149,13 @@ $categories = $stm->fetchAll();
                                 <p class="available-status">
                                     Available
                                 </p>
-                                <a href="/student/activities/borrowing.php?book_id=<?=  $book->book_id ?>" class="borrowing-btn">Borrow</a>
+                                <a href="/Student/activities/borrowing.php?book_id=<?= $book->book_id ?>" class="borrowing-btn">Borrow</a>
 
                             <?php else:?>
                                 <p class="unavailable-status">
                                     Unavailable
                                 </p>
-                                <a href="/student/activities/reservation.php?id=<?= $book->book_id ?>" class="reservation-btn"> Reservation</a>
+                                <a href="/Student/activities/reservation.php?id=<?= $book->book_id ?>" class="reservation-btn"> Reservation</a>
                             <?php endif;?>
 
                             <form method="post" action="/student/engagement/wishlist.php">

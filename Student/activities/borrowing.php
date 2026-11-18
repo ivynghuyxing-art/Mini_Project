@@ -31,7 +31,7 @@ if(!$_b){
 
 $_due_date = date('Y-m-d', strtotime('+8 days'));
 $_current = date('Y-m-d');
-$max_days = date('Y-m-d', strtotime('+5 weeks'));
+$max_days = date('Y-m-d', strtotime('+2 weeks'));
 
 if(is_post()){
 
@@ -44,7 +44,7 @@ if(is_post()){
         $_err['return_date'] = 'Invalid, return cannot be same as borrow date';
     }
     else if ($_return_date > $max_days){
-        $_err['return_date'] = 'Return date cannot more then 5 weeks ';
+        $_err['return_date'] = 'Return date cannot more then 2 weeks ';
     }
 
    
