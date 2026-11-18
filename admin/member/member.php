@@ -2,11 +2,12 @@
 include '../../_base.php'; 
 
 $_title = 'Member';
+auth(['admin']);
 include '../../admin_header.php';
 
-    $stm= $_db->prepare('SELECT * FROM user');
-    $stm->execute();
-    $u = $stm->fetchAll();
+$stm= $_db->prepare('SELECT * FROM user');
+$stm->execute();
+$u = $stm->fetchAll();
 
 ?>
 

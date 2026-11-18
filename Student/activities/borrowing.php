@@ -25,22 +25,22 @@ if(!$_b){
 }
 
 
-$_due_date = date('Y-m-d', strtotime('+8 days'));
+$_return_date = date('Y-m-d', strtotime('+8 days'));
 $_current = date('Y-m-d');
 $max_days = date('Y-m-d', strtotime('+2 weeks'));
 
 if(is_post()){
-    $_return_date = req('return_date');
+    $_due_date = req('due_date');
 
 
-    if($_return_date == ''){
-        $_err['return_date'] = 'Required, please fill in return date ';
+    if($_due_date == ''){
+        $_err['due_date'] = 'Required, please fill in due date ';
     }
-    else if($_return_date == $_current){
-        $_err['return_date'] = 'Invalid, return cannot be same as borrow date';
+    else if($_due_date == $_current){
+        $_err['due_date'] = 'Invalid, return cannot be same as borrow date';
     }
-    else if ($_return_date > $max_days){
-        $_err['return_date'] = 'Return date cannot more then 2 weeks ';
+    else if ($_due_date > $max_days){
+        $_err['due_date'] = 'Return date cannot more then 2 weeks ';
     }
 
     if(!$_err){
@@ -53,10 +53,10 @@ if(is_post()){
             if($stm->rowCount() === 0){
                 throw new ErrorException("Sorry, the book out of stock");
             }
-            $stm = $_db->prepare('INSERT INTO borrowing (user_id, borrow_date, return_date, book_id
-            , due_date, status) VALUES (?, ?, ?, ?, ?, ?)');
+            $stm = $_db->prepare('INSERT INTO borrowing (user_id, borrow_date, book_id
+            , due_date, status) VALUES (?, ?, ?, ?, ?)');
 
-            $stm->execute([$_user,$_current, $_return_date, $_id, $_due_date, 'pending']);
+            $stm->execute([$_user,$_current, $_id, $_due_date, 'pending']);
             temp('info', 'Borrow successful, now waiting for approval from admin!');
         
         }catch(ErrorException $e){
@@ -89,16 +89,14 @@ include '../../_head.php';
             <label>Borrow date</label>
             <input type="date" name="borrow_date" value="<?= $_current ?>" readonly>
 
-            <label>Return date</label>
-            <?php html_date('return_date',"min='" . date('Y-m-d', strtotime('+1 day')) . "' max='$max_days'")?>
-            <?php err('return_date') ?? '' ?>
-
             <label>Due date</label>
-            <input type="date" name="due_date" value="<?= $_due_date ?>" readonly>
+            <?php html_date('due_date',"min='" . date('Y-m-d', strtotime('+1 day')) . "' max='$max_days'")?>
+            <?php err('due_date') ?>
 
+        
             <span class="Warning-overdue">
                 <p>
-                    If member did not return in time before the due time <?= encode($_due_date) ?>. 
+                    If member did not return in time before the due time <?= encode($_return_date) ?>. 
                     The libraries have the rule to change the member. 
 
                     Late 1-3 days: Fine <strong>Rm5</strong> <br>
