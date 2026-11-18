@@ -6,6 +6,7 @@ $_title = 'My Borrowing';
 auth(['member']);
 
 $_id =req('book_id');
+$_user = req('user_id');
 $_err =[];
 
 include '../../_head.php';
@@ -18,11 +19,16 @@ $stm = $_db->prepare('SELECT bk.title, bk.image, bk.author, bk.category_id, bk.d
 $stm->execute([$_id]);
 $_b = $stm->fetch();
 
+$stm = $_db->prepare('SELECT user_id FROM user WHERE user_id =?');
+$stm->execute([$_user]);
+$_b = $stm->fetch();
+
+
 if(!$_b){
     redirect('/student/book/browse.php');
 }
 
-$_user = $_user->user_id;
+
 $_due_date = date('Y-m-d', strtotime('+8 days'));
 $_current = date('Y-m-d');
 $max_days = date('Y-m-d', strtotime('+5 weeks'));

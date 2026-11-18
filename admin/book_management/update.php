@@ -12,6 +12,9 @@ $stm= $_db->prepare('SELECT category_id, name FROM category WHERE category_id=?'
 $stm->execute([$books->category_id]);
 $categories = $stm->fetch();
 
+$stm= $_db->prepare('SELECT COUNT(*) FROM borrowing WHERE book_id=?');
+$stm->execute([$_id]);
+$borrowes = $stm->fetch();
 if(!$books){
     redirect('/');
 }
@@ -84,8 +87,9 @@ if(is_post()){
     }
 
     $_dif = $_newquantity - $_oldquantity;
-    $_new_available = $_oldavailable + $_dif;
-
+    $_new_available = ($_oldavailable + $_dif) - $borrowes; 
+    // this is to calculate the new 
+    // available with the total of borrow
 
     if($_new_available < 0){
         $_err['available_quantity'] ='Quantity cannot be 0';
