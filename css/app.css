@@ -1011,12 +1011,19 @@ body {
     margin-right:8px;
 }
 
-.unavailable-status{
-    background:#fee2e2;
-    color:#dc2626;
-    padding:5px 12px;
-    border-radius:20px;
-    font-size:13px;
+.unavailable-status {
+    color: #dc2626;
+    font-weight: 600;
+}
+
+.unavailable-status::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #dc2626;
+    border-radius: 50%;
+    margin-right: 8px;
 }
 
 .success-message {
@@ -1059,6 +1066,7 @@ body {
         opacity: 0;
     }
 }
+
 .borrowing-btn{
     display:inline-block;
     background:linear-gradient(135deg,#6366F1,#4F46E5);
@@ -1075,6 +1083,26 @@ body {
 .borrowing-btn:hover{
     background:#3730A3;
     transform:translateY(-2px);
+}
+/* Reservation Button */
+
+.reservation-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    padding: 10px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.reservation-btn:hover {
+    background: #b91c1c;
+    transform: translateY(-2px);
 }
 
 .wishlist-btn{
@@ -1835,4 +1863,13 @@ body {
 .show-all-btn:hover {
     color:#24446d;
     cursor:pointer;
+}
+.Date-card input[type="date"] {
+    width: 240px;
+    height: 42px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: block;
+    margin-bottom: 20px;
+    box-sizing: border-box;
 }
