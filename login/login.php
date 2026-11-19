@@ -23,6 +23,8 @@
         }
 
         // Login
+        
+        // Login
         if (!$_err) {
             $stm = $_db->prepare('
                 SELECT * FROM user
@@ -32,6 +34,19 @@
             $u = $stm->fetch();
 
             if ($u) {
+
+                // Check email verification
+                if ($u->email_verified != 1 || $u->valid != 1) {
+
+                    // Save verification session
+                    $_SESSION['verify_user_id'] = $u->user_id;
+                    $_SESSION['verify_email'] = $u->email;
+
+                    temp('info', 'Please verify your email before logging in.');
+
+                    redirect('/verify_email.php');
+                }
+
                 temp('info', 'Login successfully, Welcome ' . $u->username);
 
                 // Redirect based on user role
@@ -40,11 +55,13 @@
                     : '/student/dashboard.php';
 
                 login($u, $url);
+
             }
             else {
                 $_err['password'] = 'Not matched';
             }
         }
+
     }
 ?>
 

@@ -133,32 +133,154 @@ if (!$_err) {
 
         // Send verification email
         $mail = get_mail();
+
         $mail->addAddress($email, $name);
         $mail->isHTML(true);
-        $mail->Subject = 'Email Verification Code';
 
-        $mail->Body = "
-            <h2>Email Verification</h2>
-            <p>Your verification code is:</p>
-            <h1>$verification_code</h1>
-            <p>This code will expire in 10 minutes.</p>
-        ";
+        $mail->Subject = 'Verify Your Email - Library Hub';
+
+        $mail->Body = '
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <meta charset="UTF-8">
+
+        <style>
+            body {
+                margin: 0;
+                padding: 30px 10px;
+                background-color: #f3f4f8;
+                font-family: Arial, sans-serif;
+            }
+
+            .email-container {
+                max-width: 550px;
+                margin: auto;
+                background: #ffffff;
+                border-radius: 12px;
+                overflow: hidden;
+            }
+
+            .email-header {
+                background: #5148c8;
+                padding: 28px;
+                text-align: center;
+                color: #ffffff;
+            }
+
+            .email-header h1 {
+                margin: 0;
+                font-size: 25px;
+            }
+
+            .email-content {
+                padding: 35px 30px;
+                text-align: center;
+                    color: #555555;
+            }
+
+            .verification-box {
+                background: #f0efff;
+                padding: 22px;
+                margin: 25px 0;
+                border-radius: 8px;
+            }
+
+            .verification-code {
+                color: #5148c8;
+                font-size: 32px;
+                letter-spacing: 8px;
+                margin: 0;
+            }
+
+            .email-footer {
+                background: #f8f8fb;
+                padding: 20px;
+                text-align: center;
+                color: #999999;
+                font-size: 12px;
+            }
+        </style>
+
+        </head>
+
+        <body>
+
+            <div class="email-container">
+
+                <div class="email-header">
+                    <h1>LIBRARY HUB</h1>
+                    <p>YOUR DIGITAL LIBRARY</p>
+                </div>
+
+                <div class="email-content">
+
+                    <h2>Verify Your Email</h2>
+
+                    <p>Hello ' . htmlspecialchars($name, ENT_QUOTES, 'UTF-8') . ',</p>
+
+                    <p>
+                        Thank you for registering with Library Hub!
+                        Please use the verification code below
+                        to verify your email address.
+                    </p>
+
+                    <div class="verification-box">
+
+                        <p><strong>YOUR VERIFICATION CODE</strong></p>
+
+                        <h1 class="verification-code">
+                            ' . htmlspecialchars($verification_code, ENT_QUOTES, 'UTF-8') . '
+                        </h1>
+
+                    </div>
+
+                    <p>
+                        This code will expire in
+                        <strong>10 minutes</strong>.
+                    </p>
+
+                    <p>
+                        If you did not create an account,
+                        please ignore this email.
+                    </p>
+
+                </div>
+
+                <div class="email-footer">
+                    © 2026 Library Hub. All rights reserved.
+                </div>
+
+            </div>
+
+        </body>
+        </html>
+        ';
+
+        $mail->AltBody =
+            "Your verification code is: $verification_code. " .
+            "This code expires in 10 minutes.";
 
         $mail->send();
 
         temp('info', 'Registration successful! Please check your email.');
 
-        redirect('/verify_email.php');
+        redirect('/login/verify_email.php');
 
     }
     catch (Throwable $e) {
 
-        if ($_db->inTransaction()) {
-            $_db->rollBack();
-        }
-
-        $_err['email'] = 'Registration failed. Please try again.';
+    if ($_db->inTransaction()) {
+        $_db->rollBack();
     }
+
+    echo '<pre>';
+    echo 'Registration Error: ';
+    echo $e->getMessage();
+    echo '</pre>';
+
+    exit();
+}
 }
 
 }

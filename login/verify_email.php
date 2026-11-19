@@ -1,7 +1,7 @@
 
 <?php
 
-require '_base.php';
+require '../_base.php';
 
 $_title = 'Verify Email';
 
@@ -178,4 +178,4 @@ $title = 'Verify Email | Library Hub';
 
 </html>
 
-<?php include '_foot.php'; ?>
+<?php include '../_footer.php'; ?>
