@@ -178,7 +178,7 @@ $categories = $stm->fetchAll();
                                 <p class="available-status">
                                     Available
                                 </p>
-                                <a href="../activities/borrowing.php?book_id=<?=$book->book_id?>" class="borrowing-btn">Borrow</a>
+                                <a href="../activities/my_borrowing.php?book_id=<?=$book->book_id?>" class="borrowing-btn">Borrow</a>
 
                             <?php else:?>
                                 <p class="unavailable-status">
