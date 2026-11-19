@@ -76,17 +76,91 @@ if (is_post()) {
     }
 
 
-    if (!$_err) {
-        $stm = $_db->prepare('
-            INSERT INTO user (username, email, password,role)
-            VALUES (?, ?, SHA1(?),?)
-        ');
-        $stm->execute([$name, $email, $password,'member']);
+   
+if (!$_err) {
 
-        temp('info', 'Registered! Please login.');
-        redirect('/login/login.php');
-        exit();
+    try {
+        $_db->beginTransaction();
+
+        // Generate 6-digit verification code
+        $verification_code = sprintf(
+            '%06d',
+            random_int(0, 999999)
+        );
+
+        // Set expiration time (10 minutes)
+        $expire = date(
+            'Y-m-d H:i:s',
+            time() + 600
+        );
+
+        // Insert user
+        $stm = $_db->prepare('
+            INSERT INTO user
+            (username, email, password, role, valid, email_verified)
+            VALUES (?, ?, SHA1(?), ?, 0, 0)
+        ');
+
+        $stm->execute([
+            $name,
+            $email,
+            $password,
+            'member'
+        ]);
+
+        // Get user ID
+        $user_id = $_db->lastInsertId();
+
+        // Insert verification code into token table
+        $stm = $_db->prepare('
+            INSERT INTO token
+            (user_id, expire, token_type, verification_code, is_used, created_at)
+            VALUES (?, ?, ?, ?, 0, NOW())
+        ');
+
+        $stm->execute([
+            $user_id,
+            $expire,
+            'email_verification',
+            $verification_code
+        ]);
+
+        $_db->commit();
+
+        // Store verification information
+        $_SESSION['verify_user_id'] = $user_id;
+        $_SESSION['verify_email'] = $email;
+
+        // Send verification email
+        $mail = get_mail();
+        $mail->addAddress($email, $name);
+        $mail->isHTML(true);
+        $mail->Subject = 'Email Verification Code';
+
+        $mail->Body = "
+            <h2>Email Verification</h2>
+            <p>Your verification code is:</p>
+            <h1>$verification_code</h1>
+            <p>This code will expire in 10 minutes.</p>
+        ";
+
+        $mail->send();
+
+        temp('info', 'Registration successful! Please check your email.');
+
+        redirect('/verify_email.php');
+
     }
+    catch (Throwable $e) {
+
+        if ($_db->inTransaction()) {
+            $_db->rollBack();
+        }
+
+        $_err['email'] = 'Registration failed. Please try again.';
+    }
+}
+
 }
 
 ?>
