@@ -61,9 +61,6 @@ if(is_post()){
         }
     }
 
-    
-
-
     if(!$_err){
         if($f){
             $_photo = save_photo($f, $_SERVER['DOCUMENT_ROOT'] .'/images/Book_pic');
