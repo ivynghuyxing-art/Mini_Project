@@ -75,24 +75,16 @@ if (is_post()) {
         $_err['username'] = 'Maximum 100 characters';
     }
 
-
-   
 if (!$_err) {
 
     try {
         $_db->beginTransaction();
 
         // Generate 6-digit verification code
-        $verification_code = sprintf(
-            '%06d',
-            random_int(0, 999999)
-        );
+        $verification_code = sprintf('%06d', random_int(0, 999999));
 
         // Set expiration time (10 minutes)
-        $expire = date(
-            'Y-m-d H:i:s',
-            time() + 600
-        );
+        $expire = date('Y-m-d H:i:s',time() + 600);
 
         // Insert user
         $stm = $_db->prepare('
