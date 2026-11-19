@@ -5,6 +5,7 @@ include '../_base.php';
 $_title = 'My Profile';
 
 auth(['member']);
+$info = temp('info');
 
 if (is_get()) {
     $stm = $_db->prepare('SELECT * FROM user WHERE user_id = ?');
@@ -87,7 +88,7 @@ if (is_post()) {
         $updated = $stm->fetch();
         $_SESSION['user'] = $updated;
 
-        temp('info', 'Record updated');
+        temp('info', 'Profile picture updated successful!');
         redirect('/Student/profile.php');
     }
 
@@ -112,6 +113,12 @@ if (is_post()) {
 </header>
 
 <form method="post" class="form_m" enctype="multipart/form-data">
+    <?php if ($info): ?>
+        <p class="success-message">
+            <?= encode($info) ?>
+        </p>
+    <?php endif; ?>
+
     <a href="/Student/dashboard.php"> <=== Back to Home page</a>
     <label for="photo">Photo</label>
     <label class="upload" tabindex="0">

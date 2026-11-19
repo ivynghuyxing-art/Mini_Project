@@ -17,7 +17,7 @@ $borrows = $stm->fetchAll();
 if(!$_user){
     redirect('../book/browse.php');
 }
-include '../../admin_header.php';
+include '../../_head.php';
 ?>
 
 <form>

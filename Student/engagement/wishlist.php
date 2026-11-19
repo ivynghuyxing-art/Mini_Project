@@ -5,6 +5,8 @@ include '../../_base.php';
 $_title = 'My WishList';
 auth(['member']);
 
+$message = temp('message');
+
 $_title ="My WishList";
 
 $user = $_user->user_id;
@@ -44,7 +46,6 @@ $stm = $_db->prepare("SELECT wishlist.wishlist_id, wishlist.added_date,book.book
 $stm->execute([$user]);
 
 $wishlist = $stm->fetchAll();
-$message = temp('message');
 include '../../_head.php';
 
 ?>
