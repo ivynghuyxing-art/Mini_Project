@@ -35,6 +35,7 @@
             <a href="/admin/borrowing/borrowing.php" class="sidebar-link">Borrowing Management</a>
             <a href="/admin/reservation/reservation.php" class="sidebar-link">Reservation Management</a>
             <a href="/admin/fine/fine.php" class="sidebar-link">Fine Management</a>
+            <a href="/admin/report/report.php" class="sidebar-link"> Report Management</a>
 
 
 

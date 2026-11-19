@@ -1088,7 +1088,7 @@ body {
 
 .reservation-btn {
     display: inline-block;
-    background: linear-gradient(135deg, #ef4444, #dc2626);
+    background:#0D9488;
     color: white;
     padding: 10px 22px;
     border-radius: 8px;
@@ -1101,7 +1101,7 @@ body {
 }
 
 .reservation-btn:hover {
-    background: #b91c1c;
+    background: #0F766E;
     transform: translateY(-2px);
 }
 
