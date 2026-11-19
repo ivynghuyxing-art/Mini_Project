@@ -20,7 +20,14 @@ $stm = $_db->prepare('SELECT bk.title, bk.image, bk.author, bk.category_id, bk.d
 $stm->execute([$book_id]);
 $_b = $stm->fetch();
 
+$stm = $_db->prepare("SELECT COUNT(*) FROM borrowing WHERE user_id = ? AND book_id = ? AND status IN ('PENDING', 'APPROVAL')");
+$stm->execute([$_user, $book_id]);
 
+if($stm->rowCount() > 0){
+    temp('info', 'The book have borrow before');
+    redirect('/student/book/browse.php');
+}
+$_b = $stm->fetch();
 if (!$_b) {
     redirect('/student/activities/my_borrowing.php');
 }
