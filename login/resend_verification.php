@@ -245,7 +245,6 @@ if (is_post()) {
     }
 }
 
-
 ?>
 
 <!DOCTYPE html>
