@@ -1,3 +1,7 @@
+<?php
+include_once __DIR__ . '/_base.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

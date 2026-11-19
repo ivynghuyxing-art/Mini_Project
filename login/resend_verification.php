@@ -89,7 +89,6 @@ if (is_post()) {
             $verification_code
         ]);
 
-
         // Save database changes
         $_db->commit();
 
@@ -102,7 +101,7 @@ if (is_post()) {
         $mail->addAddress($email, $user->username);
         $mail->isHTML(true);
 
-        $mail->Subject = 'New Verification Code - Library Hub';
+        $mail->Subject = 'New Verification Code - StoryVault';
 
         $mail->Body = '
         <!DOCTYPE html>
@@ -212,7 +211,7 @@ if (is_post()) {
                 </div>
 
                 <div class="email-footer">
-                    © 2026 Library Hub. All rights reserved.
+                    © 2026 Story Vault. All rights reserved.
                 </div>
 
             </div>

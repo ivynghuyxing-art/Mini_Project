@@ -5,7 +5,7 @@ include '../../_base.php';
 
 auth(['member']);
 
-$_title = 'Browse Books';
+$_title = 'Chat';
 include '../../_head.php';
 
 ?>
