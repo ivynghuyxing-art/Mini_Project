@@ -209,3 +209,191 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 });
+
+// ==============================
+// 1. Conversation Configuration
+// ==============================
+
+let conversationId = window.chatConfig.conversationId;
+
+
+// ==============================
+// 2. DOM Elements
+// ==============================
+
+const chatForm = document.getElementById('chatForm');
+const messageInput = document.getElementById('messageInput');
+const messages = document.getElementById('messages');
+const errorMessage = document.getElementById('errorMessage');
+const sendBtn = document.getElementById('sendBtn');
+
+const historyModal = document.getElementById('historyModal');
+
+
+// ==============================
+// 3. Display Chat Message
+// ==============================
+function addMessage(content, sender) {
+
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'ai-message ' + sender;
+
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'message-content';
+
+    // Format AI response using Markdown
+    if (sender === 'ai') {
+        contentDiv.innerHTML = DOMPurify.sanitize(
+            marked.parse(content)
+        );
+    }
+    else {
+        contentDiv.textContent = content;
+    }
+
+    messageDiv.appendChild(contentDiv);
+    messages.appendChild(messageDiv);
+
+    scrollToBottom();
+}
+
+
+
+// ==============================
+// 4. Auto Scroll
+// ==============================
+
+function scrollToBottom() {
+
+    messages.scrollTop = messages.scrollHeight;
+
+}
+
+
+// ==============================
+// 5. Send Message and Get AI Reply
+// ==============================
+
+chatForm.addEventListener('submit', async (e) => {
+
+    e.preventDefault();
+
+    const message = messageInput.value.trim();
+
+    if (!message) return;
+
+    errorMessage.textContent = '';
+
+    addMessage(message, 'member');
+
+    messageInput.value = '';
+
+    sendBtn.disabled = true;
+    sendBtn.textContent = 'Sending...';
+
+    try {
+
+        const response = await fetch('../../api/chat.php', {
+
+            method: 'POST',
+
+            headers: {
+                'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify({
+                message: message,
+                conversation_id: conversationId
+            })
+
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error(data.error || 'Unable to get AI response.');
+        }
+
+        conversationId = data.conversation_id;
+
+        addMessage(data.reply, 'ai');
+
+    }
+    catch (error) {
+
+        errorMessage.textContent = error.message;
+
+    }
+    finally {
+
+        sendBtn.disabled = false;
+        sendBtn.textContent = 'Send';
+
+        messageInput.focus();
+
+    }
+
+});
+
+
+// ==============================
+// 6. Start New Conversation
+// ==============================
+
+document.getElementById('newChatBtn').addEventListener('click', () => {
+
+    conversationId = '';
+
+    messages.innerHTML = `
+        <div class="ai-welcome">
+            <h2>Hello! Welcome to Story Vault AI</h2>
+            <p>Ask me anything about books or reading.</p>
+        </div>
+    `;
+
+    messageInput.value = '';
+    errorMessage.textContent = '';
+
+    messageInput.focus();
+
+});
+
+
+// ==============================
+// 7. Chat History Modal
+// ==============================
+
+// Open history
+document.getElementById('historyBtn').addEventListener('click', () => {
+
+    historyModal.style.display = 'flex';
+
+});
+
+
+// Close history
+document.getElementById('closeHistoryBtn').addEventListener('click', () => {
+
+    historyModal.style.display = 'none';
+
+});
+
+
+// Close when clicking outside
+historyModal.addEventListener('click', (e) => {
+
+    if (e.target === historyModal) {
+
+        historyModal.style.display = 'none';
+
+    }
+
+});
+
+
+// ==============================
+// 8. Initial Scroll
+// ==============================
+
+scrollToBottom();
+

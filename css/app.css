@@ -1898,3 +1898,246 @@ body {
     margin-bottom: 20px;
     box-sizing: border-box;
 }
+
+/* ==============================
+   AI Chat Container
+============================== */
+.ai-container {
+    width: calc(100% - 400px);
+    max-width: 1000px;
+    height: 620px;
+    /* Move away from sidebar and center */
+    margin: 110px 30px 40px 310px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* ==============================
+   Header
+============================== */
+.ai-header {
+    padding: 20px 28px;
+    background: linear-gradient(120deg, #354da8, #7048d2);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ai-header h2 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.ai-header p {
+    margin: 5px 0 0;
+    font-size: 13px;
+    color: #e5e5ff;
+}
+
+.ai-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.ai-actions button {
+    padding: 10px 18px;
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 8px;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.ai-actions button:hover {
+    background: rgba(255,255,255,0.18);
+}
+
+/* ==============================
+   Messages Area
+============================== */
+
+.ai-messages {
+    flex: 1;
+    padding: 28px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    background: #ffffff;
+}
+
+.ai-welcome {
+    margin: auto;
+    text-align: center;
+    color: #555;
+}
+
+.ai-welcome h2 {
+    color: #5146c8;
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.ai-welcome p {
+    color: #777;
+    font-size: 15px;
+}
+
+/* ==============================
+   Chat Bubbles
+============================== */
+
+.ai-message {
+    max-width: 75%;
+    padding: 13px 18px;
+    border-radius: 14px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.ai-message.member {
+    align-self: flex-end;
+    background: #554bd3;
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+.ai-message.ai {
+    align-self: flex-start;
+    background: #f1f1f8;
+    color: #333;
+    border-bottom-left-radius: 4px;
+}
+
+/* ==============================
+   Input Area
+============================== */
+
+.ai-input-area {
+    padding: 18px 25px;
+    border-top: 1px solid #eeeeee;
+    background: #ffffff;
+}
+
+.ai-form {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.ai-form input {
+    flex: 1;
+    height: 48px;
+    padding: 0 18px;
+    border: 1px solid #dddded;
+    border-radius: 25px;
+    outline: none;
+    font-size: 15px;
+}
+
+.ai-form input:focus {
+    border-color: #6554d9;
+    box-shadow: 0 0 0 3px rgba(101,84,217,0.1);
+}
+
+.ai-form button {
+    height: 46px;
+    padding: 0 28px;
+    border: none;
+    border-radius: 25px;
+    background: #594bd2;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.ai-form button:hover {
+    background: #4436b8;
+}
+
+.ai-form button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.ai-error {
+    color: #dc3545;
+    font-size: 13px;
+    margin: 8px 0 0;
+}
+
+/* ==============================
+   Chat History Modal
+============================== */
+
+.history-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,0.4);
+    align-items: center;
+    justify-content: center;
+}
+
+.history-box {
+    width: 450px;
+    max-width: calc(100% - 30px);
+    max-height: 75vh;
+    overflow-y: auto;
+    background: white;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.2);
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.history-header h3 {
+    margin: 0;
+    color: #5146c8;
+}
+
+.history-close {
+    border: none;
+    background: none;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+.history-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px;
+    border-bottom: 1px solid #eeeeee;
+    text-decoration: none;
+    color: #333;
+}
+
+.history-item:hover {
+    background: #f5f3ff;
+}
+
+.history-item small {
+    color: #888;
+}
+
+.history-empty {
+    color: #888;
+    text-align: center;
+}
+
