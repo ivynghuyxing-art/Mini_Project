@@ -226,20 +226,22 @@ function logout(string $url = '/') {
     redirect($url);
 }
 
-// Authorization
 function auth(array $roles) {
     global $_user;
+
     if ($_user) {
+        $user_role = strtolower(trim($_user->role));
+
         if ($roles) {
-            if (in_array($_user->role, $roles)) {
-                return; // OK
+            if (in_array($user_role, $roles, true)) {
+                return;
             }
         }
         else {
-            return; // OK
+            return;
         }
     }
-    
+
     redirect('/login/login.php');
 }
 

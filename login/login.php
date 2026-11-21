@@ -44,18 +44,21 @@
 
                     temp('info', 'Please verify your email before logging in.');
 
-                    redirect('/verify_email.php');
+                    redirect('/login/verify_email.php');
                 }
 
                 temp('info', 'Login successfully, Welcome ' . $u->username);
 
+                // Clean user role
+                $u->role = strtolower(trim($u->role));
+
                 // Redirect based on user role
-                $url = ($u->role == 'admin')
+                $url = ($u->role === 'admin')
                     ? '/admin/home.php'
                     : '/student/dashboard.php';
 
                 login($u, $url);
-
+                
             }
             else {
                 $_err['password'] = 'Not matched';
