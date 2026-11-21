@@ -4,7 +4,7 @@
 require '../_base.php';
 
 $_title = 'Verify Email';
-
+$_err=[];
 if (!isset($_SESSION['verify_user_id']) ||
     !isset($_SESSION['verify_email'])) {
 
@@ -155,9 +155,9 @@ $title = 'Verify Email | Library Hub';
 
                 <label for="code">Verification Code</label>
 
-                <?= html_text('code', 'maxlength="6" pattern="[0-9]{6}" inputmode="numeric"') ?>
+                <?php html_text('code', 'maxlength="6" pattern="[0-9]{6}" inputmode="numeric"') ?>
 
-                <?= err('code') ?>
+                <?php err('code') ?>
 
                 <button type="submit" class="register-btn">
                     Verify
