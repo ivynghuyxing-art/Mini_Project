@@ -25,20 +25,12 @@ if(is_post()){
 
 
 $_title = 'Add category';
+include '../../admin_header.php';
 ?>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $_title ?? 'Library Hub Management' ?></title>
-    <link rel="shortcut icon" href="/images/favicon.png">
-    <link rel="stylesheet" href="/css/app.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="/js/app.js"></script>
-</head>
 
 <form method="post" enctype="multipart/form-data">
-    <a href="/admin/home.php">Back to home</a>
-    <div class="add-book-card">
+    <div class="add-book-card-cat">
+        <a href="/admin/Category/home-category.php">Back to home</a>
 
         <label for="name">Name</label>
         <?php html_text('name', 'maxlength="100"') ?>

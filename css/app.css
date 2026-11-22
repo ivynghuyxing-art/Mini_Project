@@ -1211,6 +1211,18 @@ body {
     width: 400px;
     height: 300px;
 }
+.home-cat-card table{
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    
+}
+.home-cat-card th{
+    padding: 10px;
+}
 
 /*=========================
        Update category    
@@ -1328,8 +1340,7 @@ body {
     text-align: center;
     margin: 130px auto 0;
     box-sizing: border-box;
-    border: 1px solid black;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 20px;
     width: 600px;
     height: 400px;
@@ -1338,9 +1349,12 @@ body {
     width: 100%;
     border-collapse: collapse;
     background-color: #ffffff;
-    border-radius: 12px;
+    border-radius: 0px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) ;
+}
+.member-card th{
+    padding: 20px;
 }
 .member-card td{
     border-bottom: 1px solid #eee;
@@ -1511,7 +1525,58 @@ body {
     background: #344596;
 }
 
+.add-book-card{
+    max-width: 480px;
+    margin: 90px auto;
+    padding: 24px 28px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    box-sizing: border-box;
+}
 
+.add-book-card label{
+    display: block;
+    margin: 16px 0 6px;    
+    font-weight: bold;
+    text-align: left;
+}
+
+.add-book-card input,
+.add-book-card select,
+.add-book-card textarea{
+    width: 100%;
+    box-sizing: border-box; 
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    margin: 0;
+}
+
+.add-book-card textarea{
+    height: 100px;
+    padding: 8px 10px;
+    resize: vertical;
+}
+
+.add-book-card button{
+    margin: 20px 10px;
+    width: 150px;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 5px;
+    background: #fff;
+    color: #000;
+   
+}
+
+.add-book-card button:hover{
+   background-color: #320ab3;
+    color: #ffffff;
+    border-color: #532fb6;
+}
 /* =========================================
    BOOK GRID
 ========================================= */
@@ -2152,6 +2217,120 @@ body {
 .Not_overdue{
     color: green;
 }
+
+/*==================================
+            Category        
+===================================*/
+.add-book-card-cat{
+    max-width: 480px;
+    margin: 200px 120px 0px 600px;
+    padding: 24px 28px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    box-sizing: border-box;
+}
+.add-book-card-cat label{
+    display: block;
+    margin: 16px 0 6px;      
+    font-weight: bold;
+    text-align: left;
+}
+.add-book-card-cat input {
+    width: 100%;
+    box-sizing: border-box;  /* padding doesn't make it overflow */
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    margin: 0;
+}
+.add-book-card-cat button{
+    margin: 20px 10px;
+    width: 150px;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 5px;
+    background: #fff;
+    color: #000;
+    cursor: pointer;
+}
+
+.add-book-card-cat button:hover{
+    background-color: #320ab3;
+    color: #ffffff;
+    border-color: #532fb6;
+}
+/*==================================
+            Category Update       
+===================================*/
+.cat-update-card label{
+    display: block;
+    margin: 16px 0 6px;      
+    font-weight: bold;
+    text-align: left;
+}
+.cat-update-card input{
+    width: 100%;
+    box-sizing: border-box;  /* padding doesn't make it overflow */
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    margin: 0;
+}
+.cat-update-card button{
+     margin: 20px 10px;
+    width: 150px;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 5px;
+    background: #fff;
+    color: #000;
+}
+.cat-update-card button:hover{
+    background-color: #320ab3;
+    color: #ffffff;
+    border-color: #532fb6;
+    cursor: pointer;
+}
+/*==================================
+            Category Delete      
+===================================*/
+.delete-card{
+    max-width: 480px;
+    margin: 160px 0px 0px 300px;
+    padding: 24px 28px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    box-sizing: border-box;
+}
+.delete-card p{
+    display: block;
+    margin: 16px 0 6px;      
+    font-weight: bold;
+    text-align: left;
+}
+
+.delete-card button{
+    width: 20%;
+    height: 30px;
+    margin-left: 20px ;
+    cursor: pointer;
+    background: #fff;
+    color: #000;
+    border-radius: 3px;
+}
+.delete-card button:hover{
+   background-color: #320ab3;
+    color: #ffffff;
+    border-color: #532fb6;
+    cursor: pointer;
+}
+
 
 
 

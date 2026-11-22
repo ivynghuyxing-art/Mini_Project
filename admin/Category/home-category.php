@@ -27,6 +27,7 @@ $message = temp('info');
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Action</th>
                 </tr>
 
                 <?php foreach($category as $c =>$cat):?>
