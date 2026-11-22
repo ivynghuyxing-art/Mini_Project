@@ -42,6 +42,11 @@ if($return->status === 'RETURN'){
     temp('info', 'Invaild, if book status is return');
     redirect('/Student/activities/history.php');   
 
+}else if($return->status === 'PENDING'){
+
+    temp('info', 'The book is still pending cannot, must be approval first');
+    redirect('/Student/activities/history.php');
+
 }else if($return->status === 'REJECT'){
 
     temp('info', 'The book is been rejected');
