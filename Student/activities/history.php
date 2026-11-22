@@ -1,18 +1,39 @@
 <?php 
 include '../../_base.php'; 
 
-
 $_title = 'History Borrow Book';
 auth(['member']);
+
 $_user = $_SESSION['user'] ?? '';
 
-$stm= $_db->prepare('SELECT bor.*, bk.title, bk.author
+$_array_s = [
+    'pending' => 'PENDING',
+    'approval' => 'APPROVAL',
+    'return' => 'RETURN',
+    'reject' => 'REJECT',
+];
+
+
+$_status = $_GET['status'] ??'';
+
+$s='SELECT bor.*, bk.title, bk.author
                     FROM borrowing bor
                     JOIN book bk ON bk.book_id = bor.book_id
                     WHERE bor.user_id=?
-                    ORDER BY bor.borrow_date DESC');
-$stm->execute([$_user->user_id]);
+                    ';
+$result = [$_user->user_id];
+
+if(array_key_exists($_status,$_array_s)){
+    $s .= 'AND bor.status =?';
+   $result[] = $_status;
+}
+
+$s .= ' ORDER BY bor.borrow_date DESC';
+
+$stm = $_db->prepare($s);
+$stm->execute($result);
 $borrows = $stm->fetchAll();
+
 
 if(!$_user){
     redirect('../book/browse.php');
@@ -20,8 +41,20 @@ if(!$_user){
 include '../../_head.php';
 ?>
 
-<form>
+<form method="get">
     <div class="borrow-card">
+        <select name="status">
+            <option value="">All status</option>
+            <?php foreach($_array_s  as $sat =>$_label): ?>
+                <option value="<?= $sat ?>" <?= $_status === $sat ? 'selected' : '' ?>>
+                    <?= encode($_label)?>
+                </option>
+            <?php endforeach;?>
+        </select>
+
+        <button>Search</button>
+
+
         <?php if($borrows):?>
             <?php foreach($borrows as $row): ?>
                 <table class="borrow-t">
@@ -42,16 +75,20 @@ include '../../_head.php';
                         <td><?= encode($row->author) ?></td>
                         <td><?= encode($row->borrow_date) ?></td>
                         <td><?= encode($row->due_date) ?></td>
-                        <td><?= $row->return_date ? encode($row->return_date) : '-'?></td>
+                        <td><?= $row->return_date ? encode($row->return_date) : 'Not return yet'?></td>
                         <td class="status-<?= strtolower(encode($row->status)) ?>">
                             <?= encode($row->status)?>
                         </td>
                         <td>RM <?= number_format($row->fine_amount) ?></td>
+
+                        <button>
+                            <a href="/Student/activities/return.php">Ready to return book?</a>
+                        </button>
                     </tr>
                 </table>
             <?php endforeach ?>
         <?php else: ?>
-                <h3>You have no history book yet</h3>
+                <h3>You have no borrow yet</h3>
         <?php endif ?>
 
     </div>

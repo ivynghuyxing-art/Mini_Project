@@ -41,7 +41,7 @@ include_once __DIR__ . '/_base.php';
             <a href="/student/book/browse.php" class="sidebar-link <?= $current_page == 'browse.php'?'active':'' ?>"> Browse Books</a>
 
             <p class="sidebar-title">My Activities</p>
-            <a href="/Student/activities/borrowing.php" class="sidebar-link <?= $current_page == 'my_borrowing.php'?'active':'' ?>"> My Borrowing</a>
+            <a href="/Student/activities/my_borrowing.php" class="sidebar-link <?= $current_page == 'my_borrowing.php'?'active':'' ?>"> My Borrowing</a>
             <a href="/student/activities/reservation.php" class="sidebar-link <?= $current_page == 'reservation.php'?'active':'' ?>"> My Reservations</a>
             <a href="/student/activities/fines.php" class="sidebar-link <?= $current_page == 'fines.php'?'active':'' ?>"> My Fines</a>
             <a href="/student/activities/history.php" class="sidebar-link <?= $current_page == 'history.php'?'active':'' ?>"> My Borrowing History</a>
