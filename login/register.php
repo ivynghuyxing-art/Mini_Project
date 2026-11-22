@@ -9,7 +9,9 @@ $confirm  = req('confirm');
 
 
 if (is_post()) {
-    $_err = [];
+ $_err = [];
+
+
 
     if (!$email) {
         $_err['email'] = 'Required';
@@ -75,6 +77,7 @@ if (is_post()) {
         $_err['username'] = 'Maximum 100 characters';
     }
 
+    
 if (!$_err) {
 
     try {
