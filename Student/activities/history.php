@@ -13,6 +13,9 @@ $_array_s = [
     'reject' => 'REJECT',
 ];
 
+if(!$_user){
+    redirect('../book/browse.php');
+}
 
 $_status = $_GET['status'] ??'';
 
@@ -25,7 +28,7 @@ $result = [$_user->user_id];
 
 if(array_key_exists($_status,$_array_s)){
     $s .= 'AND bor.status =?';
-   $result[] = $_status;
+   $result[] =  $_array_s[$_status];
 }
 
 $s .= ' ORDER BY bor.borrow_date DESC';
@@ -34,10 +37,6 @@ $stm = $_db->prepare($s);
 $stm->execute($result);
 $borrows = $stm->fetchAll();
 
-
-if(!$_user){
-    redirect('../book/browse.php');
-}
 include '../../_head.php';
 ?>
 
@@ -66,6 +65,7 @@ include '../../_head.php';
                         <th>Return Date</th>
                         <th>Status</th>
                         <th>Fine Payment</th>
+                        <th>Action</th>
                     </tr>
 
                     <tr>
@@ -80,10 +80,17 @@ include '../../_head.php';
                             <?= encode($row->status)?>
                         </td>
                         <td>RM <?= number_format($row->fine_amount) ?></td>
-
-                        <button>
-                            <a href="/Student/activities/return.php?id=<?= $row->borrowing_id ?>>">Ready to return book?</a>
-                        </button>
+                        <td>
+                        <?php if(strtoupper($row->status) === 'APPROVAL'):?>
+                            <button>
+                                <a href="/Student/activities/return.php?borrowing_id=<?= encode($row->borrowing_id) ?>">Ready to return book?</a>
+                            </button>
+                        <?php elseif(strtoupper($row->status) === 'RETURN'):?>
+                            <span class="btn_disable"> Book return </span>
+                        <?php else:?>
+                            <span class="btn_disable"> No return </span>
+                        <?php endif;?>
+                        </td>
                     </tr>
                 </table>
             <?php endforeach ?>

@@ -2330,3 +2330,32 @@ body {
     border-color: #532fb6;
     cursor: pointer;
 }
+/*==================================
+            Borrow history      
+===================================*/
+.borrow-t{
+    width: 500px;
+    margin: 20px;
+    padding: 24px 28px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    box-sizing: border-box;
+}
+.borrow-t table{
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 0px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) ;
+}
+
+.borrow-t th{
+    padding: 15px;
+}
+.borrow-t td{
+    padding: 10px;
+    width: 200%;
+}

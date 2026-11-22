@@ -9,15 +9,18 @@ const Fine_of_Day = 2.50;
 
 $_borrow_id = req('borrowing_id');
 $book_id = (int)req('book_id');
+$_user = $_SESSION['user'] ?? '';
 
-
-
-$stm = $_db->prepare('SELECT bk.title, bk.image, bk.author, bk.category_id, bk.description,
+if(!$_user){
+    redirect('/Student/book/browse.php');
+}
+$stm = $_db->prepare('SELECT bor.*, bk.title, bk.image, bk.author, bk.category_id, bk.description,
                         c.name AS category_name
-                        FROM book bk 
+                        FROM borrowing bor
+                        JOIN book bk ON bk.book_id = bor.book_id
                         JOIN category c ON bk.category_id = c.category_id
-                        WHERE bk.book_id =?');
-$stm->execute([$_borrow_id]);
+                        WHERE bor.borrowing_id =? AND bor.user_id=?');
+$stm->execute([$_borrow_id,$_user->user_id]);
 $return = $stm->fetch();
 
 if(!$return){
@@ -33,48 +36,49 @@ $_due_td = strtotime($_due_date);
 
 $_borrow_date = $return->borrow_date;
 
+$_status = strtoupper(trim($return->status));
 
-if($return->status === 'RETURN'){
+if($_status === 'RETURN'){
     $_return_date = $return->return_date;
     $_fine_amount = $return->fine_amount;
-    $day_late = (int)($_fine_amount / Fine_Of_Day);
+    $day_late = (int)($_fine_amount / Fine_of_Day);
 
     temp('info', 'Invaild, if book status is return');
     redirect('/Student/activities/history.php');   
 
-}else if($return->status === 'PENDING'){
+}else if($_status === 'PENDING'){
 
     temp('info', 'The book is still pending cannot, must be approval first');
     redirect('/Student/activities/history.php');
 
-}else if($return->status === 'REJECT'){
+}else if($_status === 'REJECT'){
 
     temp('info', 'The book is been rejected');
     redirect('/Student/activities/history.php');
 
-}else if($return->status !== 'APPROVAL'){
+}else if($_status !== 'APPROVAL'){
 
     temp('info', 'The book must be approval first');
     redirect('/Student/activities/history.php');
 
 }else{
 
-    $day_late = floor(($_return_date - $_due_date) / 86400 );
-    $_fine_amount = $day_late * Fine_Of_Day;
+    $day_late = max(0, (int)floor(($_return_td - $_due_td) / 86400 ));
+    $_fine_amount = $day_late * Fine_of_Day;
 }
 
 
-if($_return_date > $_due_date){
+if($_return_td > $_due_td){
     $stm = $_db->prepare('UPDATE borrowing SET fine_amount=?, status=? WHERE borrowing_id=?');
     $stm->execute([$_fine_amount,'PENDING',$_borrow_id]);
 
 }else{
 
-    $stm = $_db->prepare('UPDATE book SET avaiilable_quantity = available_quantity + 1 WHERE book_id =?');
-    $stm->execute([$book_id]);
+    $stm = $_db->prepare('UPDATE book SET available_quantity = available_quantity + 1 WHERE book_id =?');
+    $stm->execute([$return->book_id]);
 
     $stm = $_db->prepare('UPDATE borrowing SET return_date=?,status=?, fine_amount=? WHERE borrowing_id=?');
-    $stm->execute(['RETURN',$_return_date, $_fine_amount,$_borrow_id]);
+    $stm->execute([$_return_date,'RETURN',$_fine_amount,$_borrow_id]);
 
 }
 
@@ -115,7 +119,7 @@ include '../../_head.php';
             <input type="date" name="due_date" value="<?= $_due_date ?>" readonly>
 
             <label>Return date</label>
-            <input type="date" name="return_date" value="<?= $_return_date ?>" readonly>
+            <input type="date" name="return_date" value="<?= $_return_td ?>" readonly>
 
             <label>Late days</label>
             <p>
