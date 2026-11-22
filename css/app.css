@@ -2141,3 +2141,14 @@ body {
     text-align: center;
 }
 
+/*===============================
+        Return borrow           
+=================================*/
+
+.paid_overdue{
+    color: red;
+}
+
+.Not_overdue{
+    color: green;
+}

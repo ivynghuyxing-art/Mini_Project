@@ -82,7 +82,7 @@ include '../../_head.php';
                         <td>RM <?= number_format($row->fine_amount) ?></td>
 
                         <button>
-                            <a href="/Student/activities/return.php">Ready to return book?</a>
+                            <a href="/Student/activities/return.php?id=<?= $row->borrowing_id ?>>">Ready to return book?</a>
                         </button>
                     </tr>
                 </table>

@@ -27,7 +27,7 @@ $_fine_amount = $borrows->fine_amount;
 
 
 $_oldstatus = strtoupper(trim($borrows->status));
-$_array = ['APPROVAL','RETURN','PENDING','REJECT'];
+$_array = ['APPROVAL','RETURN','PENDING','REJECT','NOT PAY'];
 
 if(is_post()){
     $_status =strtoupper(trim(req('status')));
@@ -37,7 +37,7 @@ if(is_post()){
     }else if (strlen($_status) > 10){
         $_err['status'] = 'No more then 10 character';
     }else if(!in_array($_status, $_array) ){
-        $_err['status'] = 'Must be PENDING,APPROVAL,RETURN OR REJECT only';
+        $_err['status'] = 'Must be PENDING, APPROVAL, RETURN, NOT PAY OR REJECT only';
     }
 
 
@@ -58,7 +58,7 @@ if(is_post()){
         else if($_status == 'RETURN' && $_oldstatus == 'APPROVAL'){
 
             if($_return_td > $_due_date){
-                $day_late = floor(($_return_td / $_due_date)/ 86400 );
+                $day_late = floor(($_return_td - $_due_date)/ 86400 );
                 $_fine_amount = $day_late * Fine_Of_Day;
             }
 

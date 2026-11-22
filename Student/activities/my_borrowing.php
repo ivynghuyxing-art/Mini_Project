@@ -113,9 +113,7 @@ include '../../_head.php';
 
                     <br>
 
-                    Late 1-3 days: Fine <strong>RM5</strong> <br>
-                    Late 4-6 days: Fine <strong>RM8</strong> <br>
-                    Late 7-8 days: Fine <strong>RM12</strong>
+                    Every 1 day will charge : RM <strong>2.50</strong>
                 </p>
             </span>
 
