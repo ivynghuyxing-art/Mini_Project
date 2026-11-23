@@ -32,7 +32,9 @@ include '../../admin_header.php';
                         <td><?= encode($row->book_id) ?></td>
                         <td><?= encode($row->borrow_date) ?></td>
                         <td><?= encode($row->due_date) ?></td>
-                        <td class="<?= $row->status === 'borrow' ? 'style=color:red; ' : 'style=color:green;' ?>"><?= encode($row->status)?></td>
+                        <td class="status-<?= strtolower(encode($row->status)) ?>">
+                            <?= encode($row->status)?>
+                        </td>
                         <td><?= encode($row->fine_amount) ?></td>
                         <td>
                             <a href="/admin/borrowing/update.php?borrowing_id=<?= $row->borrowing_id ?>">Update</a>

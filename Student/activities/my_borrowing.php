@@ -68,7 +68,7 @@ if(is_post()){
 
             $stm->execute([$_user,$_current, $book_id, $_due_date, 'pending']);
             temp('info', 'Borrow successful, now waiting for approval from admin!');
-        
+            redirect('/Student/activities/history.php');
         }catch(ErrorException $e){
          echo $e->getMessage();
         }
