@@ -3036,33 +3036,114 @@ body {
     font-size: 14px;
 }
 
-/* RESPONSIVE */
-@media (max-width: 1000px) {
-    .rating-stats {
-        grid-template-columns: 1fr;
-    }
+
+/* =========================
+   Report Management
+========================= */
+.report-container {
+    width: calc(100% - 340px);
+    max-width: 1250px;
+    margin-top: 75px;
+    margin-left: calc(320px + (100% - 290px - 1250px) / 2);
+    padding: 25px;
+    box-sizing: border-box;
 }
 
-@media (max-width: 600px) {
-    .rating-page {
-        padding: 20px 15px;
-    }
-
-    .rating-form,
-    .rating-history {
-        padding: 18px 15px;
-    }
-
-    .rating-header h1 {
-        font-size: 23px;
-    }
-
-    .rating-actions {
-        flex-wrap: wrap;
-    }
-
-    .rating-form .btn {
-        margin-bottom: 8px;
-    }
+/* Page Header */
+.report-header {
+    margin-bottom: 30px;
+    text-align: left;
 }
+
+.report-header h2 {
+    font-size: 28px;
+    color: #30205c;
+    margin-bottom: 10px;
+}
+
+.report-header p {
+    font-size: 15px;
+    color: #777;
+}
+
+/* Filter Section */
+.filters {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(60, 30, 100, 0.08);
+    border: 1px solid #eee7fa;
+}
+
+.filters h2 {
+    font-size: 21px;
+    color: #30205c;
+    margin-bottom: 25px;
+}
+
+/* Form Layout */
+#reportForm {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Filter Group */
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 180px;
+    gap: 10px;
+}
+
+.filter-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #30205c;
+}
+
+/* Select */
+.filter-group select {
+    width: 100%;
+    height: 45px;
+    padding: 0 12px;
+    border: 1px solid #d8ccec;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.filter-group select:focus {
+    border-color: #7545c5;
+    box-shadow: 0 0 0 3px rgba(117, 69, 197, 0.12);
+}
+
+/* Generate Button */
+.generate-btn {
+    height: 45px;
+    padding: 0 25px;
+    background: linear-gradient(135deg, #6542b8, #7952d5);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+.generate-btn:hover {
+    background: linear-gradient(135deg, #4d2e99, #6038bd);
+    transform: translateY(-2px);
+}
+
+
 

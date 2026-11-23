@@ -1,4 +1,3 @@
-
 <?php
 
 require_once '../../_base.php';
@@ -18,14 +17,11 @@ $edit_rating = null;
 // HANDLE POST REQUEST
 // ==========================================
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (is_post())  {
 
     $action = $_POST['action'] ?? '';
-
-    // ======================================
+    
     // ADD RATING
-    // ======================================
-
     if ($action === 'add') {
 
         $book_id = (int)($_POST['book_id'] ?? 0);
