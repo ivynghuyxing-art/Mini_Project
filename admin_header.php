@@ -18,7 +18,6 @@
         
         <div class="actions">
             <a href="/logout.php" class="header-btn">Logout</a>
-            <a href="settings.php" class="header-btn">Settings</a>
         </div>
 
     </header>

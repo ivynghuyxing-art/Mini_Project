@@ -20,9 +20,8 @@ include_once __DIR__ . '/_base.php';
         </div>
 
         <div class="actions">
-            <?php if(isset($_SESSION['user'])): ?>
+            <?php if($_user): ?>
                 <a href="/logout.php" class="header-btn">Logout</a>
-                <a href="settings.php" class="header-btn">Settings</a>
             <?php else: ?>
                 <a href="login/login.php" class="header-btn">Login</a>
                

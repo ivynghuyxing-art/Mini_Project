@@ -1378,26 +1378,20 @@ body {
 
 /* =========================================
    ADMIN BOOK MANAGEMENT
-========================================= */
-
+========================================= */s
 .admin-book-content {
     display: block;
     width: auto;
     max-width: none;
     min-width: 0;
-
-    margin: 45px 35px 0 250px;
+    margin: 75px 35px 0 250px;
     padding: 25px 30px 40px;
-
     min-height: calc(100vh - 130px);
-
     box-sizing: border-box;
     background: #f5f5fb;
-
     font-family: Arial, Helvetica, sans-serif;
     color: #333;
 }
-
 
 /* =========================================
    SEARCH FORM
@@ -3145,5 +3139,35 @@ body {
     transform: translateY(-2px);
 }
 
+/* If Empty Report */
+.empty-report {
+    background: white;
+    padding: 50px 20px;
+    border-radius: 12px;
+    text-align: center;
+    color: #888;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-top:30px;
+}
 
+.empty-report h3 {
+    color: #30205c;
+    margin: 12px 0 8px;
+}
 
+/* Page Header */
+.book-header {
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.book-header h2 {
+    font-size: 28px;
+    color: #30205c;
+    margin-bottom: 10px;
+}
+
+.book-header p {
+    font-size: 15px;
+    color: #777;
+}

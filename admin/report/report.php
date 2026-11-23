@@ -52,4 +52,19 @@ include '../../admin_header.php';
             <button type ="submit" class ="generate-btn">Generate Report</button>
         </form>
     </div>
+
+    <div id ="reportResult">
+        <div class ="empty-report">
+            <i class = "fa fa-chart-bar">
+                <h3>No Report Generated</h3>
+                <p>Select your filters and click Generate Report.</p>
+            </i>
+        </div>
+    </div>
 </div>
+
+<script src="../../js/app.js"></script>
+
+<?php
+include '../../_footer.php';
+?>

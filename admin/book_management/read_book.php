@@ -96,7 +96,11 @@ include '../../admin_header.php'
 
 <main class="admin-book-content">
 <form method="get" action="read_book.php">
-    
+    <div class ="book-header">
+        <h2>Book Management</h2>
+        <p>Manage your book</p>
+    </div>
+
     <div class="search-section">
         <input type="text" name="search" value="<?= encode($search_term ?? '') ?>" placeholder="Search by title, author, or genre" class="search-input">
 
