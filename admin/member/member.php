@@ -34,7 +34,7 @@ $u = $stm->fetchAll();
                         <td><?= encode($member->email) ?></td>
                         <td>
                             <a href="/admin/member/update.php?user_id=<?=$member->user_id?>">Update</a>
-                            <a href="/admin/member/update.php?user_id=<?=$member->user_id?>">Update</a>
+                            <a href="/admin/member/detail.php?user_id=<?=$member->user_id?>">Detail</a>
                         </td>
                         
                         
