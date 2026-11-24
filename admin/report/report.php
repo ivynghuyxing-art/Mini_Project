@@ -4,8 +4,23 @@ include '../../_base.php';
 auth(['admin']);
 
 $_title='Report Management';
-
 include '../../admin_header.php';
+
+$report_type = post('report_type','borrowing');
+$date_range = post('date_range','1');
+
+if(!in_array($date_range,['1','3','6','12'],true)){
+    $date_range='1';
+}
+$start_date = date('Y-m-d',strtotime("-$date_range month"));
+
+$total_borrowings = 0;
+
+if(is_post()){
+    $stm = $_db->prepare("SELECT COUNT(*) AS total_borrowings FROM borrowing WHERE borrow_date BETWEEN ? AND CURDATE()");
+    $stm->execute([$start_date]);
+    $total_borrowings = $stm->fetch()->total_borrowings;
+}
 
 ?>
 <link rel="stylesheet" href = '../../css/app.css'>
@@ -54,12 +69,22 @@ include '../../admin_header.php';
     </div>
 
     <div id ="reportResult">
-        <div class ="empty-report">
-            <i class = "fa fa-chart-bar">
-                <h3>No Report Generated</h3>
-                <p>Select your filters and click Generate Report.</p>
-            </i>
-        </div>
+        <?php if (is_post()): ?>
+
+            <div class ="statistics-container">
+                <div class="stat-card">
+                    <h3>Total borrowings</h3>
+                    <p><?= $total_borrowings ?></p>
+                </div>
+            </div>
+        <?php else:?>
+            <div class ="empty-report">
+                <div class="report-icon">📊</div>
+                    <h3>No Report Generated</h3>
+                    <p>Select your filters and click Generate Report.</p>
+                </i>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 
