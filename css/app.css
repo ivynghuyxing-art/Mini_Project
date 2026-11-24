@@ -1804,6 +1804,14 @@ body {
     border: 2px solid #000;
     border-radius: 4px;
 }
+
+.card-borrow-management .unpaid{
+    color: red;
+}
+
+.card-borrow-management .paid{
+    color: green;
+}
 /* =========================================
    Fine page header
 ========================================= */

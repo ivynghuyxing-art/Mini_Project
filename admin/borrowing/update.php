@@ -6,10 +6,12 @@ $_id = req('borrowing_id');
 $_err=[];
 auth(['admin']);
 $stm= $_db->prepare('SELECT bor.*, 
-                    bk.available_quantity, bk.book_id
+                    bk.available_quantity, bk.book_id,
+                    f.payment_status
                     FROM borrowing bor 
                     JOIN book bk ON bk.book_id = bor.book_id
-                    WHERE borrowing_id=?');
+                    LEFT JOIN fine f ON f.borrowing_id = bor.borrowing_id
+                    WHERE borrowing_id = ?');
 $stm->execute([$_id]);
 $borrows = $stm->fetch();
 
@@ -18,9 +20,10 @@ if(!$borrows){
     redirect('/admin/borrowing/borrowing.php');
 }
 
-const Fine_Of_Day = 2.50;
+const Fine_Of_Day = 5.00;
 $_status = $borrows->status;
 $_due_date = $borrows->due_date;
+$_due_td = strtotime($_due_date);
 $_return_date = date('Y-m-d');
 $_return_td = strtotime($_return_date);
 $_fine_amount = $borrows->fine_amount;
@@ -37,7 +40,7 @@ if(is_post()){
     }else if (strlen($_status) > 10){
         $_err['status'] = 'No more then 10 character';
     }else if(!in_array($_status, $_array) ){
-        $_err['status'] = 'Must be PENDING, APPROVAL, RETURN, NOT PAY OR REJECT only';
+        $_err['status'] = 'Must be PENDING, APPROVAL, RETURN, OVERDUE OR REJECT only';
     }
 
 
@@ -58,20 +61,31 @@ if(is_post()){
         else if($_status == 'RETURN' && $_oldstatus == 'APPROVAL'){
 
             if($_return_td > $_due_date){
-                $day_late = floor(($_return_td - $_due_date)/ 86400 );
-                $_fine_amount = $day_late * Fine_Of_Day;
+                $day_late = max(0, (int)floor(($_return_td - $_due_td) / 86400 ));
             }
+
+            if($day_late >= 2){
+             $_fine_amount = ceil($_fine_amount / 5) * Fine_Of_Day;
+            }   
 
             $stm = $_db->prepare('UPDATE book SET available_quantity 
                                 = available_quantity + 1 WHERE book_id = ?');
 
             $stm->execute([$borrows->book_id]);
 
+            $_check_status = ($_fine_amount > 0) ? 'OVERDUE' : 'RETURN';
+
             $stm = $_db->prepare('UPDATE borrowing
                             SET status = ?, return_date = ?, fine_amount = ?
                             WHERE borrowing_id = ?');
-            $stm->execute([$_status, $_return_date, $_fine_amount, $_id]);
+            $stm->execute([$_check_status, $_return_date, $_fine_amount, $_id]);
 
+            if($_check_status == 'OVERDUE'){
+                $stm = $_db->prepare('INSERT INTO fine (amount,payment_status,reason,borrowing_id) 
+                VALUES (?,?,?,?)');
+
+            $stm->execute([$_fine_amount,'Unpaid','Member late return book',$borrows->borrowing_id]);
+            }
         }
         
         temp('info', 'Update record successfull');
@@ -116,6 +130,16 @@ include '../../admin_header.php';
         <h3>
             <?= encode($borrows->fine_amount) ?>
         </h3>
+
+        <?php if(!empty($borrows->payment_status)):?>
+
+            <label>Payment status</label>
+            <h3 class="pay-<?= strtolower($borrows->payment_status ?? '') ?>">
+                <?= encode($borrows->payment_status ?? 'No fine') ?>
+            </h3>
+
+        <?php endif;?>
+
 
 
         <button type="reset">Reset</button>

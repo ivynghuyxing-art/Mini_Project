@@ -5,11 +5,11 @@ include '../../_base.php';
 $_title = 'Return book';
 auth(['member']);
 
-const Fine_of_Day = 5.00;
-
 $_borrow_id = req('borrowing_id');
 $book_id = (int)req('book_id');
 $_user = $_SESSION['user'] ?? '';
+
+const Fine_of_day = 5;
 
 if(!$_user){
     redirect('/Student/book/browse.php');
@@ -41,7 +41,7 @@ $_status = strtoupper(trim($return->status));
 if($_status === 'RETURN'){
     $_return_date = $return->return_date;
     $_fine_amount = $return->fine_amount;
-    $day_late = (int)($_fine_amount / Fine_of_Day);
+    $day_late = 0;
 
     temp('info', 'Invaild, if book status is return');
     redirect('/Student/activities/history.php');   
@@ -64,13 +64,10 @@ if($_status === 'RETURN'){
 }else{
 
     $day_late = max(0, (int)floor(($_return_td - $_due_td) / 86400 ));
-    $_fine_amount = $day_late * Fine_of_Day;
-}
-
-if($day_late <= 2){
     $_fine_amount = 0;
-}else if ($day_late >= 2 && $day_late <=4){
-    $_fine_amount = $day_late * Fine_of_Day;
+}
+if($day_late >= 2){
+    $_fine_amount = ceil($_fine_amount / 5) * Fine_of_day;
 }
 
 if($_fine_amount > 0){
