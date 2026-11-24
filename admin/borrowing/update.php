@@ -27,7 +27,7 @@ $_fine_amount = $borrows->fine_amount;
 
 
 $_oldstatus = strtoupper(trim($borrows->status));
-$_array = ['APPROVAL','RETURN','PENDING','REJECT','NOT PAY'];
+$_array = ['APPROVAL','RETURN','PENDING','REJECT','OVERDUE'];
 
 if(is_post()){
     $_status =strtoupper(trim(req('status')));

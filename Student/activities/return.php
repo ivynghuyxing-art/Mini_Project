@@ -5,7 +5,7 @@ include '../../_base.php';
 $_title = 'Return book';
 auth(['member']);
 
-const Fine_of_Day = 2.50;
+const Fine_of_Day = 5.00;
 
 $_borrow_id = req('borrowing_id');
 $book_id = (int)req('book_id');
@@ -67,10 +67,25 @@ if($_status === 'RETURN'){
     $_fine_amount = $day_late * Fine_of_Day;
 }
 
+if($day_late <= 2){
+    $_fine_amount = 0;
+}else if ($day_late >= 2 && $day_late <=4){
+    $_fine_amount = $day_late * Fine_of_Day;
+}
 
-if($_return_td > $_due_td){
-    $stm = $_db->prepare('UPDATE borrowing SET fine_amount=?, status=? WHERE borrowing_id=?');
-    $stm->execute([$_fine_amount,'PENDING',$_borrow_id]);
+if($_fine_amount > 0){
+
+    $stm = $_db->prepare('UPDATE book SET available_quantity = available_quantity + 1 WHERE book_id =?');
+    $stm->execute([$return->book_id]);
+
+    $stm = $_db->prepare('UPDATE borrowing SET return_date=?,fine_amount=?, status=? WHERE borrowing_id=?');
+    $stm->execute([$_return_date,$_fine_amount,'OVERDUE',$_borrow_id]);
+
+    $stm = $_db->prepare('INSERT INTO fine (amount,borrowing_id,payment_status,reason) VALUES (?,?,?,?)');
+    $stm->execute([$_fine_amount,$_borrow_id, 'Unpaid','Member late return book']);
+
+    temp('info', 'Please pay the charge at fine book');
+
 
 }else{
 
@@ -80,9 +95,10 @@ if($_return_td > $_due_td){
     $stm = $_db->prepare('UPDATE borrowing SET return_date=?,status=?, fine_amount=? WHERE borrowing_id=?');
     $stm->execute([$_return_date,'RETURN',$_fine_amount,$_borrow_id]);
 
+    temp('info', 'Return book successful');
 }
 
-temp('info', 'Return book successful');
+
 redirect('/Student/activities/history.php');
 
 include '../../_head.php';
