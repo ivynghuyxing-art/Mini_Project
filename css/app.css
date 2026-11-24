@@ -1245,9 +1245,10 @@ body {
 .borrow-card{
     box-sizing: border-box;
     border: 1px solid black;
+    box-shadow: 10px 10px 5px gray;
     border-radius: 10px;
     padding: 20px;
-    width: 100%;
+    width: 90%;
     max-width: 800px;     
     margin-left:300px;
     margin-top:100px ;
@@ -1262,6 +1263,39 @@ body {
     margin-bottom: 4px;
     font-weight: bold;
 }
+.borrow-card button{
+    height: 48px;
+    padding: 0 28px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: 500px;
+    
+}
+
+.borrow-card button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(79, 70, 229, 0.25);
+}
+.borrow-card select{
+    border-radius: 3px;
+    height: 30px;
+    width: 130px;
+}
+
+.borrow-card select:focus{
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.10);
+}
+.borrow-card option{
+    border-radius: 3px;
+}
+
 .borrow-card img {
     border:2px solid #000000;
     border-radius: 4px;
@@ -1281,7 +1315,10 @@ body {
     margin-bottom: 6px;
     display: flex;
 }
-
+.borrow-card h3{
+    color: gray;
+    font-size: small;
+}
 .Date-card label{
     display: block;
     text-align: left;
@@ -1378,7 +1415,7 @@ body {
 
 /* =========================================
    ADMIN BOOK MANAGEMENT
-========================================= */s
+========================================= */
 .admin-book-content {
     display: block;
     width: auto;
@@ -2225,7 +2262,7 @@ body {
 ===================================*/
 .add-book-card-cat{
     max-width: 480px;
-    margin: 200px 120px 0px 600px;
+    margin: 200px 120px 0px 400px;
     padding: 24px 28px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -2246,17 +2283,18 @@ body {
     padding: 0 10px;
     border: 1px solid #bbb;
     border-radius: 4px;
-    margin: 0;
+    margin-bottom: 10px;
 }
 .add-book-card-cat button{
     margin: 20px 10px;
-    width: 150px;
+    width: 120px;
     height: 30px;
     border-radius: 5px;
     margin-top: 5px;
     background: #fff;
     color: #000;
     cursor: pointer;
+    margin: auto;
 }
 
 .add-book-card-cat button:hover{
@@ -3205,4 +3243,71 @@ body {
     color:#30205c;
     font-size:28px;
     font-weight:bold;
+}
+
+
+.admin-book-content-m {
+    display: block;
+    width: auto;
+    max-width: none;
+    min-width: 0;
+    margin-top: 60px;
+    margin-left: 250px;
+    padding: 25px 30px 40px;
+    min-height: calc(100vh - 130px);
+    box-sizing: border-box;
+    background: #f5f5fb;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+}
+
+.btn-add-book {
+    display: inline-flex;         
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    padding: 0 24px;               
+    background-color: #4a56b5;     
+    color: #fff;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;         
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: 600px;          
+}
+
+.btn-add-book:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(74, 86, 181, 0.3);
+}
+
+/*=========================
+        Member update     
+===========================*/
+.u-card{
+    text-align: center;
+    margin: 130px auto 0;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    height: 300px;
+}
+.u-card label{
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333333;
+}
+.u-card input{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }

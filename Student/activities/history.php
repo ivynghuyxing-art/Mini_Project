@@ -11,6 +11,7 @@ $_array_s = [
     'approval' => 'APPROVAL',
     'return' => 'RETURN',
     'reject' => 'REJECT',
+    'overdue' => 'OVERDUE'
 ];
 
 if(!$_user){
@@ -95,7 +96,7 @@ include '../../_head.php';
                 </table>
             <?php endforeach ?>
         <?php else: ?>
-                <h3>You have no borrow yet</h3>
+                <p>You have no borrow yet</p>
         <?php endif ?>
 
     </div>

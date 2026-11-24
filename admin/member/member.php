@@ -5,7 +5,7 @@ $_title = 'Member';
 auth(['admin']);
 include '../../admin_header.php';
 
-$stm= $_db->prepare('SELECT * FROM user');
+$stm= $_db->prepare('SELECT * FROM user WHERE role = "member"');
 $stm->execute();
 $u = $stm->fetchAll();
 
@@ -46,9 +46,6 @@ $u = $stm->fetchAll();
         <?php endif ?>
 
     </div>
-
-
-
 </form>
 
 <?php 

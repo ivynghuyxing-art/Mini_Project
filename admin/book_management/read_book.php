@@ -82,7 +82,8 @@ $categories = $stm->fetchAll();
 
 $_title = 'Book ';
 
-include '../../admin_header.php'
+include '../../admin_header.php';
+
 ?>
 <head>
     <meta charset="UTF-8">
@@ -94,13 +95,8 @@ include '../../admin_header.php'
     <script src="/js/app.js"></script>
 </head>
 
-<main class="admin-book-content">
+<main class="admin-book-content-m">
 <form method="get" action="read_book.php">
-    <div class ="book-header">
-        <h2>Book Management</h2>
-        <p>Manage your book</p>
-    </div>
-
     <div class="search-section">
         <input type="text" name="search" value="<?= encode($search_term ?? '') ?>" placeholder="Search by title, author, or genre" class="search-input">
 
@@ -116,16 +112,17 @@ include '../../admin_header.php'
                     <?php endforeach; ?>
                 </select>
                 <button type="submit" class="search-button">Search</button>
-            </form>
+            
 
         </div>
+    </form>
     </div>
 
-        <div class="book-count">
+        <div class="book-count-m">
             Showing <strong><?= count($all_book) ?></strong> 
         </div>
 
-        <a href="add-book.php">+ Add new book</a>
+        <a href="add-book.php" class="btn-add-book">+ Add new book</a>
     
    <div class="book-grid">
             <?php if($all_book):?>
@@ -156,7 +153,7 @@ include '../../admin_header.php'
                             </span>
 
                             <section>
-                                <a href="update.php?book_id=<?= $book->book_id ?>">>Update</a>
+                                <a href="update.php?book_id=<?= $book->book_id ?>">Update</a>
                                 <a href="delete.php?book_id=<?= $book->book_id ?>">Delete</a>
                             </section>
                         </div>
@@ -168,10 +165,7 @@ include '../../admin_header.php'
                     No book has found in record 
                 </div>
             <?php  endif?>
-        </div>
     </div>
-
-</form>
 </main>
 
 <?php
