@@ -122,13 +122,28 @@ include '../../admin_header.php';
         <h3>
             <?= encode($borrows->due_date) ?>
         </h3>
-        <label>Status</label>
-        <?php html_text('status', 'maxlength=10') ?>
+        <?php if($_status == 'RETURN'):?>
+
+            <label>Return Date</label>
+            <h3>
+                <?= encode($borrows->return_date) ?>
+            </h3>
+        <?php endif;?>
+
+        <label for="status">Status</label>
+        <select name="status" id="list-status">
+            <option value="">All Status</option>
+            <?php foreach($_array as $s):?>
+                <option value="<?= $s ?>" <?= $s == strtoupper(trim($_status)) ? 'selected' : '' ?>>
+                     <?= ucfirst(strtolower($s)) ?>
+                </option>
+            <?php endforeach;?>
+        </select>
         <?php err('status')?>
 
         <label>Fine amount</label>
         <h3>
-            <?= encode($borrows->fine_amount) ?>
+            <?= encode($borrows->fine_amount ? $_fine_amount : 'No charge') ?>
         </h3>
 
         <?php if(!empty($borrows->payment_status)):?>
@@ -137,8 +152,8 @@ include '../../admin_header.php';
             <h3 class="pay-<?= strtolower($borrows->payment_status ?? '') ?>">
                 <?= encode($borrows->payment_status ?? 'No fine') ?>
             </h3>
-
         <?php endif;?>
+
 
 
 

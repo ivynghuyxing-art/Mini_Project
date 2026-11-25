@@ -18,6 +18,7 @@ $stm = $_db->prepare('SELECT bk.title, bk.image, bk.author, bk.category_id, bk.d
                         WHERE bk.book_id =?');
 $stm->execute([$book_id]);
 $_b = $stm->fetch();
+
 if (!$_b) {
     redirect('/Student/book/browse.php');
 }
@@ -112,8 +113,8 @@ include '../../_head.php';
                     the libraries have the rule to charge the member. 
 
                     <br>
-
-                    Every 1 day will charge : RM <strong>2.50</strong>
+                    Before 1 to 2 return no charge.<br> 
+                    Charge 2 to 4 days: RM <strong>5.00</strong>
                 </p>
             </span>
 
