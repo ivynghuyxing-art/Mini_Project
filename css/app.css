@@ -4574,3 +4574,417 @@ body {
     }
 
 }
+
+
+/* ==========================================
+   ADMIN FEEDBACK MANAGEMENT
+========================================== */
+
+.admin-feedback-page {
+    padding: 30px;
+    width: 100%;
+    box-sizing: border-box;
+    color: #252b40;
+}
+
+
+/* ==========================================
+   PAGE HEADER
+========================================== */
+
+.admin-feedback-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.admin-feedback-header h1 {
+    font-size: 27px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: #252b40;
+}
+
+.admin-feedback-header p {
+    color: #777;
+    font-size: 14px;
+    margin: 0;
+}
+
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+.admin-feedback-message {
+    background: #eaf8ef;
+    color: #23834b;
+    border: 1px solid #c9ecd5;
+    padding: 13px 18px;
+    border-radius: 8px;
+    margin-bottom: 22px;
+    font-size: 14px;
+}
+
+
+/* ==========================================
+   STATISTICS
+========================================== */
+
+.admin-feedback-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.admin-feedback-stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eeeeF5;
+}
+
+.admin-feedback-stat-icon {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.admin-feedback-stat-card.total .admin-feedback-stat-icon {
+    background: #eeeaff;
+    color: #6953ce;
+}
+
+.admin-feedback-stat-card.average .admin-feedback-stat-icon {
+    background: #fff5dc;
+    color: #e3a323;
+}
+
+.admin-feedback-stat-card.low .admin-feedback-stat-icon {
+    background: #ffeaea;
+    color: #dc5555;
+}
+
+.admin-feedback-stat-card p {
+    margin: 0 0 7px;
+    font-size: 14px;
+    color: #777;
+}
+
+.admin-feedback-stat-card h2 {
+    margin: 0;
+    font-size: 27px;
+    font-weight: 700;
+    color: #292d40;
+}
+
+.admin-feedback-stat-card h2 small {
+    font-size: 13px;
+    color: #888;
+    font-weight: 400;
+}
+
+
+/* ==========================================
+   FEEDBACK CARD
+========================================== */
+
+.admin-feedback-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eeeeF5;
+}
+
+.admin-feedback-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.admin-feedback-card-header h2 {
+    margin: 0 0 7px;
+    font-size: 20px;
+    color: #292d40;
+}
+
+.admin-feedback-card-header p {
+    margin: 0;
+    font-size: 13px;
+    color: #888;
+}
+
+.admin-feedback-record-count {
+    background: #eeeaff;
+    color: #6652c5;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+
+/* ==========================================
+   SEARCH AND FILTER
+========================================== */
+
+.admin-feedback-filter {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+}
+
+.admin-feedback-filter input,
+.admin-feedback-filter select {
+    height: 42px;
+    padding: 0 13px;
+    border: 1px solid #dddde8;
+    border-radius: 7px;
+    background: white;
+    color: #333;
+    font-size: 13px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.admin-feedback-filter input {
+    flex: 1;
+    min-width: 230px;
+}
+
+.admin-feedback-filter select {
+    min-width: 145px;
+}
+
+.admin-feedback-filter input:focus,
+.admin-feedback-filter select:focus {
+    border-color: #6652ce;
+    box-shadow: 0 0 0 3px rgba(102, 82, 206, 0.1);
+}
+
+.feedback-search-btn,
+.feedback-reset-btn {
+    height: 42px;
+    padding: 0 19px;
+    border: none;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.feedback-search-btn {
+    background: #5548bd;
+    color: white;
+}
+
+.feedback-search-btn:hover {
+    background: #4335a8;
+}
+
+.feedback-reset-btn {
+    background: #f0f0f5;
+    color: #555;
+}
+
+.feedback-reset-btn:hover {
+    background: #e4e4ed;
+}
+
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.admin-feedback-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.admin-feedback-table {
+    width: 100%;
+    min-width: 950px;
+    border-collapse: collapse;
+}
+
+.admin-feedback-table thead {
+    background: #f7f6fc;
+}
+
+.admin-feedback-table th {
+    padding: 15px 13px;
+    text-align: left;
+    color: #555;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    border-bottom: 1px solid #e9e8f0;
+}
+
+.admin-feedback-table td {
+    padding: 16px 13px;
+    border-bottom: 1px solid #eeeeF3;
+    font-size: 13px;
+    color: #444;
+    vertical-align: middle;
+}
+
+.admin-feedback-table tbody tr:hover {
+    background: #faf9ff;
+}
+
+.feedback-member-id {
+    display: inline-block;
+    background: #f0efff;
+    color: #6250bd;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.feedback-book-title {
+    font-weight: 600;
+    color: #303047 !important;
+    min-width: 130px;
+}
+
+.feedback-rating {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.feedback-stars {
+    color: #f0ad28;
+    font-size: 16px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.feedback-rating small {
+    font-size: 11px;
+    color: #888;
+}
+
+.feedback-comment {
+    max-width: 200px;
+    min-width: 120px;
+    overflow-wrap: anywhere;
+    line-height: 1.5;
+}
+
+
+/* ==========================================
+   DELETE BUTTON
+========================================== */
+
+.feedback-delete-btn {
+    border: none;
+    background: #ffeaea;
+    color: #d44848;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.feedback-delete-btn:hover {
+    background: #d44848;
+    color: white;
+}
+
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.feedback-empty {
+    text-align: center !important;
+    padding: 55px 20px !important;
+    color: #888 !important;
+}
+
+.feedback-empty-icon {
+    font-size: 35px;
+    color: #c9c4e8;
+    margin-bottom: 12px;
+}
+
+.feedback-empty strong {
+    display: block;
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 7px;
+}
+
+.feedback-empty p {
+    margin: 0;
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 900px) {
+
+    .admin-feedback-stats {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .admin-feedback-page {
+        padding: 18px;
+    }
+
+    .admin-feedback-card {
+        padding: 16px;
+    }
+
+    .admin-feedback-header h1 {
+        font-size: 23px;
+    }
+
+    .admin-feedback-filter {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .admin-feedback-filter input,
+    .admin-feedback-filter select,
+    .feedback-search-btn,
+    .feedback-reset-btn {
+        width: 100%;
+    }
+
+}
+
