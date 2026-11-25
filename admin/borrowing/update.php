@@ -64,8 +64,11 @@ if(is_post()){
                 $day_late = max(0, (int)floor(($_return_td - $_due_td) / 86400 ));
             }
 
-            if($day_late >= 2){
+            if($day_late >= 1){
              $_fine_amount = ceil($_fine_amount / 5) * Fine_Of_Day;
+            }
+            else{
+                $_fine_amount = 0; 
             }   
 
             $stm = $_db->prepare('UPDATE book SET available_quantity 

@@ -39,14 +39,16 @@ include '../../admin_header.php';
                         <?php elseif($row->status == 'REJECT'):?>
                              <td>Book has rejected</td>
                         <?php else:?>
-                            <td>-</td>
+                            <td>Not yet return</td>
                         <?php endif?>
                         <td class="status-<?= strtolower(encode($row->status)) ?>">
                             <?= encode($row->status)?>
                         </td>
                         <td>RM<?= encode($row->fine_amount) ?></td>
                         <td>
-                            <a href="/admin/borrowing/update.php?borrowing_id=<?= $row->borrowing_id ?>">Update</a>
+                            <button>
+                                <a href="/admin/borrowing/update.php?borrowing_id=<?= $row->borrowing_id ?>" id="Bor-admin">Update</a>
+                            </button>
                         </td>
 
                     </tr>

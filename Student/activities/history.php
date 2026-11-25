@@ -76,7 +76,11 @@ include '../../_head.php';
                         <td><?= encode($row->author) ?></td>
                         <td><?= encode($row->borrow_date) ?></td>
                         <td><?= encode($row->due_date) ?></td>
-                        <td><?= $row->return_date ? encode($row->return_date) : 'Not return yet'?></td>
+                        <?php if(strtoupper($row->status) === 'RETURN'): ?>
+                        <td><?= $row->return_date ? encode($row->return_date) : ' ---- '?></td>
+                        <?php else:?>
+                            <td><p>Not yet return</p></td>
+                        <?php endif ?>
                         <td class="status-<?= strtolower(encode($row->status)) ?>">
                             <?= encode($row->status)?>
                         </td>
@@ -89,7 +93,7 @@ include '../../_head.php';
                         <?php elseif(strtoupper($row->status) === 'RETURN'):?>
                             <span class="btn_disable"> Book return </span>
                         <?php else:?>
-                            <span class="btn_disable"> No return </span>
+                            <span class="btn_disable"> Can't return yet </span>
                         <?php endif;?>
                         </td>
                     </tr>

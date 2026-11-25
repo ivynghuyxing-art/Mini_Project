@@ -92,13 +92,19 @@
 </header>
 
 <form method="post" class="tokenForm">
+    <h2>Reset new password</h2>
     <label for="password">Password</label>
-    <?php html_password('password', 'class="password_input" id="password"') ?>
-    <?php err('password') ?>
+    <div class="field">
+        <?php html_password('password', 'class="password_input" id="password"') ?>
+        <?php err('password') ?>
+    </div>
 
     <label for="confirm">Confirm</label>
-    <?php html_password('confirm', 'class="password_input"') ?>
-    <?php err('confirm') ?>
+    <div class="field">
+        <?php html_password('confirm', 'class="password_input"') ?>
+        <?php err('confirm') ?>
+    </div>
+    
 
     <div class="password_progress">
         <div id="percentage_password" class="pass-percentage"></div>

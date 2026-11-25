@@ -14,6 +14,20 @@ body {
     color: #333333;
 }
 
+.field{
+    position: relative;
+}
+
+.field .err{
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    color: red;
+    pointer-events: none;                                       
+}
+
 #info {
     position: fixed;
     color: #fff;
@@ -475,7 +489,7 @@ body {
     border-radius: 10px;
     padding: 20px;
     width: 400px;
-    height: 300px;
+    height: 330px;
 }
 
 .auth-form label{
@@ -489,7 +503,7 @@ body {
 .auth-form input[type="password"]{
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     border: 1px solid #cccccc;
     border-radius: 4px;
     box-sizing: border-box;
@@ -535,7 +549,7 @@ body {
     border-radius: 10px;
     padding: 20px;
     width: 400px;
-    height: 560px;
+    height: 575px;
 }
 .auth-form-register label{
     display: block;
@@ -556,6 +570,34 @@ body {
     font-family: 'Times New Roman', Times, serif;
     color: #000000;
     font-size: 15px;
+}
+.auth-card-pass{
+    text-align: center;
+    margin: 130px auto 0;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    height: 300px;
+}
+.auth-card-pass input{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.auth-card-pass label{
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333333;
+}
+.auth-card-pass h2{
+    font-size: medium;
+    margin-bottom: 10px;
 }
 /* =========================================
    GENERAL PAGE
@@ -1245,12 +1287,13 @@ body {
 .borrow-card{
     box-sizing: border-box;
     border: 1px solid black;
-    box-shadow: 10px 10px 5px gray;
+    box-shadow: 2px 2px 3px rgb(205, 203, 203);
     border-radius: 10px;
     padding: 20px;
     width: 90%;
+    
     max-width: 800px;     
-    margin-left:300px;
+    margin-left:270px;
     margin-top:100px ;
 }
 .borrow-card .books {
@@ -1274,10 +1317,11 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: 0.3s;
-    margin-left: 500px;
-    
 }
-
+.borrow-card a{
+    color: white;
+    text-decoration: none;
+}
 .borrow-card button:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(79, 70, 229, 0.25);
@@ -1319,6 +1363,19 @@ body {
     color: gray;
     font-size: small;
 }
+.borrow-card table {
+    padding: auto;  
+    border-collapse: collapse;
+    width: 770px;
+    margin: auto;
+}
+.borrow-card th, td{
+    padding: 5px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
 .Date-card label{
     display: block;
     text-align: left;

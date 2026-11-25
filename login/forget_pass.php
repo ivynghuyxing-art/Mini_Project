@@ -71,14 +71,14 @@
         </div>
 </header>
 
-<div class="auth-card">
-    <p class="auth-card__eyebrow">Forgot your password?</p>
-    <h2 class="auth-card__title">Reset Password</h2>
-
-    <form method="post" class="auth-form">
+<div>
+    <form method="post" class="auth-card-pass">
+        <h2>Send email to reset new password </h2>
         <label for="email" class="sr-only">Email</label>
-        <?php html_text('email', 'placeholder="Email address" maxlength="100"') ?>
-        <?php err('email') ?>
+        <div class="field">
+            <?php html_text('email', 'placeholder="Email address" maxlength="100"') ?>
+            <?php err('email') ?>
+        </div>
 
         <button class="auth-btn-primary">Submit</button>
 
