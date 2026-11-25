@@ -41,6 +41,7 @@ if (is_post()) {
     redirect('/student/activities/reservation.php');
 }
 
+
 // ==========================================
 // GET RESERVATION STATISTICS
 // ==========================================
@@ -58,6 +59,7 @@ $stm = $_db->prepare("
 $stm->execute([$_user->user_id]);
 
 $stats = $stm->fetch();
+
 
 // ==========================================
 // GET MEMBER RESERVATIONS
@@ -84,6 +86,7 @@ $stm->execute([$_user->user_id]);
 
 $reservations = $stm->fetchAll();
 
+
 // ==========================================
 // GET MESSAGE
 // ==========================================
@@ -95,6 +98,8 @@ include '../../_head.php';
 ?>
 
 <link rel="stylesheet" href="/css/app.css">
+<link rel="stylesheet" href="/css/reservation.css">
+
 
 <main class="main-content">
 
@@ -108,65 +113,83 @@ include '../../_head.php';
             </div>
         </div>
 
+
         <!-- SUCCESS / ERROR MESSAGE -->
         <?php if ($message): ?>
+
             <div class="reservation-message">
                 <?= encode($message) ?>
             </div>
+
         <?php endif; ?>
 
 
-        <!-- RESERVATION STATISTICS -->
+        <!-- ======================================
+             RESERVATION STATISTICS
+        ======================================= -->
+
         <div class="reservation-stats">
 
             <!-- TOTAL -->
             <div class="stat-card total-card">
+
                 <div class="stat-icon">📚</div>
 
-                <div>
-                    <p>Total Reservations</p>
+                <div class="stat-content">
+                    <p class="stat-label">Total Reservations</p>
                     <h2><?= $stats->total ?></h2>
                 </div>
+
             </div>
 
 
             <!-- PENDING -->
             <div class="stat-card pending-card">
+
                 <div class="stat-icon">⏳</div>
 
-                <div>
-                    <p>Pending</p>
+                <div class="stat-content">
+                    <p class="stat-label">Pending</p>
                     <h2><?= $stats->pending ?></h2>
                 </div>
+
             </div>
 
 
             <!-- APPROVED -->
             <div class="stat-card approved-card">
+
                 <div class="stat-icon">✓</div>
 
-                <div>
-                    <p>Approved</p>
+                <div class="stat-content">
+                    <p class="stat-label">Approved</p>
                     <h2><?= $stats->approved ?></h2>
                 </div>
+
             </div>
 
 
             <!-- REJECTED -->
             <div class="stat-card rejected-card">
+
                 <div class="stat-icon">✕</div>
 
-                <div>
-                    <p>Rejected</p>
+                <div class="stat-content">
+                    <p class="stat-label">Rejected</p>
                     <h2><?= $stats->rejected ?></h2>
                 </div>
+
             </div>
 
         </div>
 
 
-        <!-- RESERVATION HISTORY CARD -->
+        <!-- ======================================
+             RESERVATION HISTORY CARD
+        ======================================= -->
+
         <div class="reservation-table-card">
+
 
             <!-- TABLE HEADING -->
             <div class="table-heading">
@@ -185,7 +208,11 @@ include '../../_head.php';
 
             <?php if (empty($reservations)): ?>
 
-                <!-- EMPTY STATE -->
+
+                <!-- ==================================
+                     EMPTY STATE
+                =================================== -->
+
                 <div class="reservation-empty">
 
                     <div class="empty-icon">📚</div>
@@ -196,20 +223,26 @@ include '../../_head.php';
                         You have not made any book reservations.
                     </p>
 
-                    <a href="/student/browse.php">
+                    <a href="/student/book/browse.php">
                         Browse Books
                     </a>
 
                 </div>
 
+
             <?php else: ?>
 
-                <!-- RESERVATION TABLE -->
+
+                <!-- ==================================
+                     RESERVATION TABLE
+                =================================== -->
+
                 <div class="table-responsive">
 
                     <table class="reservation-table">
 
                         <thead>
+
                             <tr>
                                 <th>No.</th>
                                 <th>Book Details</th>
@@ -218,7 +251,9 @@ include '../../_head.php';
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
+
                         </thead>
+
 
                         <tbody>
 
@@ -257,7 +292,8 @@ include '../../_head.php';
                                             <?php endif; ?>
 
 
-                                            <div>
+                                            <div class="book-info">
+
                                                 <strong>
                                                     <?= encode($r->title) ?>
                                                 </strong>
@@ -265,6 +301,7 @@ include '../../_head.php';
                                                 <small>
                                                     By <?= encode($r->author) ?>
                                                 </small>
+
                                             </div>
 
                                         </div>
@@ -337,6 +374,7 @@ include '../../_head.php';
 
                                 </tr>
 
+
                             <?php endforeach; ?>
 
                         </tbody>
@@ -345,6 +383,7 @@ include '../../_head.php';
 
                 </div>
 
+
             <?php endif; ?>
 
         </div>
@@ -352,5 +391,6 @@ include '../../_head.php';
     </div>
 
 </main>
+
 
 <?php include '../../_footer.php'; ?>
