@@ -11,7 +11,7 @@ $stm= $_db->prepare('SELECT bor.*,
                     FROM borrowing bor 
                     JOIN book bk ON bk.book_id = bor.book_id
                     LEFT JOIN fine f ON f.borrowing_id = bor.borrowing_id
-                    WHERE borrowing_id = ?');
+                    WHERE bor.borrowing_id = ?');
 $stm->execute([$_id]);
 $borrows = $stm->fetch();
 
@@ -125,6 +125,10 @@ include '../../admin_header.php';
         <label>Status</label>
         <?php html_text('status', 'maxlength=10') ?>
         <?php err('status')?>
+
+        <select>
+            <option></option>
+        </select>
 
         <label>Fine amount</label>
         <h3>
