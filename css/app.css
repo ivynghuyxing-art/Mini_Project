@@ -3265,30 +3265,50 @@ body {
     font-size: 15px;
     color: #777;
 }
-.statistics-container{
-    margin-top:30px;
-    display:grid;
-    grid-template-columns: repeat(4,1fr);
-    gap:20px;
-}
-.stat-card{
-    background:white;
-    padding:25px;
-    border-radius:12px;
-    box-shadow:1 3px 12px rgba(0,0,0,0.06);
-    border-left:4px solid #6542b8;
-}
-.stat-card h2{
-    color:#777;
-    font-size:15px;
-    margin-bottom:15px;
-}
-.stat-card p{
-    color:#30205c;
-    font-size:28px;
-    font-weight:bold;
+.statistics-container {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    width: 100%;
+    margin: 30px 0;
 }
 
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: white;
+    padding: 20px;
+    min-height: 90px;
+    border: 1px solid #e2e8f0;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.stat-icon {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    background: #ede9fe;
+    border-radius: 12px;
+}
+
+.stat-info h3 {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0 0 5px;
+}
+
+.stat-info p {
+    font-size: 25px;
+    font-weight: bold;
+    color: #1e293b;
+    margin: 0;
+}
 
 .admin-book-content-m {
     display: block;
