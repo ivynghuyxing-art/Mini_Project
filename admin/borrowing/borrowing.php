@@ -3,6 +3,14 @@ include '../../_base.php';
 
 $_title = 'Borrow Book';
 
+// Automatically update overdue borrowing records
+$stm = $_db->prepare("
+    UPDATE borrowing
+    SET status = 'OVERDUE'
+    WHERE status = 'APPROVAL'
+    AND due_date < CURDATE()
+");
+$stm->execute();
 
 $stm= $_db->prepare('SELECT * FROM borrowing');
 $stm->execute();

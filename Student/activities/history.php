@@ -17,6 +17,15 @@ $_array_s = [
 if(!$_user){
     redirect('../book/browse.php');
 }
+// Automatically detect overdue borrowing records
+$stm = $_db->prepare("
+    UPDATE borrowing
+    SET status = 'OVERDUE'
+    WHERE user_id = ?
+    AND status = 'APPROVAL'
+    AND due_date < CURDATE()
+");
+$stm->execute([$_user->user_id]);
 
 $_status = $_GET['status'] ??'';
 
@@ -82,7 +91,7 @@ include '../../_head.php';
                         </td>
                         <td>RM <?= number_format($row->fine_amount) ?></td>
                         <td>
-                        <?php if(strtoupper($row->status) === 'APPROVAL'):?>
+                        <?php if(in_array(strtoupper($row->status),['APPROVAL','OVERDUE'],true)):?>
                             <button>
                                 <a href="/Student/activities/return.php?borrowing_id=<?= encode($row->borrowing_id) ?>">Ready to return book?</a>
                             </button>
