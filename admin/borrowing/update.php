@@ -58,8 +58,7 @@ if(is_post()){
             $stm->execute([$_status,$_id]);
 
         }
-        else if($_status == 'RETURN' && $_oldstatus == 'APPROVAL'){
-
+        else if ($_status == 'RETURN' &&in_array($_oldstatus, ['APPROVAL', 'OVERDUE'], true)){
             if($_return_td > $_due_date){
                 $day_late = max(0, (int)floor(($_return_td - $_due_td) / 86400 ));
             }

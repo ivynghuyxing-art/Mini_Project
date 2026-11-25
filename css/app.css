@@ -245,6 +245,27 @@ body {
     margin: 0;
 }
 
+.reservation-btn {
+    display: block;
+    width: 100%;
+    padding: 11px;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #f0a52b, #e58b22);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    box-sizing: border-box;
+    transition: 0.2s ease;
+}
+
+.reservation-btn:hover {
+    background: #d77a16;
+    transform: translateY(-2px);
+}
+
 /* search section*/
 
 .search-section {
@@ -1427,6 +1448,376 @@ body {
 .status-return{
     color:gray;
 }
+
+/* ==========================================
+   MY BORROWING HISTORY
+========================================== */
+
+.history-page {
+    max-width: 1450px;
+    margin: 30px auto;
+    padding: 0 25px 40px;
+}
+
+/* PAGE HEADER */
+
+.history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    gap: 15px;
+}
+
+.history-header h1 {
+    color: #263d80;
+    font-size: 27px;
+    font-weight: 700;
+    margin: 0 0 7px;
+}
+
+.history-header p {
+    color: #858da2;
+    font-size: 14px;
+    margin: 0;
+}
+
+.history-total {
+    background: #eeedff;
+    color: #6352ce;
+    padding: 10px 17px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 650;
+    white-space: nowrap;
+}
+
+/* MAIN CARD */
+
+.history-card {
+    background: #ffffff;
+    border: 1px solid #edf0f7;
+    border-radius: 15px;
+    padding: 24px;
+    box-shadow: 0 5px 20px rgba(36, 52, 100, 0.06);
+}
+
+/* FILTER */
+
+.history-filter {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-group label {
+    color: #526080;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.filter-group select {
+    min-width: 190px;
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid #dce1ed;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #46516d;
+    outline: none;
+}
+
+.filter-group select:focus {
+    border-color: #6656d8;
+}
+
+.history-search-btn,
+.history-reset-btn {
+    height: 42px;
+    min-width: 90px;
+    padding: 0 18px;
+    border-radius: 8px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 650;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.history-search-btn {
+    border: none;
+    background: linear-gradient(135deg, #5265df, #7548cc);
+    color: #ffffff;
+}
+
+.history-search-btn:hover {
+    opacity: 0.9;
+}
+
+.history-reset-btn {
+    border: 1px solid #dce1ed;
+    color: #667085;
+    background: #ffffff;
+}
+
+.history-reset-btn:hover {
+    background: #f5f6fa;
+}
+
+/* TABLE */
+
+.history-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1050px;
+}
+
+.history-table thead {
+    background: #f4f5fb;
+}
+
+.history-table th {
+    color: #435078;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: left;
+    padding: 15px 13px;
+    white-space: nowrap;
+}
+
+.history-table td {
+    color: #58647d;
+    font-size: 13px;
+    padding: 17px 13px;
+    border-bottom: 1px solid #edf0f5;
+    vertical-align: middle;
+}
+
+.history-table tbody tr:hover {
+    background: #fafaff;
+}
+
+/* BOOK DETAILS */
+
+.history-book {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 180px;
+}
+
+.history-book img {
+    width: 48px;
+    height: 62px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: #f1f2f8;
+}
+
+.history-book-placeholder {
+    width: 48px;
+    height: 62px;
+    border-radius: 6px;
+    background: #eeedff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.history-book-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.history-book-info strong {
+    color: #34436e;
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.history-book-info small {
+    color: #9299aa;
+    font-size: 11px;
+}
+
+/* STATUS */
+
+.history-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 11px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.status-approval,
+.status-approved {
+    background: #e9f7ef;
+    color: #25996a;
+}
+
+.status-pending {
+    background: #fff4df;
+    color: #c28b29;
+}
+
+.status-return {
+    background: #edf0f7;
+    color: #64708a;
+}
+
+.status-overdue {
+    background: #ffe9e9;
+    color: #d94d4d;
+}
+
+.status-reject {
+    background: #ffe9e9;
+    color: #d94d4d;
+}
+
+/* RETURN DATE */
+
+.not-returned {
+    color: #a0a6b5;
+    font-size: 12px;
+}
+
+/* FINE */
+
+.fine-value {
+    color: #df5555;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.no-fine {
+    color: #7e899f;
+    white-space: nowrap;
+}
+
+/* RETURN BUTTON */
+
+.history-return-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 14px;
+    border-radius: 7px;
+    background: linear-gradient(135deg, #5867e5, #7549cc);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 650;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: 0.2s;
+}
+
+.history-return-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(91, 77, 205, 0.2);
+    color: #ffffff;
+}
+
+.history-action-disabled {
+    color: #a0a6b5;
+    font-size: 12px;
+}
+
+.history-action-pending {
+    color: #c28b29;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* EMPTY STATE */
+
+.history-empty {
+    text-align: center;
+    padding: 55px 20px;
+}
+
+.history-empty-icon {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.history-empty h3 {
+    color: #34436e;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.history-empty p {
+    color: #8a92a5;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.history-empty a {
+    display: inline-flex;
+    padding: 11px 20px;
+    border-radius: 8px;
+    background: #6555d6;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+
+    .history-page {
+        padding: 0 12px 30px;
+    }
+
+    .history-card {
+        padding: 16px;
+    }
+
+    .history-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .history-filter {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .filter-group select {
+        width: 100%;
+    }
+
+    .history-search-btn,
+    .history-reset-btn {
+        width: 100%;
+    }
+}
+
 /*======================
     Member Management     
 ========================*/
@@ -2322,6 +2713,407 @@ body {
     color: green;
 }
 
+/* ==========================================
+   RETURN BOOK PAGE
+   StoryVault Library Management System
+========================================== */
+
+.return-page {
+    max-width: 1050px;
+    margin: 35px auto;
+    padding: 0 25px 40px;
+}
+
+/* ==========================================
+   PAGE HEADER
+========================================== */
+
+.return-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 25px;
+}
+
+.return-header-icon {
+    width: 52px;
+    height: 52px;
+    background: #eceaff;
+    color: #644bd0;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
+
+.return-header h1 {
+    color: #263d80;
+    font-size: 27px;
+    font-weight: 700;
+    margin: 0 0 6px;
+}
+
+.return-header p {
+    color: #858da2;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* ==========================================
+   MAIN CARD
+========================================== */
+
+.return-card {
+    background: #ffffff;
+    border: 1px solid #edf0f7;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 5px 22px rgba(36, 52, 100, 0.07);
+}
+
+/* ==========================================
+   BOOK DETAILS
+========================================== */
+
+.return-book-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+}
+
+.return-book-image {
+    width: 175px;
+    min-width: 175px;
+    height: 225px;
+    border-radius: 11px;
+    overflow: hidden;
+    background: #f1f3fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.return-book-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.return-book-image .book-placeholder {
+    font-size: 55px;
+}
+
+.return-book-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.section-label {
+    display: block;
+    color: #7055d6;
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: 1.3px;
+    margin-bottom: 12px;
+}
+
+.return-book-details h2 {
+    color: #26345c;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 7px;
+}
+
+.book-author {
+    color: #8991a5;
+    font-size: 14px;
+    margin: 0 0 22px;
+}
+
+.book-meta {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 15px;
+    font-size: 13px;
+}
+
+.book-meta span {
+    color: #9299aa;
+}
+
+.book-meta strong {
+    color: #3b486c;
+    font-weight: 600;
+}
+
+.book-description {
+    color: #788197;
+    font-size: 13px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   DIVIDER
+========================================== */
+
+.return-divider {
+    height: 1px;
+    background: #edf0f6;
+    margin: 28px 0;
+}
+
+/* ==========================================
+   BORROWING INFORMATION
+========================================== */
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.return-status {
+    background: #fff5df;
+    color: #bd8424;
+    font-size: 11px;
+    font-weight: 650;
+    padding: 7px 13px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+}
+
+.return-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.info-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #f8f9fd;
+    border: 1px solid #edf0f7;
+    border-radius: 11px;
+    padding: 17px;
+    min-width: 0;
+}
+
+.info-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 10px;
+    background: #eceaff;
+    color: #7055d6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.info-box span {
+    display: block;
+    color: #8c94a8;
+    font-size: 12px;
+    margin-bottom: 7px;
+}
+
+.info-box strong {
+    display: block;
+    color: #34436e;
+    font-size: 14px;
+    font-weight: 650;
+    overflow-wrap: anywhere;
+}
+
+.info-box strong.late-text {
+    color: #dc5555;
+}
+
+/* ==========================================
+   FINE SUMMARY
+========================================== */
+
+.fine-summary {
+    background: #f7f5ff;
+    border: 1px solid #e9e4ff;
+    border-radius: 13px;
+    padding: 23px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.fine-summary-details {
+    flex: 1;
+}
+
+.fine-summary h3 {
+    color: #34436e;
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0 0 8px;
+}
+
+.fine-summary p {
+    color: #828ba1;
+    font-size: 12px;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.fine-amount {
+    color: #229c70;
+    font-size: 29px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.fine-amount.has-fine {
+    color: #df5555;
+}
+
+/* ==========================================
+   FINE RATE NOTE
+========================================== */
+
+.fine-rate-note {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #858da2;
+    font-size: 12px;
+    margin-top: 16px;
+}
+
+.fine-rate-note span {
+    color: #7055d6;
+    font-size: 16px;
+}
+
+/* ==========================================
+   ACTION BUTTONS
+========================================== */
+
+.return-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.return-cancel-btn,
+.return-confirm-btn {
+    min-width: 135px;
+    min-height: 43px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 11px 22px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 650;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.return-cancel-btn {
+    background: #ffffff;
+    color: #6e7890;
+    border: 1px solid #dce1eb;
+}
+
+.return-cancel-btn:hover {
+    background: #f4f5f9;
+    border-color: #cbd1df;
+}
+
+.return-confirm-btn {
+    background: linear-gradient(135deg, #5265df, #7548cc);
+    color: #ffffff;
+    border: none;
+    box-shadow: 0 4px 11px rgba(100, 75, 200, 0.2);
+}
+
+.return-confirm-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(100, 75, 200, 0.3);
+}
+
+.return-confirm-btn span {
+    font-size: 17px;
+}
+
+/* ==========================================
+   FOOTER NOTE
+========================================== */
+
+.return-footer-note {
+    color: #9299aa;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+@media (max-width: 700px) {
+
+    .return-page {
+        margin: 22px auto;
+        padding: 0 15px 30px;
+    }
+
+    .return-header h1 {
+        font-size: 23px;
+    }
+
+    .return-card {
+        padding: 20px;
+    }
+
+    .return-book-section {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .return-book-image {
+        width: 145px;
+        min-width: 145px;
+        height: 190px;
+    }
+
+    .return-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .fine-summary {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .return-actions {
+        flex-direction: column-reverse;
+    }
+
+    .return-cancel-btn,
+    .return-confirm-btn {
+        width: 100%;
+    }
+}
+
+
 /*==================================
             Category        
 ===================================*/
@@ -2584,6 +3376,41 @@ body {
 .rejected-card .stat-icon {
     background: #ffe7e7;
     color: #dc5555;
+}
+
+.filter-tabs {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.filter-tab {
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #555;
+    padding: 9px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+.filter-tab:hover {
+    background: #f0edff;
+    color: #6541c8;
+}
+
+.filter-tab.active {
+    background: #6541c8;
+    color: #fff;
+    border-color: #6541c8;
+}
+
+.reservation-stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
 }
 
 
@@ -3436,3 +4263,785 @@ body {
 .u-card p{
     margin-top: 20px;
 }
+
+
+/* ==========================================
+   ADMIN RESERVATION PAGE
+========================================== */
+
+.admin-reservation-page {
+    width: 100%;
+    padding: 22px 30px;
+    box-sizing: border-box;
+    color: #26324b;
+}
+
+
+/* PAGE HEADER */
+
+.admin-reservation-header {
+    margin-bottom: 20px;
+}
+
+.admin-reservation-header h1 {
+    font-size: 24px;
+    color: #293b70;
+    margin: 0 0 5px;
+}
+
+.admin-reservation-header p {
+    color: #888;
+    font-size: 13px;
+    margin: 0;
+}
+
+
+/* MESSAGE */
+
+.admin-reservation-message {
+    padding: 12px 15px;
+    margin-bottom: 18px;
+    background: #e5f7ec;
+    color: #238653;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+
+/* SUMMARY CARDS */
+
+.admin-reservation-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.admin-stat-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 95px;
+    padding: 15px;
+    background: white;
+    border: 1px solid #eee;
+    border-left: 4px solid #6846c6;
+    border-radius: 11px;
+    box-shadow: 0 3px 10px rgba(0,0,0,.04);
+}
+
+.admin-stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
+    font-size: 18px;
+}
+
+.admin-stat-card p {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0 0 4px;
+    white-space: nowrap;
+    color: #777;
+}
+
+.admin-stat-card h2 {
+    font-size: 19px;
+    margin: 0;
+    color: #26324b;
+}
+
+.admin-stat-card.total .admin-stat-icon {
+    background: #e8edff;
+}
+
+.admin-stat-card.pending .admin-stat-icon {
+    background: #fff3d9;
+}
+
+.admin-stat-card.approved .admin-stat-icon {
+    background: #e3f7ec;
+}
+
+.admin-stat-card.rejected .admin-stat-icon {
+    background: #ffe7e7;
+}
+
+
+/* RECORD CARD */
+
+.admin-reservation-card {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 11px;
+    box-shadow: 0 3px 10px rgba(0,0,0,.04);
+}
+
+.admin-reservation-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.admin-reservation-card-header h2 {
+    font-size: 19px;
+    color: #293b70;
+    margin: 0 0 5px;
+}
+
+.admin-reservation-card-header p {
+    font-size: 12px;
+    color: #888;
+    margin: 0;
+}
+
+.admin-record-count {
+    padding: 7px 12px;
+    background: #edf0ff;
+    color: #5365cb;
+    border-radius: 20px;
+    font-size: 11px;
+}
+
+
+/* SEARCH AND FILTER */
+
+.reservation-filter {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.reservation-filter input,
+.reservation-filter select {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    font-size: 12px;
+    outline: none;
+}
+
+.reservation-filter input {
+    flex: 1;
+    min-width: 180px;
+}
+
+.reservation-filter select {
+    min-width: 135px;
+    background: white;
+}
+
+.reservation-filter input:focus,
+.reservation-filter select:focus {
+    border-color: #6846c6;
+}
+
+.filter-btn,
+.reset-btn {
+    padding: 9px 16px;
+    border: none;
+    border-radius: 7px;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.filter-btn {
+    background: #4c55bd;
+    color: white;
+}
+
+.reset-btn {
+    background: #f0f0f5;
+    color: #555;
+}
+
+
+/* TABLE */
+
+.admin-reservation-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.admin-reservation-table {
+    width: 100%;
+    min-width: 950px;
+    border-collapse: collapse;
+}
+
+.admin-reservation-table thead {
+    background: #f5f6fb;
+}
+
+.admin-reservation-table th {
+    padding: 13px 10px;
+    text-align: left;
+    color: #555f78;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.admin-reservation-table td {
+    padding: 13px 10px;
+    font-size: 12px;
+    color: #555;
+    border-bottom: 1px solid #eee;
+}
+
+.admin-reservation-table tbody tr:hover {
+    background: #fafaff;
+}
+
+
+/* BOOK DETAILS */
+
+.admin-book-details strong {
+    display: block;
+    color: #293b70;
+    font-size: 12px;
+}
+
+.admin-book-details small {
+    display: block;
+    color: #999;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+
+/* STATUS */
+
+.admin-status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.admin-status.pending {
+    background: #fff3d9;
+    color: #c58a19;
+}
+
+.admin-status.approved {
+    background: #e3f7ec;
+    color: #24975d;
+}
+
+.admin-status.rejected {
+    background: #ffe7e7;
+    color: #d94d4d;
+}
+
+.admin-status.cancelled {
+    background: #eee;
+    color: #777;
+}
+
+
+/* ACTION BUTTONS */
+
+.reservation-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.approve-btn,
+.reject-btn {
+    padding: 6px 9px;
+    border: none;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.approve-btn {
+    background: #e3f7ec;
+    color: #24975d;
+}
+
+.reject-btn {
+    background: #ffe7e7;
+    color: #d94d4d;
+}
+
+.approve-btn:hover {
+    background: #24975d;
+    color: white;
+}
+
+.reject-btn:hover {
+    background: #d94d4d;
+    color: white;
+}
+
+.admin-no-action {
+    color: #aaa;
+}
+
+
+/* EMPTY TABLE */
+
+.no-records {
+    padding: 45px !important;
+    text-align: center;
+    color: #999 !important;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 1100px) {
+
+    .admin-reservation-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    .admin-reservation-page {
+        padding: 18px 14px;
+    }
+
+    .admin-reservation-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-reservation-card {
+        padding: 15px;
+    }
+
+    .admin-reservation-card-header {
+        align-items: flex-start;
+    }
+
+}
+
+
+/* ==========================================
+   ADMIN FEEDBACK MANAGEMENT
+========================================== */
+
+.admin-feedback-page {
+    padding: 30px;
+    width: 100%;
+    box-sizing: border-box;
+    color: #252b40;
+}
+
+
+/* ==========================================
+   PAGE HEADER
+========================================== */
+
+.admin-feedback-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.admin-feedback-header h1 {
+    font-size: 27px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: #252b40;
+}
+
+.admin-feedback-header p {
+    color: #777;
+    font-size: 14px;
+    margin: 0;
+}
+
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+.admin-feedback-message {
+    background: #eaf8ef;
+    color: #23834b;
+    border: 1px solid #c9ecd5;
+    padding: 13px 18px;
+    border-radius: 8px;
+    margin-bottom: 22px;
+    font-size: 14px;
+}
+
+
+/* ==========================================
+   STATISTICS
+========================================== */
+
+.admin-feedback-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.admin-feedback-stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eeeeF5;
+}
+
+.admin-feedback-stat-icon {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.admin-feedback-stat-card.total .admin-feedback-stat-icon {
+    background: #eeeaff;
+    color: #6953ce;
+}
+
+.admin-feedback-stat-card.average .admin-feedback-stat-icon {
+    background: #fff5dc;
+    color: #e3a323;
+}
+
+.admin-feedback-stat-card.low .admin-feedback-stat-icon {
+    background: #ffeaea;
+    color: #dc5555;
+}
+
+.admin-feedback-stat-card p {
+    margin: 0 0 7px;
+    font-size: 14px;
+    color: #777;
+}
+
+.admin-feedback-stat-card h2 {
+    margin: 0;
+    font-size: 27px;
+    font-weight: 700;
+    color: #292d40;
+}
+
+.admin-feedback-stat-card h2 small {
+    font-size: 13px;
+    color: #888;
+    font-weight: 400;
+}
+
+
+/* ==========================================
+   FEEDBACK CARD
+========================================== */
+
+.admin-feedback-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eeeeF5;
+}
+
+.admin-feedback-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.admin-feedback-card-header h2 {
+    margin: 0 0 7px;
+    font-size: 20px;
+    color: #292d40;
+}
+
+.admin-feedback-card-header p {
+    margin: 0;
+    font-size: 13px;
+    color: #888;
+}
+
+.admin-feedback-record-count {
+    background: #eeeaff;
+    color: #6652c5;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+
+/* ==========================================
+   SEARCH AND FILTER
+========================================== */
+
+.admin-feedback-filter {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+}
+
+.admin-feedback-filter input,
+.admin-feedback-filter select {
+    height: 42px;
+    padding: 0 13px;
+    border: 1px solid #dddde8;
+    border-radius: 7px;
+    background: white;
+    color: #333;
+    font-size: 13px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.admin-feedback-filter input {
+    flex: 1;
+    min-width: 230px;
+}
+
+.admin-feedback-filter select {
+    min-width: 145px;
+}
+
+.admin-feedback-filter input:focus,
+.admin-feedback-filter select:focus {
+    border-color: #6652ce;
+    box-shadow: 0 0 0 3px rgba(102, 82, 206, 0.1);
+}
+
+.feedback-search-btn,
+.feedback-reset-btn {
+    height: 42px;
+    padding: 0 19px;
+    border: none;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.feedback-search-btn {
+    background: #5548bd;
+    color: white;
+}
+
+.feedback-search-btn:hover {
+    background: #4335a8;
+}
+
+.feedback-reset-btn {
+    background: #f0f0f5;
+    color: #555;
+}
+
+.feedback-reset-btn:hover {
+    background: #e4e4ed;
+}
+
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.admin-feedback-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.admin-feedback-table {
+    width: 100%;
+    min-width: 950px;
+    border-collapse: collapse;
+}
+
+.admin-feedback-table thead {
+    background: #f7f6fc;
+}
+
+.admin-feedback-table th {
+    padding: 15px 13px;
+    text-align: left;
+    color: #555;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    border-bottom: 1px solid #e9e8f0;
+}
+
+.admin-feedback-table td {
+    padding: 16px 13px;
+    border-bottom: 1px solid #eeeeF3;
+    font-size: 13px;
+    color: #444;
+    vertical-align: middle;
+}
+
+.admin-feedback-table tbody tr:hover {
+    background: #faf9ff;
+}
+
+.feedback-member-id {
+    display: inline-block;
+    background: #f0efff;
+    color: #6250bd;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.feedback-book-title {
+    font-weight: 600;
+    color: #303047 !important;
+    min-width: 130px;
+}
+
+.feedback-rating {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.feedback-stars {
+    color: #f0ad28;
+    font-size: 16px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.feedback-rating small {
+    font-size: 11px;
+    color: #888;
+}
+
+.feedback-comment {
+    max-width: 200px;
+    min-width: 120px;
+    overflow-wrap: anywhere;
+    line-height: 1.5;
+}
+
+
+/* ==========================================
+   DELETE BUTTON
+========================================== */
+
+.feedback-delete-btn {
+    border: none;
+    background: #ffeaea;
+    color: #d44848;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.feedback-delete-btn:hover {
+    background: #d44848;
+    color: white;
+}
+
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.feedback-empty {
+    text-align: center !important;
+    padding: 55px 20px !important;
+    color: #888 !important;
+}
+
+.feedback-empty-icon {
+    font-size: 35px;
+    color: #c9c4e8;
+    margin-bottom: 12px;
+}
+
+.feedback-empty strong {
+    display: block;
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 7px;
+}
+
+.feedback-empty p {
+    margin: 0;
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 900px) {
+
+    .admin-feedback-stats {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .admin-feedback-page {
+        padding: 18px;
+    }
+
+    .admin-feedback-card {
+        padding: 16px;
+    }
+
+    .admin-feedback-header h1 {
+        font-size: 23px;
+    }
+
+    .admin-feedback-filter {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .admin-feedback-filter input,
+    .admin-feedback-filter select,
+    .feedback-search-btn,
+    .feedback-reset-btn {
+        width: 100%;
+    }
+
+}
+

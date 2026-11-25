@@ -174,18 +174,35 @@ $categories = $stm->fetchAll();
                                 <?= encode($book->name) ?>
                             </span>
 
-                            <?php if ($book->available_quantity > 0):?>
-                                <p class="available-status">
-                                    Available
-                                </p>
-                                <a href="../activities/my_borrowing.php?book_id=<?=$book->book_id?>" class="borrowing-btn">Borrow</a>
+                       
+<?php if ($book->available_quantity > 0): ?>
 
-                            <?php else:?>
-                                <p class="unavailable-status">
-                                    Unavailable
-                                </p>
-                                <a href="/Student/activities/reservation.php?id=<?=$book->book_id?>" class="reservation-btn"> Reservation</a>
-                            <?php endif;?>
+    <!-- BOOK AVAILABLE -->
+
+    <p class="available-status">
+        <span>●</span> Available
+    </p>
+
+    <a href="../activities/my_borrowing.php?book_id=<?= $book->book_id ?>"
+       class="borrowing-btn">
+        Borrow
+    </a>
+
+<?php else: ?>
+
+    <!-- BOOK UNAVAILABLE -->
+
+    <p class="unavailable-status">
+        <span>●</span> Unavailable
+    </p>
+
+    <a href="../activities/reservation.php?id=<?= $book->book_id ?>"
+       class="reservation-btn">
+        Reserve Book
+    </a>
+
+<?php endif; ?>
+
 
                             <form method="post" action="/student/engagement/wishlist.php">
                                 <input type="hidden" name="add_id" value="<?= $book->book_id ?>">
@@ -202,5 +219,7 @@ $categories = $stm->fetchAll();
             
             <?php endif;?>
         </div>
+
+
     </div>
 </main> 
