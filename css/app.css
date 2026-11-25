@@ -3311,3 +3311,7 @@ body {
     border-radius: 4px;
     box-sizing: border-box;
 }
+
+.u-card p{
+    margin-top: 20px;
+}

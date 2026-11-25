@@ -18,6 +18,7 @@ $stm = $_db->prepare('SELECT bk.title, bk.image, bk.author, bk.category_id, bk.d
                         WHERE bk.book_id =?');
 $stm->execute([$book_id]);
 $_b = $stm->fetch();
+
 if (!$_b) {
     redirect('/Student/book/browse.php');
 }
