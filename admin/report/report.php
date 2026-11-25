@@ -8,20 +8,55 @@ include '../../admin_header.php';
 
 $report_type = post('report_type','borrowing');
 $date_range = post('date_range','1');
+$category_id = post('category_id','');
 
 if(!in_array($date_range,['1','3','6','12'],true)){
     $date_range='1';
 }
+if($category_id !== '' && !ctype_digit((string)$category_id)){
+    $category_id = '';
+}
+
 $start_date = date('Y-m-d',strtotime("-$date_range month"));
 
 $total_borrowings = 0;
+$returned_books = 0;
+$overdue_books - 0;
+$currently_borrowed = 0;
 
-if(is_post()){
-    $stm = $_db->prepare("SELECT COUNT(*) AS total_borrowings FROM borrowing WHERE borrow_date BETWEEN ? AND CURDATE()");
-    $stm->execute([$start_date]);
-    $total_borrowings = $stm->fetch()->total_borrowings;
+$borrowings = [];
+
+$category_stm -> $_db->query("SELECT DISTINCT category_id FROM book WHERE category_id IS NOT NULL  ORDER BY category_id");
+$categories = $category_stm->fetchAll();
+
+//Total borrowings
+if($category_id === ''){
+    $stm = $db->prepare("SELECT COUNT (*) FROM borrowing bor JOIN book bk ON bk.book_id = bor.book_id WHERE bor.borrow_date >= ? AND bor.borrow_date<=CURDATE()");
+    $stm -> execute([$start_date]);
+}else{
+    $stm = $_db->prepare("SELECT COUNT (*) FROM borrowing bor JOIN book bk ON bk.book_id = bor.book_id WHERE bor.borrow_date >= ? AND bor.borrow_date <= CURDATE() AND bk.category_id =?");
+    $stm -> excecute([$start_date,$category_id]);
 }
+$total_borrowings = $stm -> fetchColumn();
 
+//Returned book
+if ($category_id ===''){
+    $stm = $_db -> prepare("SELECT COUNT (*) FROM borrowing bor JOIN book bk ON bk.book_id = bor.book_id WHERE bor.borrow_date >= ? AND bor.borrow_date <= CURDATE() AND bor.status ='RETURN'");
+    $stm ->execute([$start_date]);
+}else {
+    $stm = $_db -> prepare("SELECT COUNT (*) FROM borrowing bor JOIN book bk ON bn.book_id = bor.book_id WHERE bor.borrow_date > = ? AND bor.borrow_date <= CURDATE() AND bor.status ='RETURN' AND bk.category_id =?");
+    $stm -> execute([$start_date,$category_id]);
+}
+$returned_books = $stm->fetchColumn();
+
+//currently borrowed
+if ($category_id === ''){
+    $stm = $_db->prepare("SELECT COUNT (*) FROM borrowing bor JOIN book bk ON bk.book_id = bor.book_id WHERE bor.borrow_date >=? AND bor.borrow_date <= CURDATE() AND bor.status = 'APPROVAL' AND bor.due_date >= CURDATE()");
+    $stm -> execute([$start_date]);
+}else{
+    $stm = $_db -> prepare ("SELECT COUNT (*) FROM borrowing bor JOIN book bk ON bk.book_id = bor.book_id WHERE bor.borrow_date >= ? AND bor.borrow_date <=CURDATE() AND bor.status ='APPROVAL' AND bor.due_date >= CURDATE() AND bk.category_id =?");
+    $stm->execute ([$start_date, $category_id]);
+}
 ?>
 <link rel="stylesheet" href = '../../css/app.css'>
 <div class= "report-container">
@@ -35,7 +70,7 @@ if(is_post()){
     <!-- Filters -->
     <div class = "filters">
         <h2>Report Filter</h2>
-        <form id="reportForm">
+        <form id="reportForm" method ="POST">
             <div class = "filter-group">
                 <label for = "reportType"> Report Type</label>
                 <select name = "report_type" id ="reportType">
@@ -69,22 +104,19 @@ if(is_post()){
     </div>
 
     <div id ="reportResult">
-        <?php if (is_post()): ?>
-
             <div class ="statistics-container">
                 <div class="stat-card">
                     <h3>Total borrowings</h3>
                     <p><?= $total_borrowings ?></p>
                 </div>
             </div>
-        <?php else:?>
+
             <div class ="empty-report">
                 <div class="report-icon">📊</div>
                     <h3>No Report Generated</h3>
                     <p>Select your filters and click Generate Report.</p>
                 </i>
             </div>
-        <?php endif; ?>
     </div>
 </div>
 
