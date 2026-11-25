@@ -122,13 +122,16 @@ include '../../admin_header.php';
         <h3>
             <?= encode($borrows->due_date) ?>
         </h3>
-        <label>Status</label>
-        <?php html_text('status', 'maxlength=10') ?>
-        <?php err('status')?>
-
-        <select>
-            <option></option>
+        <label for="status">Status</label>
+        <select name="status" id="list-status">
+            <option value="">All Status</option>
+            <?php foreach($_array as $s):?>
+                <option value="<?= $s ?>" <?= $s == strtoupper(trim($_status)) ? 'selected' : '' ?>>
+                     <?= ucfirst(strtolower($s)) ?>
+                </option>
+            <?php endforeach;?>
         </select>
+        <?php err('status')?>
 
         <label>Fine amount</label>
         <h3>
