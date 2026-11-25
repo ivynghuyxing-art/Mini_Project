@@ -3,6 +3,14 @@ include '../../_base.php';
 
 $_title = 'Borrow Book';
 
+// Automatically update overdue borrowing records
+$stm = $_db->prepare("
+    UPDATE borrowing
+    SET status = 'OVERDUE'
+    WHERE status = 'APPROVAL'
+    AND due_date < CURDATE()
+");
+$stm->execute();
 
 $stm= $_db->prepare('SELECT * FROM borrowing');
 $stm->execute();
@@ -22,6 +30,7 @@ include '../../admin_header.php';
                         <th>Book ID</th>
                         <th>Borrow Date</th>
                         <th>Due Date</th>
+                        <th>Return Date</th>
                         <th>Status</th>
                         <th>Fine Payment</th>
                         <th>Action</th>
@@ -32,10 +41,18 @@ include '../../admin_header.php';
                         <td><?= encode($row->book_id) ?></td>
                         <td><?= encode($row->borrow_date) ?></td>
                         <td><?= encode($row->due_date) ?></td>
+                        <?php if($row->status == 'RETURN'):?>
+                            <td><?= encode($row->return_date) ?></td>
+
+                        <?php elseif($row->status == 'REJECT'):?>
+                             <td>Book has rejected</td>
+                        <?php else:?>
+                            <td>-</td>
+                        <?php endif?>
                         <td class="status-<?= strtolower(encode($row->status)) ?>">
                             <?= encode($row->status)?>
                         </td>
-                        <td><?= encode($row->fine_amount) ?></td>
+                        <td>RM<?= encode($row->fine_amount) ?></td>
                         <td>
                             <a href="/admin/borrowing/update.php?borrowing_id=<?= $row->borrowing_id ?>">Update</a>
                         </td>

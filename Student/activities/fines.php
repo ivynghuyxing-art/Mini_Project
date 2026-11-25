@@ -8,68 +8,6 @@ $_title = 'My Fines';
 
 $user_id = $_user->user_id;
 
-// Generate fines
-// Only calculate fines when the book has been returned late
-
-$stm = $_db->prepare("
-    SELECT borrowing_id,user_id,
-           DATEDIFF(return_date, due_date) AS overdue_days
-    FROM borrowing
-    WHERE user_id=?
-    AND return_date IS NOT NULL
-    AND DATEDIFF(return_date, due_date) >= 2
-");
-
-$stm->execute([$user_id]);
-$borrowings = $stm->fetchAll();
-
-foreach ($borrowings as $borrowing) {
-
-    $overdue_days = (int)$borrowing->overdue_days;
-
-    // Calculate fine amount
-    $amount = ceil($overdue_days / 5) * 5;
-
-    // Generate fine reason
-    $period = (int)ceil($overdue_days / 5);
-
-    $range_start = ($period - 1) * 5 + 1;
-    $range_end = $period * 5;
-
-    if ($period == 1) {
-        $range_start = 2;
-    }
-
-    $reason = "Overdue $range_start - $range_end days";
-
-    // Check whether fine already exists
-    $stm = $_db->prepare("
-        SELECT fine_id
-        FROM fine
-        WHERE borrowing_id = ?
-    ");
-
-    $stm->execute([$borrowing->borrowing_id]);
-    $existing_fine = $stm->fetch();
-
-    if (!$existing_fine) {
-
-        // Insert new fine record
-        $stm = $_db->prepare("
-            INSERT INTO fine
-            (borrowing_id, user_id, amount, reason, payment_status)
-            VALUES (?, ?, ?, ?, ?)
-        ");
-
-        $stm->execute([
-            $borrowing->borrowing_id,
-            $borrowing->user_id,
-            $amount,
-            $reason,
-            'Unpaid'
-        ]);
-    }
-}
 
 // Pagination
 $records_per_page = 5;
@@ -183,6 +121,7 @@ include '../../_head.php';
                             <th>Amount</th>
                             <th>Reason</th>
                             <th>Payment Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
 
@@ -232,6 +171,13 @@ include '../../_head.php';
 
                                     <?php endif; ?>
 
+                                </td>
+                                <td>
+                                    <?php if($fine->payment_status == 'Unpaid'):?>
+                                        <a href="payment.php?fine_id=<?= $fine->fine_id; ?>" class ="btn btn-primary">Pay Now</a>
+                                    <?php else:?>
+                                        <span>Completed</span>
+                                    <?php endif;?>
                                 </td>
 
                             </tr>

@@ -1,4 +1,5 @@
 
+
 <?php
 
 require_once '../../_base.php';
@@ -329,6 +330,7 @@ include '../../_head.php';
                     Review your borrowing details before confirming your return.
                 </p>
             </div>
+
 
         </div>
 
