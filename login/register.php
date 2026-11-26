@@ -298,23 +298,31 @@ if (!$_err) {
 </header>
 
 <div class="auth-card">
-    <h2 class="auth-card__title">Create an account</h2>
         <form method="post" class="auth-form-register">
+            <h4 class="auth-card__title">Create an account</h4>
             <label for="username" class="sr-only">Name</label>
-            <?php html_text('username', 'placeholder="Full name..." maxlength="100"', $name) ?>
-            <?php err('username') ?>
+            <div class="field">
+                <?php html_text('username', 'placeholder="Full name..." maxlength="100"', $name) ?>
+                <?php err('username') ?>
+            </div>
 
             <label for="email" class="sr-only">Email</label>
-            <?php html_text('email', 'placeholder="Email address..." maxlength="254"', $email) ?>
-            <?php err('email') ?>
+            <div class="field">
+                <?php html_text('email', 'placeholder="Email address..." maxlength="254"', $email) ?>
+                <?php err('email') ?>
+            </div>
 
             <label for="password" class="sr-only">Password</label>
-            <?php html_password('password','class="password_input" id="password" placeholder="Password"', $password) ?>
-            <?php err('password') ?>
+            <div class="field">
+                <?php html_password('password','class="password_input" id="password" placeholder="Password"', $password) ?>
+                <?php err('password') ?>
+            </div>
     
             <label for="confirm" class="sr-only">Confirm password</label>
-            <?php html_password('confirm', 'class="password_input" id="confirm" placeholder="Confirm password"', $confirm) ?>
-            <?php err('confirm') ?>
+            <div class="field">
+                <?php html_password('confirm', 'class="password_input" id="confirm" placeholder="Confirm password"', $confirm) ?>
+                <?php err('confirm') ?>
+            </div>
 
             <div class="auth-form__row">
                 <a href="javascript:void(0)"

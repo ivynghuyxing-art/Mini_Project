@@ -112,9 +112,10 @@ include '../../_head.php';
                     If member did not return in time before the due time,
                     the libraries have the rule to charge the member. 
 
-                    <br>
-                    Before 1 to 2 return no charge.<br> 
-                    Charge 2 to 4 days: RM <strong>5.00</strong>
+                    <br> 
+                    Charge 2 to 5 days: RM <strong>5.00</strong> <br>
+                    Charge 6 to 10 days: RM <strong>10.00</strong> <br>
+                    If member didn't return more than 10 day every 5 day period charge RM 5
                 </p>
             </span>
 

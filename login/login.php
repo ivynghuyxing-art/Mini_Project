@@ -85,17 +85,20 @@
 </header>
 
 <div class="auth-card">
-    <h2 class="auth-card__title">Welcome back</h2>
-
     <form method="post" class="auth-form">
-
+        <h4 class="auth-card__title">Welcome to Story Vault</h4>
         <label for="email" class="sr-only">Email</label>
-        <?php html_text('email', 'placeholder="Email address" maxlength="100"') ?>
-        <?php err('email') ?>
+        <div class="field">
+            <?php html_text('email', 'placeholder="Email address" maxlength="100"') ?>
+            <?php err('email') ?>
+        </div>
+        
 
         <label for="password" class="sr-only">Password</label>
-        <?php html_password('password', 'placeholder="Password" maxlength="100"') ?>
-        <?php err('password') ?>
+        <div class="field">
+            <?php html_password('password', 'placeholder="Password" maxlength="100"') ?>
+            <?php err('password') ?>
+        </div>
 
         <div class="auth-form__row">
             <a href="javascript:void(0)"
