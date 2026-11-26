@@ -708,19 +708,19 @@ body {
 /* Total Fines Card */
 .fine-summary-card {
     background-color: #ffffff;
-    padding: 25px 30px;
-    margin-bottom: 25px;
-
+    width: 100%;
+    min-height: 100px;
+    padding: 20px 20px;
+    margin-bottom: 0;
     border-radius: 16px;
     border: 1px solid #eeecf5;
-
     box-shadow: 0 3px 12px rgba(38, 50, 75, 0.05);
 }
 
 .fine-summary-card h2 {
     margin: 0 0 8px;
     color: #26324b;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 700;
 }
 
@@ -1454,11 +1454,9 @@ body {
 ========================================== */
 
 .history-page {
-    max-width: 1450px;
-    margin: 30px auto;
-    padding: 0 25px 40px;
+    max-width: 1600px;
+    width:100%;
 }
-
 /* PAGE HEADER */
 
 .history-header {
@@ -2341,10 +2339,10 @@ body {
 }
 
 .fine-header h1 {
-    margin: 0 0 8px;
-    color: #26324b;
-    font-size: 36px;
+    color: #263d80;
+    font-size: 27px;
     font-weight: 700;
+    margin: 0 0 7px;
 }
 
 .fine-header p {
@@ -2364,12 +2362,13 @@ body {
     border: 1px solid #eeecf5;
     box-shadow: 0 4px 15px rgba(38, 50, 75, 0.06);
     overflow: hidden;
+    margin-top:25px;
 }
 
 .fine-records h2 {
     margin-bottom: 25px;
-    font-size: 26px;
-    color: #26324b;
+    font-size: 25px;
+    color: #263d80;
 }
 
 .fine-table-container {
@@ -2418,8 +2417,12 @@ body {
 }
 
 .fine-records .status-unpaid {
-    color: #c47b20;
-    background: #fff3dc;
+    display: inline-block;
+    color: #ae1818;
+    background: #f5a3a3;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-weight: 600;
 }
 
 /* Search Clear Button */
@@ -4658,6 +4661,91 @@ body {
     }
 
 }
+.report-details {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-top: 25px;
+}
+
+.report-details h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #1e293b;
+}
+
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.report-table th,
+.report-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.report-table th {
+    background: #f8fafc;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.report-table td {
+    font-size: 14px;
+    color: #334155;
+}
+/* Two-column chart layout */
+.chart-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 20px;
+    width: 100%;
+    margin: 25px 0;
+}
+
+/* Chart cards */
+.chart-grid .chart-container {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    min-width: 0;
+}
+
+/* Chart header */
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+.chart-header h2{
+    font-size: 28px;
+    color: #30205c;
+    margin-bottom: 10px;
+}
+
+.chart-header p{
+    font-size: 15px;
+    color: #777;
+}
+
+/* Bar chart */
+.chart-content {
+    position: relative;
+    width: 100%;
+    height: 350px;
+}
+
+/* Pie chart */
+.pie-chart-content {
+    position: relative;
+    width: 100%;
+    height: 350px;
+}
+
 
 
 /* ==========================================

@@ -87,8 +87,6 @@ include '../../_head.php';
         <p>View your fines and payment status</p>
     </div>
 
-    <div class="fine-summary">
-
         <div class="fine-summary-card">
             <h2>Total Fines</h2>
 
@@ -96,8 +94,6 @@ include '../../_head.php';
                 RM <?= number_format($total_fines, 2); ?>
             </p>
         </div>
-
-    </div>
 
     <div class="fine-records">
 
