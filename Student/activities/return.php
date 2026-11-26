@@ -61,7 +61,7 @@ if (!$return) {
 
 $status = strtoupper(trim($return->status));
 
-if (!in_array($status, ['APPROVAL', 'APPROVED'])) {
+if (!in_array($status, ['APPROVAL', 'APPROVED','OVERDUE'],true)) {
     temp('info', 'This book is not eligible for return.');
     redirect('/student/activities/history.php');
 }
@@ -96,14 +96,17 @@ if ($day_late > 0) {
 // PROCESS RETURN
 // ==========================================
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+// ==========================================
+// PROCESS RETURN REQUEST
+// ==========================================
+
+if (is_post()){
 
     try {
-
         $_db->beginTransaction();
 
-        // 1. Lock borrowing record
-
+        // Lock borrowing record
         $stm = $_db->prepare("
             SELECT *
             FROM borrowing
@@ -125,164 +128,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $borrowing_status = strtoupper(trim($borrowing->status));
 
-        if (!in_array($borrowing_status, ['APPROVAL', 'APPROVED'])) {
-            throw new Exception(
-                'This borrowing record has already been processed.'
-            );
+        if (!in_array($borrowing_status, ['APPROVAL', 'APPROVED', 'OVERDUE'], true)) {
+            throw new Exception('This borrowing record cannot request a return.');
         }
 
-        // 2. Recalculate fine using current return date
-
-        $return_date = date('Y-m-d');
-
-        $return_time = strtotime($return_date);
-        $due_time = strtotime($borrowing->due_date);
-
-        $day_late = max(
-            0,
-            (int)floor(($return_time - $due_time) / 86400)
-        );
-
-        $fine_amount = 0;
-
-        if ($day_late > 0) {
-            $fine_amount = (int)ceil($day_late / 5) * FINE_OF_DAY;
-        }
-
-        // 3. Lock book record
-
-        $stm = $_db->prepare("
-            SELECT book_id
-            FROM book
-            WHERE book_id = ?
-            FOR UPDATE
-        ");
-
-        $stm->execute([$borrowing->book_id]);
-
-        if (!$stm->fetch()) {
-            throw new Exception('Book record not found.');
-        }
-
-        // 4. Update borrowing record
-
+        // Only submit a return request.
+        // Admin will confirm the actual return later.
         $stm = $_db->prepare("
             UPDATE borrowing
-            SET return_date = ?,
-                fine_amount = ?,
-                status = 'RETURN'
+            SET status = 'RETURN_REQUESTED'
             WHERE borrowing_id = ?
+            AND user_id = ?
         ");
 
         $stm->execute([
-            $return_date,
-            $fine_amount,
-            $borrow_id
+            $borrow_id,
+            $_user->user_id
         ]);
-
-        // 5. Create fine record if overdue
-
-        if ($fine_amount > 0) {
-
-            $stm = $_db->prepare("
-                INSERT INTO fine
-                (
-                    amount,
-                    borrowing_id,
-                    payment_status,
-                    reason
-                )
-                VALUES (?, ?, ?, ?)
-            ");
-
-            $stm->execute([
-                $fine_amount,
-                $borrow_id,
-                'Unpaid',
-                'Member late return book'
-            ]);
-        }
-
-        // 6. Find earliest approved reservation
-
-        $stm = $_db->prepare("
-            SELECT *
-            FROM reservation
-            WHERE book_id = ?
-            AND UPPER(status) = 'APPROVED'
-            ORDER BY reservation_date ASC,
-                     reservation_id ASC
-            LIMIT 1
-            FOR UPDATE
-        ");
-
-        $stm->execute([$borrowing->book_id]);
-
-        $reservation = $stm->fetch();
-
-        if ($reservation) {
-
-            // 7. Allocate returned book to earliest reservation
-
-            $stm = $_db->prepare("
-                UPDATE reservation
-                SET status = 'READY',
-                    expiry_date = DATE_ADD(
-                        CURDATE(),
-                        INTERVAL 3 DAY
-                    )
-                WHERE reservation_id = ?
-                AND UPPER(status) = 'APPROVED'
-            ");
-
-            $stm->execute([
-                $reservation->reservation_id
-            ]);
-
-            if ($stm->rowCount() !== 1) {
-                throw new Exception(
-                    'Unable to allocate the returned book.'
-                );
-            }
-
-            // Do not increase available_quantity.
-            // The returned book is held for this member.
-
-        } else {
-
-            // 8. No reservation: increase available stock
-
-            $stm = $_db->prepare("
-                UPDATE book
-                SET available_quantity = available_quantity + 1
-                WHERE book_id = ?
-            ");
-
-            $stm->execute([
-                $borrowing->book_id
-            ]);
-        }
-
-        // 9. Commit transaction
 
         $_db->commit();
 
-        if ($fine_amount > 0) {
-
-            temp(
-                'info',
-                'Book returned successfully. RM ' .
-                number_format($fine_amount, 2) .
-                ' fine has been recorded as Unpaid.'
-            );
-
-        } else {
-
-            temp(
-                'info',
-                'Book returned successfully. No fine is required.'
-            );
-        }
+        temp(
+            'info',
+            'Return request submitted successfully. Please wait for Admin to confirm the returned book.'
+        );
 
         redirect('/student/activities/history.php');
 
@@ -292,14 +161,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_db->rollBack();
         }
 
-        temp(
-            'info',
-            'Return failed: ' . $e->getMessage()
-        );
+        temp('info', 'Return request failed: ' . $e->getMessage());
 
         redirect('/student/activities/history.php');
     }
 }
+
 
 // ==========================================
 // DISPLAY RETURN PAGE
@@ -521,7 +388,7 @@ include '../../_head.php';
 
                 <span>ⓘ</span>
 
-                Fine rate: RM5 for every 1–5 overdue days.
+                Fine rate: RM5 for every 1-5 overdue days.
 
             </div>
 
@@ -541,7 +408,7 @@ include '../../_head.php';
                     class="return-confirm-btn"
                     onclick="return confirm('Are you sure you want to return this book?');"
                 >
-                    Confirm Return
+                    Submit Return Request
                     <span>→</span>
                 </button>
 

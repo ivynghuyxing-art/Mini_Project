@@ -12,12 +12,13 @@ $_title = 'My Borrowing';
 // ==========================================
 
 $status_options = [
-    'pending'  => 'PENDING',
-    'approval' => 'APPROVAL',
-    'approved' => 'APPROVED',
-    'return'   => 'RETURN',
-    'reject'   => 'REJECT',
-    'overdue'  => 'OVERDUE'
+    'PENDING'  => 'Pending',
+    'APPROVAL' => 'Approval',
+    'APPROVED' => 'Approved',
+    'RETURN_REQUESTED' => 'Return Request',
+    'RETURN'   => 'Return',
+    'REJECT'   => 'Reject',
+    'OVERDUE'  => 'Overdue'
 ];
 
 $status_filter = $_GET['status'] ?? '';
@@ -51,7 +52,7 @@ if (array_key_exists($status_filter, $status_options)) {
 
     $sql .= " AND UPPER(bor.status) = ? ";
 
-    $params[] = $status_options[$status_filter];
+    $params[] = $status_filter;
 }
 
 $sql .= "
@@ -69,7 +70,6 @@ include '../../_head.php';
 ?>
 
 <link rel="stylesheet" href="/css/app.css">
-<link rel="stylesheet" href="/css/history.css">
 
 <main class="main-content">
 
@@ -106,11 +106,11 @@ include '../../_head.php';
 
                         <option value="">All Status</option>
 
-                        <?php foreach ($status_options as $key => $label): ?>
+                        <?php foreach ($status_options as $value => $label): ?>
 
                             <option
-                                value="<?= encode($key) ?>"
-                                <?= $status_filter === $key ? 'selected' : '' ?>
+                                value="<?= encode($value) ?>"
+                                <?= $status_filter === $value ? 'selected' : '' ?>
                             >
                                 <?= encode($label) ?>
                             </option>
@@ -246,7 +246,7 @@ include '../../_head.php';
                                     <td>
 
                                         <span class="history-status status-<?= encode($status_class) ?>">
-                                            <?= encode($status) ?>
+                                            <?= encode($status_options[$status] ?? $status) ?>
                                         </span>
 
                                     </td>
@@ -265,7 +265,7 @@ include '../../_head.php';
 
                                     <td>
 
-                                        <?php if (in_array($status, ['APPROVAL', 'APPROVED'])): ?>
+                                        <?php if (in_array($status, ['APPROVAL', 'APPROVED','OVERDUE'])): ?>
 
                                             <a
                                                 href="/Student/activities/return.php?borrowing_id=<?= (int)$row->borrowing_id ?>"
@@ -273,6 +273,11 @@ include '../../_head.php';
                                             >
                                                 Book Return
                                             </a>
+
+                                        <?php elseif($status === 'RETURN_REQUESTED'): ?>
+                                            <span class= "history-action-pending">
+                                                Request Submitted
+                                            </span>
 
                                         <?php elseif ($status === 'RETURN'): ?>
 
