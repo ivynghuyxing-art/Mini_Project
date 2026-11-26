@@ -30,7 +30,7 @@ $_fine_amount = $borrows->fine_amount;
 
 
 $_oldstatus = strtoupper(trim($borrows->status));
-$_array = ['APPROVAL','RETURN','PENDING','REJECT','OVERDUE'];
+$_array = ['APPROVAL','RETURN','PENDING','REJECT'];
 
 if(is_post()){
     $_status =strtoupper(trim(req('status')));
@@ -104,7 +104,7 @@ include '../../admin_header.php';
     <label>Borrow details</label>
 
     <div class="card-borrow-management">
-      <a href="/admin/borrowing/borrowing.php"><--- Borrow page </a>
+      <a href="/admin/borrowing/borrowing.php">Back borrow page</a>
 
         <label>User Id </label>
         <h3>
@@ -145,16 +145,17 @@ include '../../admin_header.php';
 
         <label>Fine amount</label>
         <h3>
-            <?= encode($borrows->fine_amount ? $_fine_amount : 'No charge') ?>
+           RM <?= encode($borrows->fine_amount ? $_fine_amount : 'No charge') ?>
         </h3>
-
-        <?php if(!empty($borrows->payment_status)):?>
+        <div>
+            <?php if(!empty($borrows->payment_status)):?>
 
             <label>Payment status</label>
             <h3 class="pay-<?= strtolower($borrows->payment_status ?? '') ?>">
                 <?= encode($borrows->payment_status ?? 'No fine') ?>
             </h3>
-        <?php endif;?>
+            <?php endif;?>
+        </div>
 
 
 
