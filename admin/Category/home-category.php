@@ -21,7 +21,11 @@ $message = temp('info');
                 <?= encode($message) ?>
             </div>
         <?php endif;?>
-        <a href="/admin/Category/add-category.php">+Add new Category</a>
+        <a href="/admin/Category/add-category.php" class="cat-btn-admin">+Add Category</a>
+        <div class="count-category">    
+            <?= count($category)?> records
+        </div>
+        
         <?php if($category):?>
             <table>
                 <tr>

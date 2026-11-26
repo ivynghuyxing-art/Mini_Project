@@ -47,7 +47,7 @@ include '../../admin_header.php';
 
 <form method="post" enctype="multipart/form-data">
     <div class="cat-update-card">
-        <a href="/admin/Category/home-category.php">Back to home</a>
+        <a href="/admin/Category/home-category.php"> &lt;--- Back category</a>
         <label for="name">Name</label>
         <?php html_text('name', 'maxlength=50') ?>
 
