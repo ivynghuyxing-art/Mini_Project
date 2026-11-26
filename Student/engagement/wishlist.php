@@ -12,7 +12,7 @@ $_title ="My WishList";
 $user = $_user->user_id;
 
 //pagination
-$record_per_page = 6;
+$record_per_page = 2;
 
 $page = (int)get('page',1);
 
@@ -69,10 +69,6 @@ if(is_post()){
    redirect('/student/engagement/wishlist.php');
 }
 
-$stm = $_db->prepare("SELECT * FROM wishlist JOIN book ON wishlist.book_id = book.book_id LEFT JOIN category ON book.category_id = category.category_id WHERE wishlist.user_id = ? ORDER BY wishlist.added_date DESC");
-$stm->execute([$user]);
-
-$wishlist = $stm->fetchAll();
 include '../../_head.php';
 
 ?>
@@ -147,23 +143,59 @@ include '../../_head.php';
                 </div>
             <?php endforeach;?>
         </div>
-        <?php if($total_records>1):?>
+        <?php if($total_records>0):?>
             <div class ="pagination">
-                <?php if ($page >1):?>
-                    <a href = "?page<?= $page -1 ?>">
-                        Previous
+                <?php if ($page > 1):?>
+                    <a href = "?page=<?= $page -1 ?>" class ="page-btn">
+                        &larr;
                     </a>
                 <?php endif;?>
 
-                <span>
-                    Page <?= $page; ?>of <?= $total_pages; ?>
-                </span>
+                <!-- Calculate start and end-->
+                <?php
+                    $start = $page -2 ;
+                    $end = $page +2;
 
-                <?php if ($page < $total_pages):?>
-                    <a href="?page=<?= $page +1; ?>">
-                        Next
+                    if($start<1){
+                        $start = 1;
+                    }
+
+                    if($end > $total_pages){
+                        $end = $total_pages;
+                    }
+                ?>
+
+                <!-- First page-->
+                 <?php if($start > 1):?>
+                    <a href="?page=1" class ="page-btn">1</a>
+                    <?php if ($start > 2): ?>
+                        <span class ="page-dots">...</span>
+                    <?php endif ;?>
+                <?php endif;?>
+
+                <!-- page numbers -->
+                 <?php for($i = $start;$i <= $end;$i++):?>
+                    <a href = "?page=<?= $i ?>" class = "page-btn <?= ($page == $i)?'active': '' ?>">
+                        <?= $i ?>
                     </a>
+                <?php endfor;?>
 
+                <!--Last page-->
+                <?php if($end < $total_pages):?>
+                    <?php if ($end<$total_pages - 1):?>
+                        <span class ="page-dots">...</span>
+                    <?php endif; ?>
+
+                    <a href = "?page=<?= $total_pages ?>" class="page-btn">
+                        <?= $total_pages ?>
+                    </a>
+                <?php endif;?>
+
+                <!-- next -->
+                 <?php if ($page < $total_pages):?>
+                    <a href ="?page=<?= $page +1?>" class ="page-btn">
+                        &rarr;
+                    </a>
                 <?php endif;?>
             </div>
         <?php endif;?>
