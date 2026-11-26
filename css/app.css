@@ -1266,27 +1266,53 @@ body {
 ===========================*/
 .home-cat-card{
     text-align: center;
-    margin: 130px auto 0;
+    margin: 150px auto 0px;
+    margin-right:120px ;
     box-sizing: border-box;
-    border: 1px solid black;
     border-radius: 10px;
     padding: 20px;
-    width: 400px;
+    width: 600px;
     height: 300px;
+    background-color:rgb(210, 210, 210);
+    border: #000 solid 1px;
 }
 .home-cat-card table{
     width: 100%;
     border-collapse: collapse;
     background-color: #ffffff;
-    border-radius: 2px;
+    border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: #000 solid 3px;
     
 }
 .home-cat-card th{
     padding: 10px;
 }
-
+.home-cat-card a {
+    text-decoration: none;
+}
+.cat-btn-admin {
+    display: inline-flex;      
+    align-items: center;
+    justify-content: center;
+    height: 39px;
+    padding: 0 24px;               
+    background-color: #4a56b5;     
+    color: #fff;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;         
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: 330px;
+}
+.count-category{
+    font-weight: bold;
+    color:#000;
+    margin-right:450px;
+}
 /*=========================
        Update category    
 ===========================*/
@@ -1300,6 +1326,9 @@ body {
     padding: 20px;
     width: 400px;
     height: 300px;
+}
+.cat-update-card a {
+    margin-right: 200px;
 }
 
 /*======================
@@ -1328,7 +1357,7 @@ body {
     font-weight: bold;
 }
 .borrow-card button{
-    height: 48px;
+    height: 38px;
     padding: 0 28px;
     border: none;
     border-radius: 10px;
@@ -3148,14 +3177,14 @@ body {
             Category        
 ===================================*/
 .add-book-card-cat{
-    max-width: 480px;
-    margin: 200px 120px 0px 400px;
-    padding: 24px 28px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    text-align: center;
+    margin: 100px auto 0;
     box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    height: 300px;
 }
 .add-book-card-cat label{
     display: block;
@@ -3170,11 +3199,11 @@ body {
     padding: 0 10px;
     border: 1px solid #bbb;
     border-radius: 4px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 .add-book-card-cat button{
     margin: 20px 10px;
-    width: 120px;
+    width: 160px;
     height: 30px;
     border-radius: 5px;
     margin-top: 5px;
@@ -3183,7 +3212,9 @@ body {
     cursor: pointer;
     margin: auto;
 }
-
+.add-book-card-cat a{
+    margin-right: 220px;
+}
 .add-book-card-cat button:hover{
     background-color: #320ab3;
     color: #ffffff;
@@ -4267,12 +4298,14 @@ body {
 .u-card{
     text-align: center;
     margin: 130px auto 0;
+    margin-right:140px;
     box-sizing: border-box;
     border: 1px solid black;
     border-radius: 10px;
     padding: 20px;
-    width: 400px;
-    height: 300px;
+    width: 100%;
+    max-width: 600px;
+    height: 400px;
 }
 .u-card label{
     display: block;
@@ -4292,6 +4325,26 @@ body {
 
 .u-card p{
     margin-top: 20px;
+}
+
+.u-card table{
+    width: 100%;
+    border-collapse: collapse;
+    
+    
+}
+.u-card th, td{
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #eeeeee;
+    font-size: 14px;
+    padding: 12px 10px;
+}
+.u-card th{
+    color: #293b70;
+    background: #f5f6fa;
+    white-space: nowrap;
+
 }
 
 

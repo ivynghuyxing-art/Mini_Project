@@ -288,10 +288,6 @@ include '../../admin_header.php';
 <form method="post">
 
     <div class="card-borrow-management">
-<<<<<<< HEAD
-      <a href="/admin/borrowing/borrowing.php">Back borrow page</a>
-=======
->>>>>>> 06adde94f6cb399c285debcec0eaa5a4d0d8faa9
 
         <a href="/admin/borrowing/borrowing.php">
             &lt;--- Borrow page

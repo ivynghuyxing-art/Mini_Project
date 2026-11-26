@@ -24,13 +24,16 @@ if(is_post()){
 }
 
 
-$_title = 'Add category';
+$_title = 'Add category';  
 include '../../admin_header.php';
 ?>
 
 <form method="post" enctype="multipart/form-data">
+    <div class="display-message-cat">
+        <h1>Add category</h1>
+    </div>
     <div class="add-book-card-cat">
-        <a href="/admin/Category/home-category.php">Back to home</a>
+        <a href="/admin/Category/home-category.php">&lt;--- Back to home</a>
 
         <label for="name">Name</label>
         <?php html_text('name', 'maxlength="100"') ?>

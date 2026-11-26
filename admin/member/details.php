@@ -3,7 +3,8 @@ include '../../_base.php';
 
 $_id = req('user_id');
 $_err = [];
-$stm = $_db->prepare('SELECT username , email, profile_photo FROM user WHERE user_id =?');
+$stm = $_db->prepare('SELECT username , email, profile_photo FROM user 
+                    WHERE user_id = ?');
 $stm->execute([$_id]);
 $u = $stm->fetch();
 
@@ -11,6 +12,9 @@ if(!$u){
     temp('info', 'Member not exits');
     redirect('/admin/member/member.php');
 }
+$stm = $_db->prepare('SELECT * FROM borrowing WHERE user_id = ? ORDER BY borrow_date DESC');
+$stm->execute([$_id]);
+$borrow_record = $stm->fetchAll();
 
 $name = $u->username;
 $email= $u->email;
@@ -42,22 +46,28 @@ include '../../admin_header.php';
         <?= encode($u->email)?>
     </h3>
 
-    <?php if(!empty($u->borrowing_id)):?>
-        <h3>Borrow detail</h3>
-        <label>Book ID</label>
-        <?= encode($u->book_id)?>
+    <table>
+        <tr>
+            <th>Borrow Id</th>
+            <th>Book Id</th>
+            <th>Borrow date</th>
+            <th>Due date</th>
+            <th>Return date</th>
+            <th>Status</th>
+            <th>Fine </th>
+        </tr>
+    </table>
 
-        <label>Borrow date</label>
-        <?=  encode($u->borrow_date)?>
-
-        <label>Due date</label>
-        <?= encode($u->due_date)?>
-
-        <label>Return_date</label>
-        <?= encode($u->return_date) ?? 'Not return yet' ?>
-
-        <label>Borrow Status</label>
-        <?= encode($u->borrow_status)?>
+    <?php if($borrow_record):?>
+        <?php foreach($borrow_record as $b):?>
+            <td> <?= encode($b->borrowing_id) ?></td>
+            <td> <?= encode($b->book_id) ?></td>
+            <td> <?= encode($b->borrow_date) ?></td>
+            <td> <?= encode($b->due_date) ?></td>
+            <td> <?= encode($b->return_date) ?></td>
+            <td> <?= encode($b->status) ?></td>
+            <td> <?= encode($b->fine_amount) ?></td>
+        <?php endforeach;?>
     <?php else: ?>
         <p>This member has no borrow yet</p>
     <?php endif?>
