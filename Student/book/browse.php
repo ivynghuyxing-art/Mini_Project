@@ -180,7 +180,7 @@ $categories = $stm->fetchAll();
     <!-- BOOK AVAILABLE -->
 
     <p class="available-status">
-        <span>●</span> Available
+        <span></span> Available
     </p>
 
     <a href="../activities/my_borrowing.php?book_id=<?= $book->book_id ?>"

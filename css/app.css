@@ -888,16 +888,16 @@ body {
 }
 
 .wishlist-header h1 {
-    font-size: 30px;
+    color: #263d80;
+    font-size: 27px;
     font-weight: 700;
-    color: #26374a;
-    margin: 0 0 10px;
+    margin: 0 0 7px;
 }
 
 .wishlist-header p {
-    font-size: 16px;
-    color: #777;
     margin: 0;
+    color: #85899b;
+    font-size: 14px;
 }
 
 .wishlist-count {
@@ -972,7 +972,6 @@ body {
     background: #22313f;
 }
 
-
 /* =================================
    Wishlist Grid
 ================================= */
@@ -980,84 +979,87 @@ body {
 .wishlist-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 25px;
+    gap: 30px;
     width: 100%;
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
 }
-
-
 /* =================================
    Wishlist Card
 ================================= */
-
 .wishlist-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    min-width: 0;
+    justify-self: center;
     background: #ffffff;
     border: 1px solid #e5e5e5;
-    border-radius: 12px;
+    border-radius: 10px;
     overflow: hidden;
-
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-
-    transition: transform 0.3s ease,
-                box-shadow 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease,box-shadow 0.3s ease;
 }
 
 .wishlist-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
-
-
 /* =================================
-   Book Image
+   Wishlist Book Image
 ================================= */
 
-.book-image {
+.wishlist-card .book-image {
     width: 100%;
-    height: 250px;
-
-    background: #f5f5f5;
-
+    height: 155px;
+    background: #f0f1f7;
     display: flex;
     justify-content: center;
     align-items: center;
-
     overflow: hidden;
 }
 
-.book-image img {
+.wishlist-card .book-image img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    padding: 8px;
+    box-sizing: border-box;
 }
 
-.no-image {
+.wishlist-card .no-image {
     color: #999;
-    font-size: 14px;
+    font-size: 13px;
 }
-
-
 /* =================================
-   Book Information
+   Wishlist Book Information
 ================================= */
 
-.book-info {
-    padding: 20px;
+.wishlist-card .book-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 13px;
 }
 
-.book-info h3 {
-    font-size: 19px;
+.wishlist-card .book-info h3 {
+    font-size: 15px;
     font-weight: 600;
     color: #26374a;
-    margin: 0 0 15px;
+    margin: 0 0 8px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
 }
 
-.book-info p {
-    font-size: 14px;
+.wishlist-card .book-info p {
+    font-size: 13px;
     color: #666;
-    line-height: 1.6;
-    margin: 8px 0;
-}
 
+    margin: 0 0 8px;
+    line-height: 1.5;
+}
 
 /* =================================
    Remove Button
@@ -1066,18 +1068,13 @@ body {
 .remove-btn {
     width: 100%;
     padding: 11px;
-
     margin-top: 15px;
-
     border: none;
     border-radius: 6px;
-
     background: #dc3545;
     color: white;
-
     font-size: 14px;
     font-weight: 600;
-
     cursor: pointer;
     transition: background 0.3s ease;
 }
@@ -2351,35 +2348,72 @@ body {
 
 .fine-records .fine-table {
     width: 100%;
-    min-width: 850px;
+    min-width: 1100px;
     border-collapse: collapse;
-    table-layout: auto;
+    table-layout: fixed;
 }
 
+/* Header */
 .fine-records .fine-table th {
-    padding: 16px 18px;
+    padding: 16px 10px;
     background: #f3f0fb;
     color: #514477;
     font-size: 14px;
     font-weight: 700;
-    text-align: left;
-    white-space: nowrap;
+    text-align: center;
 }
 
+/* Data */
 .fine-records .fine-table td {
-    padding: 18px;
+    padding: 18px 10px;
     color: #555b6e;
     font-size: 14px;
     border-bottom: 1px solid #efedf4;
-    white-space: nowrap;
+    text-align: center;
 }
 
-.fine-records .fine-table tbody tr:hover {
-    background: #faf9fd;
+/* Column Width */
+.fine-records .fine-table th:nth-child(1),
+.fine-records .fine-table td:nth-child(1) {
+    width: 6%;
 }
 
-.fine-records .fine-table tbody tr:last-child td {
-    border-bottom: none;
+.fine-records .fine-table th:nth-child(2),
+.fine-records .fine-table td:nth-child(2) {
+    width: 13%;
+}
+
+.fine-records .fine-table th:nth-child(3),
+.fine-records .fine-table td:nth-child(3) {
+    width: 12%;
+}
+
+.fine-records .fine-table th:nth-child(4),
+.fine-records .fine-table td:nth-child(4) {
+    width: 13%;
+}
+
+.fine-records .fine-table th:nth-child(5),
+.fine-records .fine-table td:nth-child(5) {
+    width: 10%;
+}
+
+.fine-records .fine-table th:nth-child(6),
+.fine-records .fine-table td:nth-child(6) {
+    width: 19%;
+    text-align: left;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+.fine-records .fine-table th:nth-child(7),
+.fine-records .fine-table td:nth-child(7) {
+    width: 17%;
+}
+
+.fine-records .fine-table th:nth-child(8),
+.fine-records .fine-table td:nth-child(8) {
+    width: 10%;
 }
 
 /* Payment Status */
@@ -2722,9 +2756,9 @@ body {
 ========================================== */
 
 .return-page {
-    max-width: 1050px;
-    margin: 35px auto;
-    padding: 0 25px 40px;
+    max-width: 1200px;
+    margin: 0px auto;
+    padding: 10 25px 40px;
 }
 
 /* ==========================================
@@ -2735,19 +2769,7 @@ body {
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-bottom: 25px;
-}
-
-.return-header-icon {
-    width: 52px;
-    height: 52px;
-    background: #eceaff;
-    color: #644bd0;
-    border-radius: 13px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 25px;
+    margin-bottom: 30px;
 }
 
 .return-header h1 {

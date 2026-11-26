@@ -11,6 +11,33 @@ $_title ="My WishList";
 
 $user = $_user->user_id;
 
+//pagination
+$record_per_page = 6;
+
+$page = (int)get('page',1);
+
+if($page<1){
+    $page=1;
+}
+
+//count total wishlist records
+$stm = $_db->prepare("SELECT COUNT(*) FROM wishlist WHERE user_id =?");
+$stm->execute([$user]);
+
+$total_records = $stm->fetchColumn();
+
+$total_pages = max(1,ceil($total_records/$record_per_page));
+
+if($page > $total_pages){
+    $page = $total_pages;
+}
+
+$offset = ($page -1) * $record_per_page;
+
+$stm= $_db->prepare("SELECT * FROM wishlist JOIN book ON wishlist.book_id = book.book_id LEFT JOIN category ON book.category_id = category.category_id WHERE wishlist.user_id = ? ORDER BY wishlist.added_date DESC LIMIT $record_per_page OFFSET $offset");
+$stm->execute([$user]);
+$wishlist = $stm->fetchAll();
+
 if(is_post()){
     $book_id=(int)post('add_id');
 
@@ -42,7 +69,7 @@ if(is_post()){
    redirect('/student/engagement/wishlist.php');
 }
 
-$stm = $_db->prepare("SELECT wishlist.wishlist_id, wishlist.added_date,book.book_id,book.title,book.author,book.description,book.image,book.quantity,book.available_quantity FROM wishlist JOIN book ON wishlist.book_id = book.book_id WHERE wishlist.user_id = ? ORDER BY wishlist.added_date DESC");
+$stm = $_db->prepare("SELECT * FROM wishlist JOIN book ON wishlist.book_id = book.book_id LEFT JOIN category ON book.category_id = category.category_id WHERE wishlist.user_id = ? ORDER BY wishlist.added_date DESC");
 $stm->execute([$user]);
 
 $wishlist = $stm->fetchAll();
@@ -63,7 +90,7 @@ include '../../_head.php';
         </div>
 
         <div class = "wishlist-count">
-            <?= count($wishlist); ?> Saved Books
+            <?= $total_records; ?> Saved Books
         </div>
     </div>
 
@@ -84,7 +111,7 @@ include '../../_head.php';
                 <div class="wishlist-card">
                     <div class="book-image">
                         <?php if(!empty($book->image)):?>
-                            <img src="/uploads/books/<?= encode($book->image)?>" alt="<?=encode($book->title) ?>" >
+                            <img src="/images/Book_pic/<?= encode($book->image)?>" alt="<?=encode($book->title) ?>" >
 
                         <?php else:?>
                             <div class = "no-image">
@@ -97,6 +124,8 @@ include '../../_head.php';
                         <h3> <?= encode($book->title) ?></h3>
                         <p>Author: <?= encode($book->author) ?></p>
 
+                        <span class = "category-tag"><?= encode($book->name) ?? 'Uncategorized'; ?></span>
+
                         <?php if($book->available_quantity > 0): ?>
                             <span class ="available-status">Available</span>
                         <?php else:?>
@@ -105,7 +134,7 @@ include '../../_head.php';
 
                         
                         <?php if($book->available_quantity>0):?>
-                            <a href="/student/activities/borrowing.php?book_id=<?= $book->book_id ?>" class="borrowing-btn"> Borrow </a>
+                            <a href="/student/activities/my_borrowing.php?book_id=<?= $book->book_id ?>" class="borrowing-btn"> Borrow </a>
                         <?php else: ?>
                             <a href ="/student/activities/reservation.php?book_id=<?= $book->book_id ?>" class="reservation-btn"> Reservation </a>
                         <?php endif; ?>
@@ -118,6 +147,26 @@ include '../../_head.php';
                 </div>
             <?php endforeach;?>
         </div>
+        <?php if($total_records>1):?>
+            <div class ="pagination">
+                <?php if ($page >1):?>
+                    <a href = "?page<?= $page -1 ?>">
+                        Previous
+                    </a>
+                <?php endif;?>
+
+                <span>
+                    Page <?= $page; ?>of <?= $total_pages; ?>
+                </span>
+
+                <?php if ($page < $total_pages):?>
+                    <a href="?page=<?= $page +1; ?>">
+                        Next
+                    </a>
+
+                <?php endif;?>
+            </div>
+        <?php endif;?>
     <?php endif;?>
 </main>
 
