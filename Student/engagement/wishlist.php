@@ -12,7 +12,7 @@ $_title ="My WishList";
 $user = $_user->user_id;
 
 //pagination
-$record_per_page = 2;
+$record_per_page = 6;
 
 $page = (int)get('page',1);
 

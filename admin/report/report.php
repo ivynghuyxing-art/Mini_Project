@@ -6,6 +6,12 @@ auth(['admin']);
 $_title='Report Management';
 
 $report_type = post('report_type','borrowing');
+$allowed_types = ['borrowing','book','member','fine','reservation'];
+
+if(!in_array($report_type,$allowed_types,true)){
+    $report_type = 'borrowing';
+}
+
 $date_range = post('date_range','1');
 
 if(!in_array($date_range,['1','3','6','12','all'],true)){
@@ -24,30 +30,33 @@ $overdue_books = 0;
 $currently_borrowed = 0;
 $borrowings = [];
 
-//Total borrowings
-$stm = $_db->prepare("SELECT COUNT(*) FROM borrowing bor JOIN book bk ON bk.book_id = bor.book_id WHERE bor.borrow_date >= ? AND bor.borrow_date<=CURDATE()");
-$stm -> execute([$start_date]);
-$total_borrowings = $stm -> fetchColumn();
+//inventory variables
+$total_books = 0;
+$total_quantity = 0;
+$total_available = 0;
+$inventory_books = [];
 
-//Returned book
-$stm = $_db -> prepare("SELECT COUNT(*) FROM borrowing bor JOIN book bk ON bk.book_id = bor.book_id WHERE bor.borrow_date >= ? AND bor.borrow_date <= CURDATE() AND bor.status ='RETURN'");
-$stm ->execute([$start_date]);
-$returned_books = $stm->fetchColumn();
+//total member 
+$total_members = 0;
+$members=[];
 
-//currently borrowed
-$stm = $_db->prepare("SELECT COUNT(*) FROM borrowing bor JOIN book bk ON bk.book_id = bor.book_id WHERE bor.borrow_date >=? AND bor.borrow_date <= CURDATE() AND bor.status = 'APPROVAL' AND bor.due_date >= CURDATE()");
-$stm -> execute([$start_date]);
-$currently_borrowed = $stm->fetchColumn();
+//fine
+$total_fine = 0;
+$paid_fine = 0;
+$unpaid_fine = 0;
+$fine_records=[];
 
-//overdue books
-$stm = $_db -> prepare("SELECT COUNT(*) FROM borrowing bor JOIN book bk ON bk.book_id = bor.book_id WHERE bor.borrow_date >=? AND bor.borrow_date <=CURDATE() AND (bor.status = 'OVERDUE' OR(bor.status ='APPROVAL' AND bor.due_date < CURDATE()))");
-$stm ->execute([$start_date]);
-$overdue_books =$stm ->fetchColumn();
+//reservation
+$total_reservations = 0;
+$pending_reservations = 0;
+$approved_reservations = 0;
+$completed_reservations = 0;
+$reservations=[];
 
-//borrowing details 
-$stm = $_db-> prepare("SELECT bor.borrowing_id, bk.title ,bor.borrow_date,bor.due_date, bor.return_date,bor.status FROM borrowing bor JOIN book bk ON bk.book_id = bor.book_id WHERE bor.borrow_date >=? AND bor.borrow_date <= CURDATE() ORDER BY bor.borrow_date DESC");
-$stm ->execute([$start_date]);
-$borrowings = $stm->fetchAll();
+//statistics
+$statistics = [];
+$details_headers =[];
+$details_rows = [];
 
 $chart_period = post('chart_period','daily');
 
@@ -58,27 +67,147 @@ if(!in_array($chart_period,['daily','weekly','monthly','yearly'],true)){
 $chart_labels=[]; //x-asis
 $chart_values=[]; //y-axis
 
-if($chart_period === 'daily'){
-    $group_expression = "DATE_FORMAT(bor.borrow_date,'%Y-%m-%d')";
-}else if($chart_period === 'weekly'){
-   $group_expression = "CONCAT(YEAR(bor.borrow_date), '-W', LPAD(WEEK(bor.borrow_date, 1), 2, '0'))";
-}else if($chart_period === 'monthly'){
-    $group_expression = "DATE_FORMAT(bor.borrow_date,'%Y-%m')";
-}else{
-    $group_expression ="YEAR(bor.borrow_date)";
-}
-$stm = $_db->prepare("SELECT $group_expression AS period_label, COUNT(*) AS total FROM borrowing bor WHERE bor.borrow_date >=? AND bor.borrow_date<= CURDATE() GROUP BY period_label ORDER BY period_label");
-$stm -> execute([$start_date]);
-$chart_data = $stm->fetchAll();
+if($report_type === 'borrowing'){
 
-//seperate label and value
-foreach($chart_data as $data){
-    $chart_labels[]= $data->period_label;
-    $chart_values[]=(int)$data->total;
+    //total borrowing
+    $stm = $_db->prepare("SELECT COUNT(*) FROM borrowing bor JOIN book bk ON bk.book_id = bor.book_id WHERE bor.borrow_date >= ? AND bor.borrow_date <= CURDATE()");
+    $stm->execute([$start_date]);
+    $total_borrowings = $stm->fetchColumn();
+
+    //return booked
+    $stm = $_db->prepare("SELECT COUNT(*) FROM borrowing bor JOIN book bk ON bk.book_id = bor.book_id WHERE bor.borrow_date >= ? AND bor.borrow_date <= CURDATE() AND bor.status = 'RETURN'");
+    $stm ->execute([$start_date]);
+    $returned_books = $stm ->fetchColumn();
+
+    //currently booked
+    $stm = $_db->prepare("SELECT COUNT(*) FROM borrowing bor JOIN book bk ON bk.book_id = bor.book_id WHERE bor.borrow_date >=? AND bor.borrow_date <= CURDATE() AND bor.status ='APPROVAL' AND bor.due_date >= CURDATE() ");
+    $stm ->execute([$start_date]);
+    $currently_borrowed = $stm -> fetchColumn();
+
+    //overdue booked
+    $stm = $_db->prepare("SELECT COUNT(*) FROM borrowing bor JOIN book bk ON bk.book_id = bor.book_id WHERE bor.borrow_date >= ? AND bor.borrow_date <= CURDATE() AND (bor.status ='OVERDUE' OR (bor.status='APPROVAL' AND bor.due_date < CURDATE()))");
+    $stm -> execute([$start_date]);
+    $overdue_books = $stm->fetchColumn();
+
+    $statistics = [
+        ['Total Borrowings',$total_borrowings,'📚'],
+        ['Returned Books',$returned_books,'✅'],
+        ['Currently Borrowed',$currently_borrowed,'📖'],
+        ['Overdue Books',$overdue_books,'⏰']
+    ];
+
+    //borrowing details 
+    $stm = $_db->prepare("SELECT bor.borrowing_id, bk.title,bor.borrow_date, bor.due_date,bor.return_date, bor.status FROM borrowing bor JOIN book bk ON bk.book_id = bor.book_id WHERE bor.borrow_date >=? AND bor.borrow_date <= CURDATE() ORDER BY bor.borrow_date DESC");
+    $stm ->execute([$start_date]);
+    $borrowings=$stm->fetchAll();
+
+    $details_headers=['Borrowing ID','Book Title','Borrow Date','Due Date','Return Date','Status'];
+    foreach($borrowings as $borrowing){
+        $details_rows[]=[
+            $borrowing->borrowing_id,
+            $borrowing->title,
+            $borrowing->due_date,
+            ($borrowing->return_date && $borrowing->return_date != '0000-00-00')?$borrowing->return_date :'Not Returned',
+            $borrowing->status
+        ];
+    }
+
+    //borrowing chart
+    if($chart_period === 'daily'){
+        $group_expression = "DATE_FORMAT(bor.borrow_date,'%Y-%m-%d')";
+    }else if($chart_period === 'weekly'){
+        $group_expression = "CONCAT(YEAR(bor.borrow_date), '-W', LPAD(WEEK(bor.borrow_date, 1), 2, '0'))";
+    }else if($chart_period === 'monthly'){
+        $group_expression = "DATE_FORMAT(bor.borrow_date,'%Y-%m')";
+    }else{
+        $group_expression ="YEAR(bor.borrow_date)";
+    }
+
+    $stm = $_db->prepare("SELECT $group_expression AS period_label, COUNT(*) AS total FROM borrowing bor WHERE bor.borrow_date >=? AND bor.borrow_date<= CURDATE() GROUP BY period_label ORDER BY period_label");
+    $stm -> execute([$start_date]);
+    $chart_data = $stm->fetchAll();
+
+    //seperate label and value
+    foreach($chart_data as $data){
+        $chart_labels[]= $data->period_label;
+        $chart_values[]=(int)$data->total;
+    }
+}elseif($report_type === 'book'){
+
+//total number of book records
+    $stm = $_db->prepare("SELECT COUNT(*) FROM book");
+    $stm -> execute();
+    $total_books = $stm->fetchColumn();
+
+//total quantity of all books
+    $stm = $_db->prepare("SELECT COALESCE (SUM(quantity),0) FROM book");
+    $stm -> execute();
+    $total_quantity = $stm->fetchColumn();
+
+//total available quantity
+    $stm = $_db->prepare("SELECT COALESCE (SUM(available_quantity),0) FROM book");
+    $stm->execute();
+    $total_available = $stm->fetchColumn();
+
+//out of stock
+    $stm=$_db->prepare("SELECT COUNT(*) FROM book WHERE available_quantity=0");
+    $stm->execute();
+    $out_of_stock=$stm->fetchColumn();
+
+    $statistics=[
+        ['Total Books',$total_books,'📚'],
+        ['Total Quantity',$total_quantity,'📦'],
+        ['Available Quantity',$total_available,'✅'],
+        ['Out of stock',$out_of_stock,'⚠️']
+    ];
+
+//inventory details
+    $stm=$_db->prepare("SELECT book_id,title,quantity,available_quantity FROM book ORDER BY title ASC");
+    $stm->execute();
+    $inventory_books = $stm->fetchAll();
+
+    $details_headers=['Book ID','Book Title','Total Quantity','Available Quantity'];
+
+    foreach($inventory_books as $book){
+        $details_rows[]=[
+            $book->book_id,
+            $book->title,
+            $book->quantity,
+            $book->available_quantity
+        ];
+    }
+
+    $chart_labels=[
+        'Total Quantity',
+        'Available Quantity',
+        'Out of Stock'
+    ];
+
+    $chart_values = [
+        (int)$total_quantity,
+        (int)$total_available,
+        (int)$out_of_stock,
+    ];
 }
+
+//Chart titles
+$chart_titles =[
+    'borrowing' => 'Borrowing Trends',
+    'book' => 'Inventory Overview',
+    'member' => 'Member Overview',
+    'fine' => 'Fine Overview',
+    'reservation' => 'Reservation Trends'
+];
+
+$chart_descriptions=[
+    'borrowing' => 'Overview of borrowing activities',
+    'book' => 'Overview of book quantities',
+    'member' => 'Overview of library members',
+    'fine' => 'Overview of fine payments',
+    'reservation' => 'Overview of reservation activities'
+];
 
 include '../../admin_header.php';
-
 ?>
 
 <link rel="stylesheet" href = '../../css/app.css'>
@@ -98,14 +227,15 @@ include '../../admin_header.php';
             <div class = "filter-group">
                 <label for = "reportType"> Report Type</label>
                 <select name = "report_type" id ="reportType">
-                    <option value="borrowing">Borrowing</option>
-                    <option value="book">Book Inventory</option>
-                    <option value="member">Member</option>
-                    <option value="fine">Fine</option>
-                    <option value="reservation">Reservation</option>
+                    <option value="borrowing" <?= $report_type === 'borrowing' ? 'selected' : '' ?>>Borrowing</option>
+                    <option value="book" <?= $report_type === 'book'?'selected':'' ?>>Book Inventory</option>
+                    <option value="member" <?= $report_type === 'member' ? 'selected' :'' ?>>Member</option>
+                    <option value="fine" <?= $report_type === 'fine' ?'selected' :'' ?>>Fine</option>
+                    <option value="reservation" <?= $report_type === 'reservation' ? 'selected' :'' ?>>Reservation</option>
                 </select>
             </div>
 
+        <?php if($report_type === 'borrowing' || $report_type ==='fine' || $report_type ==='reservation'):?>
             <div class ="filter-group">
                 <label for="dateRange">Date Range</label>
                 <select name="date_range" id ="dateRange">
@@ -116,6 +246,7 @@ include '../../admin_header.php';
                     <option value="all" <?= $date_range === 'all' ? 'selected':'' ?>>All Time</option>
                 </select>
             </div>
+        <?php endif ;?>
 
             <button type ="submit" class ="generate-btn">Generate Report</button>
         </form>
@@ -123,46 +254,28 @@ include '../../admin_header.php';
 
     <div id ="reportResult">
             <div class ="statistics-container">
-                <div class="stat-card">
-                    <div class = "stat-icon">📚</div>
-                        <div class = stat-info>
-                            <h3>Total borrowings</h3>
-                            <p><?= $total_borrowings ?></p>
+                <?php foreach($statistics as $stat):?>
+                    <div class ="stat-card">
+                        <div class ="stat-icon">
+                            <?= $stat[2] ?>
                         </div>
-                </div>
 
-                <div class="stat-card">
-                    <div class = "stat-icon">✅</div>
-                        <div class = stat-info>
-                            <h3>Returned Books</h3>
-                            <p><?= $returned_books ?></p>
+                        <div class ="stat-info">
+                            <h3><?= encode($stat[0]) ?></h3>
+                            <p><?= encode($stat[1]) ?></p>
                         </div>
-                </div>
+                    </div>
+                <?php endforeach;?>
 
-                <div class="stat-card">
-                    <div class = "stat-icon">📖</div>
-                        <div class = stat-info>
-                            <h3>Currently Borrow</h3>
-                            <p><?= $currently_borrowed ?></p>
-                        </div>
-                </div>
-
-                  <div class="stat-card">
-                    <div class = "stat-icon">⏰</div>
-                        <div class = stat-info>
-                            <h3>Overdue Books</h3>
-                            <p><?= $overdue_books ?></p>
-                        </div>
-                </div>
             </div>
             <div class = "chart-grid">
                 <div class = "chart-container">
                     <div class = "chart-header">
                         <div>
-                            <h2>Borrowing Trends</h2>
-                            <p>Overview of borrowing activities</p>
+                            <h2><?= encode($chart_titles[$report_type]) ?></h2>
+                            <p><?= encode($chart_descriptions[$report_type]) ?></p>
                         </div>
-
+                    <?php if($report_type === 'borrowing' || $report_type ==='fine' || $report_type ==='reservation'):?>
                         <form method="post" class = "chart-filter" id="chartFilter">
                             <input type ="hidden" name ="date_range" id="dateRangeHidden" value ="<?= encode($date_range) ?>">
                             <input type="hidden" name="report_type" value="<?= encode($report_type) ?>">
@@ -184,6 +297,7 @@ include '../../admin_header.php';
                                 </option>
                             </select>
                         </form>
+                    <?php endif;?>
                     </div>
                         <div class = "chart-content">
                             <canvas id = "borrowingChart"></canvas>
@@ -232,6 +346,7 @@ include '../../admin_header.php';
 <script>
     const chartLabels = <?= json_encode($chart_labels) ?>;
     const chartValues = <?= json_encode($chart_values) ?>;
+    const reportType =<?= json_encode($report_type) ?>
 
     function updateChartFilter() {
     const dateRange = document.getElementById('dateRange').value;
