@@ -247,7 +247,7 @@ if($page > $total_pages){
 }
 $offset = ($page -1) * $record_per_page;
 
-$details_rows = array_slices($detail_rows,$offset,$record_per_page);
+$details_rows = array_slice($details_rows,$offset,$record_per_page);
 //Chart titles
 $chart_titles =[
     'borrowing' => 'Borrowing Trends',
