@@ -201,7 +201,7 @@ if($report_type === 'borrowing'){
 elseif($report_type === 'member'){
     $stm = $_db->prepare("SELECT COUNT(*) FROM user");
     $stm -> execute();
-    $total_members = $stm->fetchAll();
+    $total_members = $stm->fetchColumn();
 
     $statistics =[
         ['Total Members',$total_members,'👥']
@@ -367,7 +367,7 @@ include '../../admin_header.php';
             
 
             <div class = "report-details">
-                <h2><?= encode($chart_titles[$report_type]) ?>Details</h2>
+                <h2><?= encode($chart_titles[$report_type]) ?> Details</h2>
                 <table class ="report-table">
                     <thead>
                         <tr>
