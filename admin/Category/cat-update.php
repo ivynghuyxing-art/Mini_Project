@@ -21,14 +21,20 @@ if(is_get()){
 if(is_post()){
     $name = req('name');
 
-
     if($name == ''){
         $_err['name'] = 'Required';
     }else if (strlen($name) > 50){
         $_err['name'] = 'No more then 50 character';
     }else if(strlen($name) < 0 ){
         $_err['name'] = 'No less then 0 character';
+    }else {
+        $stm = $_db->prepare('SELECT COUNT(*) FROM category WHERE name =?');
+        $stm->execute([$_name]);
+        if($stm->fetchColumn() > 0 ){
+        $_err['name'] = 'Cannot create a same name before ';
+        }
     }
+
 
     if(!$_err){
 

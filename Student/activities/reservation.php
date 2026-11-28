@@ -571,7 +571,7 @@ include '../../_head.php';
                                             <?php if (!empty($r->image)): ?>
 
                                                 <img
-                                                    src="/admin/book_photo/<?= encode($r->image) ?>"
+                                                    src="/images/Book_pic/<?= encode($r->image) ?>"
                                                     alt="<?= encode($r->title) ?>"
                                                     onerror="this.outerHTML='<div class=&quot;book-placeholder&quot;>📚</div>'"
                                                 >

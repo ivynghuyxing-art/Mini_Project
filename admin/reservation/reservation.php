@@ -202,7 +202,7 @@ $reservations = $stm->fetchAll();
 
 $message = temp('message');
 
-include '../../_head.php';
+include '../../admin_header.php';
 
 ?>
 
@@ -216,6 +216,8 @@ include '../../_head.php';
         <!-- ==================================
              PAGE HEADER
         =================================== -->
+    
+
 
         <div class="admin-reservation-header">
 
