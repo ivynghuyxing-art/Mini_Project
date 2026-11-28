@@ -646,64 +646,53 @@ body {
     box-sizing: border-box;
 }
 
-/* =========================================
-   PAGINATION
-========================================= */
-
+/* Pagination */
 .pagination {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 25px;
-    padding-top: 20px;
-    border-top: 1px solid #efedf4;
+    gap: 15px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding-right: 20px;
 }
 
-.page-btn,
-.page-number {
+/* Previous and Next buttons */
+.page-btn {
     display: inline-flex;
-    justify-content: center;
     align-items: center;
-    min-width: 38px;
-    height: 38px;
-    padding: 0 12px;
-
-    background-color: #ffffff;
-    color: #7254bd;
-
-    border: 1px solid #ddd6f3;
+    gap: 8px;
+    padding: 10px 18px;
+    background: white;
+    color: #333;
+    border: 1px solid #ddd;
     border-radius: 8px;
-
     text-decoration: none;
-    font-size: 13px;
-    font-weight: 600;
-
-    transition: all 0.2s ease;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
-.page-btn:hover,
-.page-number:hover {
-    background-color: #eee9ff;
-    border-color: #8b70d6;
-}
-
-.page-number.active {
-    background-color: #7254bd;
+.page-btn:hover {
+    border-color: #532fb6;  
     color: #ffffff;
-    border-color: #7254bd;
+    background-color: #320ab3;
+
+}
+/* Current Active Page */
+.page-btn.active {
+    background-color: #320ab3;
+    color: #ffffff;
+    border-color: #532fb6;
+    font-weight: 600;
 }
 
-.page-btn.disabled {
-    color: #b8b3c5;
-    background-color: #f5f4f8;
-    border-color: #e7e4ed;
-    pointer-events: none;
-    cursor: not-allowed;
+/* Page number */
+.page-info {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
 }
-
-
 /* =========================================
    EMPTY STATE
 ========================================= */
@@ -897,16 +886,16 @@ body {
 }
 
 .wishlist-header h1 {
-    font-size: 30px;
+    color: #263d80;
+    font-size: 27px;
     font-weight: 700;
-    color: #26374a;
-    margin: 0 0 10px;
+    margin: 0 0 7px;
 }
 
 .wishlist-header p {
-    font-size: 16px;
-    color: #777;
     margin: 0;
+    color: #85899b;
+    font-size: 14px;
 }
 
 .wishlist-count {
@@ -981,7 +970,6 @@ body {
     background: #22313f;
 }
 
-
 /* =================================
    Wishlist Grid
 ================================= */
@@ -989,84 +977,87 @@ body {
 .wishlist-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 25px;
+    gap: 30px;
     width: 100%;
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
 }
-
-
 /* =================================
    Wishlist Card
 ================================= */
-
 .wishlist-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    min-width: 0;
+    justify-self: center;
     background: #ffffff;
     border: 1px solid #e5e5e5;
-    border-radius: 12px;
+    border-radius: 10px;
     overflow: hidden;
-
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-
-    transition: transform 0.3s ease,
-                box-shadow 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease,box-shadow 0.3s ease;
 }
 
 .wishlist-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
-
-
 /* =================================
-   Book Image
+   Wishlist Book Image
 ================================= */
 
-.book-image {
+.wishlist-card .book-image {
     width: 100%;
-    height: 250px;
-
-    background: #f5f5f5;
-
+    height: 155px;
+    background: #f0f1f7;
     display: flex;
     justify-content: center;
     align-items: center;
-
     overflow: hidden;
 }
 
-.book-image img {
+.wishlist-card .book-image img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    padding: 8px;
+    box-sizing: border-box;
 }
 
-.no-image {
+.wishlist-card .no-image {
     color: #999;
-    font-size: 14px;
+    font-size: 13px;
 }
-
-
 /* =================================
-   Book Information
+   Wishlist Book Information
 ================================= */
 
-.book-info {
-    padding: 20px;
+.wishlist-card .book-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 13px;
 }
 
-.book-info h3 {
-    font-size: 19px;
+.wishlist-card .book-info h3 {
+    font-size: 15px;
     font-weight: 600;
     color: #26374a;
-    margin: 0 0 15px;
+    margin: 0 0 8px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
 }
 
-.book-info p {
-    font-size: 14px;
+.wishlist-card .book-info p {
+    font-size: 13px;
     color: #666;
-    line-height: 1.6;
-    margin: 8px 0;
-}
 
+    margin: 0 0 8px;
+    line-height: 1.5;
+}
 
 /* =================================
    Remove Button
@@ -1075,18 +1066,13 @@ body {
 .remove-btn {
     width: 100%;
     padding: 11px;
-
     margin-top: 15px;
-
     border: none;
     border-radius: 6px;
-
     background: #dc3545;
     color: white;
-
     font-size: 14px;
     font-weight: 600;
-
     cursor: pointer;
     transition: background 0.3s ease;
 }
@@ -1275,27 +1261,53 @@ body {
 ===========================*/
 .home-cat-card{
     text-align: center;
-    margin: 130px auto 0;
+    margin: 150px auto 0px;
+    margin-right:120px ;
     box-sizing: border-box;
-    border: 1px solid black;
     border-radius: 10px;
     padding: 20px;
-    width: 400px;
+    width: 600px;
     height: 300px;
+    background-color:rgb(210, 210, 210);
+    border: #000 solid 1px;
 }
 .home-cat-card table{
     width: 100%;
     border-collapse: collapse;
     background-color: #ffffff;
-    border-radius: 2px;
+    border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: #000 solid 3px;
     
 }
 .home-cat-card th{
     padding: 10px;
 }
-
+.home-cat-card a {
+    text-decoration: none;
+}
+.cat-btn-admin {
+    display: inline-flex;      
+    align-items: center;
+    justify-content: center;
+    height: 39px;
+    padding: 0 24px;               
+    background-color: #4a56b5;     
+    color: #fff;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;         
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: 330px;
+}
+.count-category{
+    font-weight: bold;
+    color:#000;
+    margin-right:450px;
+}
 /*=========================
        Update category    
 ===========================*/
@@ -1309,6 +1321,9 @@ body {
     padding: 20px;
     width: 400px;
     height: 300px;
+}
+.cat-update-card a {
+    margin-right: 200px;
 }
 
 /*======================
@@ -1337,7 +1352,7 @@ body {
     font-weight: bold;
 }
 .borrow-card button{
-    height: 48px;
+    height: 38px;
     padding: 0 28px;
     border: none;
     border-radius: 10px;
@@ -2274,20 +2289,27 @@ body {
     box-sizing: border-box;
     padding: 20px;
     width: 420px;
-    height: 420px;
-    
+    height: 530px;
+    background-color: #fff;
 }
 
 .card-borrow-management label{
     display: block;
     text-align: left;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    margin-top: 2px;
     font-size: 15px;
     color: #333333;
+    align-items: center;
 }
 .card-borrow-management h3{
     font-weight: bold;
     margin-bottom: 5px;
+    text-align: center;
+    border:#000 solid 1px;
+    width: 150px;
+    border-radius: 2px;
+    align-items: center;
 }
 
 .card-borrow-management input{
@@ -2297,7 +2319,7 @@ body {
     border-radius: 4px;
 }
 .card-borrow-management select{
-    width: 110px;
+    width: 150px;
     height: 30px;
     text-align: center;
     border-radius: 4px;
@@ -2311,6 +2333,26 @@ body {
 
 .card-borrow-management .paid{
     color: green;
+}
+.card-borrow-management button{
+    height: 38px;
+    padding: 0 28px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.card-borrow-management button:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(79, 70, 229, 0.25);
+}
+.card-borrow-management a{
+    
+    text-decoration: none;
 }
 /* =========================================
    Fine page header
@@ -2360,35 +2402,72 @@ body {
 
 .fine-records .fine-table {
     width: 100%;
-    min-width: 850px;
+    min-width: 1100px;
     border-collapse: collapse;
-    table-layout: auto;
+    table-layout: fixed;
 }
 
+/* Header */
 .fine-records .fine-table th {
-    padding: 16px 18px;
+    padding: 16px 10px;
     background: #f3f0fb;
     color: #514477;
     font-size: 14px;
     font-weight: 700;
-    text-align: left;
-    white-space: nowrap;
+    text-align: center;
 }
 
+/* Data */
 .fine-records .fine-table td {
-    padding: 18px;
+    padding: 18px 10px;
     color: #555b6e;
     font-size: 14px;
     border-bottom: 1px solid #efedf4;
-    white-space: nowrap;
+    text-align: center;
 }
 
-.fine-records .fine-table tbody tr:hover {
-    background: #faf9fd;
+/* Column Width */
+.fine-records .fine-table th:nth-child(1),
+.fine-records .fine-table td:nth-child(1) {
+    width: 6%;
 }
 
-.fine-records .fine-table tbody tr:last-child td {
-    border-bottom: none;
+.fine-records .fine-table th:nth-child(2),
+.fine-records .fine-table td:nth-child(2) {
+    width: 13%;
+}
+
+.fine-records .fine-table th:nth-child(3),
+.fine-records .fine-table td:nth-child(3) {
+    width: 12%;
+}
+
+.fine-records .fine-table th:nth-child(4),
+.fine-records .fine-table td:nth-child(4) {
+    width: 13%;
+}
+
+.fine-records .fine-table th:nth-child(5),
+.fine-records .fine-table td:nth-child(5) {
+    width: 10%;
+}
+
+.fine-records .fine-table th:nth-child(6),
+.fine-records .fine-table td:nth-child(6) {
+    width: 19%;
+    text-align: left;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+.fine-records .fine-table th:nth-child(7),
+.fine-records .fine-table td:nth-child(7) {
+    width: 17%;
+}
+
+.fine-records .fine-table th:nth-child(8),
+.fine-records .fine-table td:nth-child(8) {
+    width: 10%;
 }
 
 /* Payment Status */
@@ -2731,9 +2810,9 @@ body {
 ========================================== */
 
 .return-page {
-    max-width: 1050px;
-    margin: 35px auto;
-    padding: 0 25px 40px;
+    max-width: 1200px;
+    margin: 0px auto;
+    padding: 10 25px 40px;
 }
 
 /* ==========================================
@@ -2744,19 +2823,7 @@ body {
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-bottom: 25px;
-}
-
-.return-header-icon {
-    width: 52px;
-    height: 52px;
-    background: #eceaff;
-    color: #644bd0;
-    border-radius: 13px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 25px;
+    margin-bottom: 30px;
 }
 
 .return-header h1 {
@@ -3130,14 +3197,14 @@ body {
             Category        
 ===================================*/
 .add-book-card-cat{
-    max-width: 480px;
-    margin: 200px 120px 0px 400px;
-    padding: 24px 28px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    text-align: center;
+    margin: 100px auto 0;
     box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    height: 300px;
 }
 .add-book-card-cat label{
     display: block;
@@ -3152,11 +3219,11 @@ body {
     padding: 0 10px;
     border: 1px solid #bbb;
     border-radius: 4px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 .add-book-card-cat button{
     margin: 20px 10px;
-    width: 120px;
+    width: 160px;
     height: 30px;
     border-radius: 5px;
     margin-top: 5px;
@@ -3165,7 +3232,9 @@ body {
     cursor: pointer;
     margin: auto;
 }
-
+.add-book-card-cat a{
+    margin-right: 220px;
+}
 .add-book-card-cat button:hover{
     background-color: #320ab3;
     color: #ffffff;
@@ -4653,12 +4722,14 @@ body {
 .u-card{
     text-align: center;
     margin: 130px auto 0;
+    margin-right:140px;
     box-sizing: border-box;
     border: 1px solid black;
     border-radius: 10px;
     padding: 20px;
-    width: 400px;
-    height: 300px;
+    width: 100%;
+    max-width: 600px;
+    height: 400px;
 }
 .u-card label{
     display: block;
@@ -4678,6 +4749,26 @@ body {
 
 .u-card p{
     margin-top: 20px;
+}
+
+.u-card table{
+    width: 100%;
+    border-collapse: collapse;
+    
+    
+}
+.u-card th, td{
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #eeeeee;
+    font-size: 14px;
+    padding: 12px 10px;
+}
+.u-card th{
+    color: #293b70;
+    background: #f5f6fa;
+    white-space: nowrap;
+
 }
 
 

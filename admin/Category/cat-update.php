@@ -21,14 +21,20 @@ if(is_get()){
 if(is_post()){
     $name = req('name');
 
-
     if($name == ''){
         $_err['name'] = 'Required';
     }else if (strlen($name) > 50){
         $_err['name'] = 'No more then 50 character';
     }else if(strlen($name) < 0 ){
         $_err['name'] = 'No less then 0 character';
+    }else {
+        $stm = $_db->prepare('SELECT COUNT(*) FROM category WHERE name =?');
+        $stm->execute([$_name]);
+        if($stm->fetchColumn() > 0 ){
+        $_err['name'] = 'Cannot create a same name before ';
+        }
     }
+
 
     if(!$_err){
 
@@ -47,7 +53,7 @@ include '../../admin_header.php';
 
 <form method="post" enctype="multipart/form-data">
     <div class="cat-update-card">
-        <a href="/admin/Category/home-category.php">Back to home</a>
+        <a href="/admin/Category/home-category.php"> &lt;--- Back category</a>
         <label for="name">Name</label>
         <?php html_text('name', 'maxlength=50') ?>
 

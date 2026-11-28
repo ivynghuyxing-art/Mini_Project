@@ -10,8 +10,17 @@ if(is_post()){
 
     if($_name == ''){
         $_err['name'] = 'Required';
-    }else if(strlen($_name) > 100){
-        $_err['name'] = 'No more then 100 character';
+    }else if(strlen($_name) > 50){
+        $_err['name'] = 'No more then 50 character';
+    }else if(strlen($_name) < 0 ){
+        $_err['name'] = 'No less then 0 character';
+    }
+    else {
+        $stm = $_db->prepare('SELECT COUNT(*) FROM category WHERE name =?');
+        $stm->execute([$_name]);
+        if($stm->fetchColumn() > 0 ){
+        $_err['name'] = 'Cannot create a same name before ';
+        }
     }
 
     if(!$_err){
@@ -24,13 +33,16 @@ if(is_post()){
 }
 
 
-$_title = 'Add category';
+$_title = 'Add category';  
 include '../../admin_header.php';
 ?>
 
 <form method="post" enctype="multipart/form-data">
+    <div class="display-message-cat">
+        <h1>Add category</h1>
+    </div>
     <div class="add-book-card-cat">
-        <a href="/admin/Category/home-category.php">Back to home</a>
+        <a href="/admin/Category/home-category.php">&lt;--- Back to home</a>
 
         <label for="name">Name</label>
         <?php html_text('name', 'maxlength="100"') ?>

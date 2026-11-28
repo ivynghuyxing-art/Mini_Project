@@ -278,9 +278,9 @@ $categories = $stm->fetchAll();
 
                                 <!-- BOOK AVAILABLE -->
 
-                                <p class="available-status">
-                                    <span>●</span> Available
-                                </p>
+    <p class="available-status">
+        <span></span> Available
+    </p>
 
 
                                 <!-- BORROW BUTTON -->

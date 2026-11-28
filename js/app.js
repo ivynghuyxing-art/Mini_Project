@@ -377,6 +377,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Only run on Report Management page
     if (ctx && typeof Chart !== 'undefined') {
+        let chartLabel = '';
+        let yAxisLabel = '';
+
+        if (reportType === 'borrowing') {
+            chartLabel = 'Total Borrowings';
+            yAxisLabel = 'Number of Borrowings';
+
+        } else if (reportType === 'book') {
+            chartLabel = 'Book Quantity';
+            yAxisLabel = 'Quantity';
+
+        } else if (reportType === 'member') {
+            chartLabel = 'Total Members';
+            yAxisLabel = 'Number of Members';
+
+        } else if (reportType === 'fine') {
+            chartLabel = 'Fine Amount';
+            yAxisLabel = 'Amount (RM)';
+
+        } else if (reportType === 'reservation') {
+            chartLabel = 'Total Reservations';
+            yAxisLabel = 'Number of Reservations';
+        }
 
         new Chart(ctx, {
 
@@ -386,7 +409,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 labels: chartLabels,
 
                 datasets: [{
-                    label: 'Total Borrowings',
+                    label: chartLabel,
                     data: chartValues,
                     backgroundColor: '#8b5cf6',
                     borderColor: '#7c3aed',
@@ -414,7 +437,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         },
                         title: {
                             display: true,
-                            text: 'Number of Borrowings'
+                            text:yAxisLabel
                         }
                     },
 

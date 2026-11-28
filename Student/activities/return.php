@@ -187,10 +187,6 @@ include '../../_head.php';
 
         <div class="return-header">
 
-            <div class="return-header-icon">
-                <span>📚</span>
-            </div>
-
             <div>
                 <h1>Return Book</h1>
                 <p>

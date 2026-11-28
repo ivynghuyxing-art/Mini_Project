@@ -187,26 +187,26 @@ include '../../_head.php';
 
             <!-- Pagination -->
 
-            <?php if ($total_pages > 1): ?>
+            <?php if ($total_records > 0): ?>
 
                 <div class="pagination">
 
                     <?php if ($page > 1): ?>
 
-                        <a href="?page=<?= $page - 1; ?>">
-                            Previous
+                        <a href="?page=<?= $page - 1; ?>" class="page-btn">
+                           ← Previous
                         </a>
 
                     <?php endif; ?>
 
-                    <span>
+                    <span class ="page-info">
                         Page <?= $page; ?> of <?= $total_pages; ?>
                     </span>
 
                     <?php if ($page < $total_pages): ?>
 
-                        <a href="?page=<?= $page + 1; ?>">
-                            Next
+                        <a href="?page=<?= $page + 1; ?>" class ="page-btn">
+                            Next →
                         </a>
 
                     <?php endif; ?>
