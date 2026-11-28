@@ -107,6 +107,27 @@ $stm = $_db->prepare("
 $stm->execute();
 
 $categories = $stm->fetchAll();
+// ==========================================
+// GET TOP 5 POPULAR BOOKS
+// ==========================================
+
+$stm = $_db->prepare("
+    SELECT
+        b.book_id,
+        b.title,
+        b.author,
+        b.image,
+        AVG(f.rating) AS average_rating,
+        COUNT(f.feedback_id) AS total_reviews
+    FROM book b
+    JOIN feedback f ON b.book_id = f.book_id
+    GROUP BY b.book_id, b.title, b.author, b.image
+    ORDER BY average_rating DESC, total_reviews DESC
+    LIMIT 5
+");
+
+$stm->execute();
+$popular_books = $stm->fetchAll();
 
 ?>
 
@@ -177,6 +198,81 @@ $categories = $stm->fetchAll();
 
         </div>
 
+<!-- ======================================
+     POPULAR BOOKS
+====================================== -->
+
+<section class="popular-books-section">
+
+    <div class="popular-books-header">
+        <div>
+            <h2>Popular Books</h2>
+            <p>Discover books loved by our members.</p>
+        </div>
+
+        <span class="popular-badge">Top 5</span>
+    </div>
+
+    <div class="popular-books-grid">
+
+        <?php if ($popular_books): ?>
+
+            <?php foreach ($popular_books as $index => $popular): ?>
+
+                <div class="popular-book-card">
+
+                    <div class="popular-rank">
+                        <?= $index + 1 ?>
+                    </div>
+
+                    <a href="/Student/book/book_details.php?book_id=<?= (int)$popular->book_id ?>">
+                        <img
+                            src="/images/Book_pic/<?= encode($popular->image) ?>"
+                            alt="<?= encode($popular->title) ?>"
+                        >
+                    </a>
+
+                    <div class="popular-book-info">
+
+                        <h3>
+                            <?= encode($popular->title) ?>
+                        </h3>
+
+                        <p>
+                            By <?= encode($popular->author) ?>
+                        </p>
+
+                        <div class="popular-rating">
+                            <span>★</span>
+                            <?= number_format($popular->average_rating, 1) ?> / 5
+                        </div>
+
+                        <small>
+                            <?= (int)$popular->total_reviews ?> Reviews
+                        </small>
+
+                        <a
+                            href="/Student/book/book_details.php?book_id=<?= (int)$popular->book_id ?>"
+                            class="popular-details-btn"
+                        >
+                            View Book
+                        </a>
+
+                    </div>
+
+                </div>
+
+            <?php endforeach; ?>
+
+        <?php else: ?>
+
+            <p>No book reviews available yet.</p>
+
+        <?php endif; ?>
+
+    </div>
+
+</section>
 
         <!-- BOOK COUNT -->
         <div class="book-count">

@@ -380,6 +380,139 @@ body {
     box-shadow: 0 6px 15px rgba(79, 70, 229, 0.25);
 }
 
+/* ======================================
+   POPULAR BOOKS
+====================================== */
+
+.popular-books-section {
+    margin: 35px 0;
+}
+
+.popular-books-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.popular-books-header h2 {
+    color: #263f78;
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+.popular-books-header p {
+    color: #7b8498;
+    margin: 0;
+}
+
+.popular-badge {
+    background: #eeeaff;
+    color: #6046cf;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.popular-books-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.popular-book-card {
+    position: relative;
+    background: white;
+    border: 1px solid #e8e8ef;
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: 0.25s;
+}
+
+.popular-book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.popular-book-card img {
+    width: 100%;
+    height: 165px;
+    object-fit: contain;
+    margin-bottom: 12px;
+}
+
+.popular-rank {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #6046cf;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.popular-book-info h3 {
+    font-size: 15px;
+    color: #263f78;
+    margin-bottom: 7px;
+}
+
+.popular-book-info p {
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 8px;
+}
+
+.popular-rating {
+    color: #263f78;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.popular-rating span {
+    color: #f5a623;
+}
+
+.popular-book-info small {
+    display: block;
+    color: #888;
+    margin-bottom: 12px;
+}
+
+.popular-details-btn {
+    display: block;
+    text-align: center;
+    padding: 9px;
+    border: 1px solid #6251e8;
+    border-radius: 8px;
+    color: #6251e8;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.popular-details-btn:hover {
+    background: #6251e8;
+    color: white;
+}
+
+@media (max-width: 1000px) {
+    .popular-books-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .popular-books-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
 /* =================================
    BOOK COUNT
 ================================= */
