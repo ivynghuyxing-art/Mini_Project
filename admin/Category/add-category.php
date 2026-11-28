@@ -12,6 +12,15 @@ if(is_post()){
         $_err['name'] = 'Required';
     }else if(strlen($_name) > 100){
         $_err['name'] = 'No more then 100 character';
+    }else if(strlen($_name) < 0 ){
+        $_err['name'] = 'No less then 0 character';
+    }
+    else {
+        $stm = $_db->prepare('SELECT COUNT(*) FROM category WHERE name =?');
+        $stm->execute([$_name]);
+        if($stm->fetchColumn() > 0 ){
+        $_err['name'] = 'Cannot create a same name before ';
+        }
     }
 
     if(!$_err){
