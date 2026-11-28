@@ -93,57 +93,93 @@ if (is_post()) {
     }
 
 }
-
+include '../_head.php';
 // ----------------------------------------------------------------------------
-?>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $_title ?? 'Library Hub' ?></title>
-    <link rel="shortcut icon" href="/images/favicon.png">
-    <link rel="stylesheet" href="/css/app.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="/js/app.js"></script>
-</head>
+?>  
 
-<header class="header">
-    <div class="logo">
-        <img src="/images/logo.png" alt="Logo">
+<main class="main-content" id="main-content">
+
+    <div class="profile-heading">
+
+        <h1>My Profile</h1>
+        <p>Manage your personal information and account settings.</p>
     </div>
-</header>
 
-<form method="post" class="form_m" enctype="multipart/form-data">
-    <?php if ($info): ?>
-        <p class="success-message">
-            <?= encode($info) ?>
-        </p>
-    <?php endif; ?>
+    <form method="post" class="form_m profile-form" enctype="multipart/form-data">
 
-    <a href="/Student/dashboard.php"> <=== Back to Home page</a>
-    <label for="photo">Photo</label>
-    <label class="upload" tabindex="0">
-        <img id="profilePreview" src="/images/profile_pic/<?= $photo ?? ''?>" alt="Profile photo">
-        <?php html_file('profile_photo', 'image/*', 'hidden') ?>
-    </label>
-    <?php err('profile_photo') ?>
+        <?php if ($info): ?>
+            <p class="success-message">
+                <?= encode($info) ?>
+            </p>
+        <?php endif; ?>
 
-    <label for="username">Name</label>
-    <?php html_text('username', 'maxlength="100"') ?>
-    <?php err('username') ?>
+        <div class="profile-card">
 
-    <label for="email">Email</label>
-    <?php html_text('email', 'maxlength="100"') ?>
-    <?php err('email') ?>
+            <!-- Profile Photo -->
+            <div class="profile-photo-section">
+                <h3>Profile Photo</h3>
 
+                <label class="upload profile-upload" tabindex="0">
+                    <img id="profilePreview"
+                         src="/images/profile_pic/<?= $photo ?? '' ?>"
+                         alt="Profile photo">
 
-    <p>Want to reset password? Here ➡️<a href="/Student/update_password.php" id="reset" >Reset Password ? </a></p>
+                    <span class="photo-edit">✎</span>
 
-    <section>
-        <button>Done</button>
-        <button type="reset">Reset</button>
-    </section>
-</form>
+                    <?php html_file('profile_photo', 'image/*', 'hidden') ?>
+                </label>
 
+                <p class="photo-hint">Click to upload your photo</p>
+
+                <?php err('profile_photo') ?>
+            </div>
+
+            <div class="profile-divider"></div>
+
+            <!-- Personal Information -->
+            <div class="profile-details">
+
+                <h3>Personal Information</h3>
+
+                <p class="section-description">
+                    Update your personal details below.
+                </p>
+
+                <div class="profile-field">
+                    <label for="username">Full Name</label>
+                    <?php html_text('username', 'maxlength="100"') ?>
+                    <?php err('username') ?>
+                </div>
+
+                <div class="profile-field">
+                    <label for="email">Email Address</label>
+                    <?php html_text('email', 'maxlength="100"') ?>
+                    <?php err('email') ?>
+                </div>
+
+                <div class="password-section">
+                    <div>
+                        <h4>Password & Security</h4>
+                        <p>Want to change your password?</p>
+                    </div>
+
+                    <a href="/Student/update_password.php" class ="reset-password-btn">
+                        Reset Password
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="profile-actions">
+            <button type="reset" class="reset-btn">Reset</button>
+            <button type="submit" class="done-btn">Done</button>
+        </div>
+
+    </form>
+
+</main>
 
 <?php
 include '../_footer.php';

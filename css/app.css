@@ -719,74 +719,6 @@ body {
     font-size: 25px;
     font-weight: 600;
 }
-/*Profile*/
-.form_m{
-    text-align: center;
-    margin: 130px auto 0;
-    box-sizing: border-box;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 20px;
-    width: 420px;
-    height: 450px;
-}
-.form_m label{
-    display: block;
-    text-align: left;
-    margin-bottom: 5px;
-    font-size: 14px;
-    color: #333333;
-}
-.form_m input{
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-.form_m button{
-    margin: bottom 50px;
-    width: 150px;
-    height: 30px;
-    border-radius: 5px;
-    margin-top: 5px;
-    background-color: #ffffff;
-    cursor: pointer;
-}
-.form_m button:hover{
-    background-color: #320ab3;
-    color: #ffffff;
-    border-color: #532fb6;
-}
-
-.form_m p {
-    font-family:'Times New Roman', Times, serif ;
-    margin-top: 10px;
-}
-
-/*Profile image*/
-.upload{
-    position: relative;
-    display: block;
-    width: 140px;
-    height: 140px;
-    margin: 10px auto 20px;
-    border-radius: 20%;
-    overflow: hidden;
-    cursor: pointer;
-    border: 3px solid #000000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: box-shadow .2s, transform .2s;
-
-}
-.upload img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;     
-    display: block;
-}
-
 
 /*Token password*/
 .tokenForm{
@@ -5223,4 +5155,285 @@ body {
     }
 
 }
+
+/* =================================
+   MY PROFILE
+================================= */
+
+.profile-page {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    padding: 45px 55px;
+    box-sizing: border-box;
+}
+
+/* Heading */
+
+.profile-heading,
+.profile-form {
+    max-width: 1100px;
+    width: 100%;
+    margin-right: auto;
+    margin-bottom: 25px;
+}
+
+.back-link {
+    display: inline-block;
+    color: #667085;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.back-link:hover {
+    color: #293F80;
+}
+
+.profile-heading h1 {
+    color: #263d80;
+    font-size: 27px;
+    font-weight: 700;
+    margin: 0 0 7px;
+}
+
+.profile-heading p {
+    margin: 0;
+    color: #85899b;
+    font-size: 14px;
+}
+
+/* Main Card */
+
+.profile-form {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.profile-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 250px 1px minmax(0, 1fr);
+    gap: 40px;
+    box-shadow: 0 4px 20px rgba(41, 63, 128, 0.06);
+    margin-top:30px;
+}
+
+/* Photo */
+
+.profile-photo-section {
+    text-align: center;
+}
+
+.profile-photo-section h3,
+.profile-details h3 {
+    font-size: 19px;
+    font-weight: 700;
+    color: #293F80;
+    margin: 0 0 25px;
+}
+
+.profile-upload {
+    width: 160px;
+    height: 160px;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    cursor: pointer;
+}
+
+.profile-upload img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #E8ECF7;
+    transition: 0.3s;
+}
+
+.profile-upload:hover img {
+    opacity: 0.8;
+}
+
+.photo-edit {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #293F80;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border: 3px solid white;
+}
+
+.photo-hint {
+    font-size: 13px;
+    color: #9299A8;
+    margin-top: 18px;
+}
+
+/* Divider */
+
+.profile-divider {
+    width: 1px;
+    background: #E9ECF2;
+}
+
+/* Details */
+
+.profile-details {
+    min-width: 0;
+}
+
+.profile-details h3 {
+    margin-bottom: 6px;
+}
+
+.section-description {
+    color: #9299A8;
+    font-size: 14px;
+    margin: 0 0 28px;
+}
+
+.profile-field {
+    margin-bottom: 23px;
+}
+
+.profile-field label {
+    display: block;
+    color: #344054;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 9px;
+}
+
+.profile-field input {
+    width: 100%;
+    box-sizing: border-box;
+    height: 46px;
+    padding: 0 14px;
+    border: 1px solid #D9DEEA;
+    border-radius: 8px;
+    outline: none;
+    background: #FAFBFD;
+    color: #344054;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.profile-field input:focus {
+    border-color: #293F80;
+    background: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(41, 63, 128, 0.08);
+}
+
+/* Password */
+
+.password-section {
+    margin-top: 32px;
+    padding: 18px;
+    background: #F4F6FB;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.password-section h4 {
+    color: #293F80;
+    font-size: 14px;
+    margin: 0 0 5px;
+}
+
+.password-section p {
+    color: #9299A8;
+    font-size: 12px;
+    margin: 0;
+}
+
+.password-section a {
+    color: #293F80;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.password-section a:hover {
+    text-decoration: underline;
+}
+.reset-password-btn{
+    padding: 12px 18px;
+    border:1px solid white;
+    border-radius:15px;
+    color:white !important;
+    text-decoration: none;
+    font-weight:600;
+    white-space: nowrap;
+    background-color:#3D5794;
+}
+.reset-password-btn:hover{
+    background:#293F80;
+    color:white !important;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+/* Buttons */
+
+.profile-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.profile-actions button {
+    min-width: 120px;
+    height: 44px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.reset-btn {
+    background: #FFFFFF;
+    color: #667085;
+    border: 1px solid #D9DEEA;
+}
+
+.reset-btn:hover {
+    background: #F0F1F5;
+}
+
+.done-btn {
+    background: #293F80;
+    color: #FFFFFF;
+    border: none;
+}
+
+.done-btn:hover {
+    background: #1F3065;
+}
+
+/* Success Message */
+
+.success-message {
+    max-width: 1000px;
+    margin: 0 auto 20px;
+    padding: 13px 18px;
+    border-radius: 8px;
+    background: #E8F7EE;
+    color: #25834A;
+    font-size: 14px;
+}
+
 

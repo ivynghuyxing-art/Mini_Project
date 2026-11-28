@@ -77,22 +77,8 @@ if (is_post()) {
             redirect('/Student/profile.php');
         }
     }
+include '../_head.php';
 ?>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $_title ?? 'Library Hub' ?></title>
-    <link rel="shortcut icon" href="/images/favicon.png">
-    <link rel="stylesheet" href="/css/app.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="/js/app.js"></script>
-</head>
-
-<header class="header">
-        <div class ="logo">
-            <img src="/images/logo.png" alt="Logo">
-        </div>
-</header>
 
 <form method="post" class="update_pass_form">
     <label for="password">Current Password</label>

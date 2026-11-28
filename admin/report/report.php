@@ -58,6 +58,13 @@ $statistics = [];
 $details_headers =[];
 $details_rows = [];
 
+$record_per_page = 5;
+$page = (int)post('page',1);
+
+if($page<1){
+    $page = 1;
+}
+
 $chart_period = post('chart_period','daily');
 
 if(!in_array($chart_period,['daily','weekly','monthly','yearly'],true)){
@@ -190,6 +197,57 @@ if($report_type === 'borrowing'){
     ];
 }
 
+//member report
+elseif($report_type === 'member'){
+    $stm = $_db->prepare("SELECT COUNT(*) FROM user");
+    $stm -> execute();
+    $total_members = $stm->fetchAll();
+
+    $statistics =[
+        ['Total Members',$total_members,'👥']
+    ];
+
+    //member details
+    $stm = $_db->prepare("SELECT user_id,username,email,role,valid,email_verified FROM user ORDER BY user_id DESC");
+    $stm ->execute();
+    $members = $stm->fetchAll();
+
+    $details_headers=[
+        'Member ID',
+        'Username',
+        'Email',
+        'Role',
+        'Account Status',
+        'Email Verification'
+    ];
+
+    foreach ($members as $member){
+        $details_rows[]=[
+            $member->user_id,
+            $member->username,
+            $member->email,
+            ucfirst($member->role),
+            $member->valid ==1 ?'Active' :'Inactive',
+            $member -> email_verified ==1?'Verified' : 'Not Verified'
+        ];
+    }
+
+    //member chart
+    $chart_labels = ['Total Members'];
+    $chart_values = [(int)$total_members];
+}
+//fine report
+
+
+$total_records = count($details_rows);
+$total_pages = max(1,(int)ceil($total_records/$record_per_page));
+
+if($page > $total_pages){
+    $page = $total_pages;
+}
+$offset = ($page -1) * $record_per_page;
+
+$details_rows = array_slices($detail_rows,$offset,$record_per_page);
 //Chart titles
 $chart_titles =[
     'borrowing' => 'Borrowing Trends',
@@ -309,7 +367,7 @@ include '../../admin_header.php';
             
 
             <div class = "report-details">
-                <h2>Borrowing Details</h2>
+                <h2><?= encode($chart_titles[$report_type]) ?>Details</h2>
                 <table class ="report-table">
                     <thead>
                         <tr>
