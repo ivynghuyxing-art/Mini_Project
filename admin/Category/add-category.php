@@ -10,8 +10,8 @@ if(is_post()){
 
     if($_name == ''){
         $_err['name'] = 'Required';
-    }else if(strlen($_name) > 100){
-        $_err['name'] = 'No more then 100 character';
+    }else if(strlen($_name) > 50){
+        $_err['name'] = 'No more then 50 character';
     }else if(strlen($_name) < 0 ){
         $_err['name'] = 'No less then 0 character';
     }
